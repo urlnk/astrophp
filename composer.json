@@ -1,0 +1,10 @@
+{
+    "autoload": {
+        "psr-4": {
+          "EquivRoute\\": "vendor/wuding/equiv-route/src/"
+        }
+    },
+    "require": {
+        "nikic/fast-route": "^1.3"
+    }
+}
