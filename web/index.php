@@ -6,11 +6,12 @@ error_reporting(E_ALL);
 
 use EquivRoute\Router;
 
+global $_CONFIG;
 define('ROOT', dirname(__DIR__));
 
 require ROOT . '/vendor/autoload.php';
+$_CONFIG = include ROOT . '/app/config.php';
 $config = include ROOT . '/app/route.php';
-
 $router = new Router($config['name'], $config['routes'], $config['options']);
 
 $httpMethod = $_SERVER['REQUEST_METHOD'];
