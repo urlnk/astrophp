@@ -2,7 +2,8 @@
     "autoload": {
         "psr-4": {
           "EquivRoute\\": "vendor/wuding/equiv-route/src/",
-          "MagicCube\\": "vendor/wuding/magic-cube/src/"
+          "MagicCube\\": "vendor/wuding/magic-cube/src/",
+          "App\\": "app/"
         }
     },
     "require": {
