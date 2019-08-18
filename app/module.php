@@ -1,5 +1,5 @@
 <?php
 
 return array(
-    'modulesEnable' => false,
+    'modulesEnable' => 1,
 );
