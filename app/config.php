@@ -2,6 +2,7 @@
 
 return array(
     'virtual_paths' => array(
+        '^' => 'robot.urlnk.com',
         '' => array(
             '/^[a-z\.]{7,12}$/' => 'filename',
             '/^[a-z]{4}(.*)$/' => 'filename',
