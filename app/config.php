@@ -6,8 +6,10 @@ return array(
         '' => array(
             '/^[a-z\.]{7,12}$/' => 'filename',
             '/^[a-z]{4}(.*)$/' => 'filename',
+            '/^[\x7f-\xff]+$/' => 'chinese', // 中文
         ),
         'filename' => ROOT_DIR . '/www/.dist/a-z7.php',
+        'chinese' => ROOT_DIR . '/www/.dist/test.php',
         3 => array(
             '/^[\x7f-\xff]+$/' => ROOT_DIR . '/www/.dist/test.php',
         ),
@@ -24,4 +26,8 @@ return array(
         'api.urlnk.com' => array('mr-fact'),
     ),
     'host_domain' => '.loc.urlnk.com',
+    'example' => 'magic-cube/index',
+    # 'example' => 'fast-route/index',
+    'uri_custom' => '',
+    # 'uri_custom' => 'get,post:users!wubenli@documents$1%2Fview', //$1
 );
