@@ -20,11 +20,14 @@ class Index
         $dispatcher->setVars($config);
     }
 
-    public function dispatch()
+    public function dispatch($return = null)
     {
-        $this->dispatcher->dispatch();
+        return $result = $this->dispatcher->dispatch($return);
+
     }
 }
 
+
 $index = new Index($routeInfo);
-$index->dispatch();
+$result = $index->dispatch(0);
+print_r($result);
