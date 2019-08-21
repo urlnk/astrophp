@@ -4,7 +4,8 @@
           "App\\": "app/",
           "EquivRoute\\": "vendor/wuding/equiv-route/src/",
           "MagicCube\\": "vendor/wuding/magic-cube/src/",
-          "NewUI\\": "vendor/wuding/new-ui/src/"
+          "NewUI\\": "vendor/wuding/new-ui/src/",
+          "Ext\\": "vendor/wuding/php-ext/src/"
         }
     },
     "require": {
