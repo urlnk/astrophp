@@ -30,4 +30,8 @@ return array(
     # 'example' => 'fast-route/index',
     'uri_custom' => '',
     # 'uri_custom' => 'get,post:users!wubenli@documents$1%2Fview', //$1
+    'database' => array(
+        'db_name' => ROOT_DIR . '/dev/storage/db/sqlite/search.sqlite3',
+    ),
+    'cdn_host' => 'loc.urlnk.cc',
 );

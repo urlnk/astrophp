@@ -6,21 +6,25 @@ class Index extends \MagicCube\Controller
 {
     public function index()
     {
-        $arr = array();
-        $arr[] = array(
-            array(100, '百度'),
-            array(191571521, '搜狗'),
-            array(360, '360搜索'),
+        global $_CONFIG;
+        $sqlite = new \Ext\PhpPdoSqlite($_CONFIG['database']);
+        $all =  $sqlite->select("SELECT * FROM search_url ORDER BY category", [], \PDO::FETCH_OBJ);
+
+        $data = array();
+        foreach ($all as $key => $row) {
+            if (!isset($data[$row->category])) {
+                $data[$row->category] = array();
+            }
+            $data[$row->category][] = array($row->id, $row->title);
+        }
+
+        $target = '_search';
+        $target = '';
+
+        return array(
+            'arr' => $data,
+            'target' => $target,
+            'cdn_host' => $_CONFIG['cdn_host'],
         );
-        $arr[] = array(
-            array(900916, 'Google'),
-            array(251, 'Yahoo'),
-            array(0, 'DuckDuckGo'),
-        );
-        $arr[] = array(
-            array(2, '海词'),
-            array(3, '优惠券'),
-        );
-        return ['arr' => $arr];
     }
 }

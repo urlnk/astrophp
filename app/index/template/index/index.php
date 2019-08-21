@@ -2,11 +2,12 @@
 <html>
 <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
     <title>有链网 ^_^</title>
 </head>
 
 <body>
-<form id="search_form" action="/s" target="_search">
+<form id="search_form" action="/s" target="<?=$target?>">
     <input type="text" name="q" />
     <button type="submit">Go</button>
     <input type="hidden" name="id" id="engine_id">
@@ -27,6 +28,6 @@ foreach ($arr as $k => $variable) {
 echo $html;
 ?>
 
-<script type="text/javascript" src="js/search.js"></script>
+<script type="text/javascript" src="//<?=$cdn_host?>/v1/home/js/search.js"></script>
 </body>
 </html>

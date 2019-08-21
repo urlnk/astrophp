@@ -6,15 +6,21 @@ class _Controller extends \MagicCube\Controller
 {
     public function s()
     {
+        global $_CONFIG;
         $this->enableView = false;
         $q = isset($_GET['q']) ? $_GET['q'] : '';
         $id = isset($_GET['id']) ? $_GET['id'] : '';
-        $arr = array(
-            '' => '%s',
-            360 => 'https://www.so.com/s?ie=utf-8&q=%s',
-        );
-        
-        $url = isset($arr[$id]) ? $arr[$id] : "/search/$id?q=%s";
+
+        $url = "/search/$id?q=%s";
+        if ($id) {
+            $sqlite = new \Ext\PhpPdoSqlite($_CONFIG['database']);
+            $row =  $sqlite->find("SELECT * FROM search_url WHERE id='$id'");
+            if ($row) {
+                $url = $row->url;
+            }
+        } else {
+            $url = "%s";
+        }
         $url = preg_replace('/%s/i', urlencode($q), $url);
 
         header("Location: $url");
