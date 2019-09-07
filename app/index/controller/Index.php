@@ -18,8 +18,7 @@ class Index extends \MagicCube\Controller
             $data[$row->category][] = array($row->id, $row->title);
         }
 
-        $target = '_search';
-        $target = '';
+        $target = $_CONFIG['home']['target'];
 
         return array(
             'arr' => $data,

@@ -21,7 +21,7 @@ return array(
             'mr-fact' => ROOT_DIR .'/www\work\netjoin/mr-fact\web\index.php',
         ),
         'yingmi.xyz' => ROOT_DIR . '/www\work\wuding\astrology\web/index.php',
-        'urlnk.cc urlnk.host' => array('http_host'),
+        'urlnk.cc urlnk.host lan.urlnk.cc' => array('http_host'),
         'robot.urlnk.com' => array('astro'),
         'api.urlnk.com' => array('mr-fact'),
     ),
@@ -33,5 +33,8 @@ return array(
     'database' => array(
         'db_name' => ROOT_DIR . '/dev/storage/db/sqlite/search.sqlite3',
     ),
-    'cdn_host' => 'loc.urlnk.cc',
+    'cdn_host' => 'lan.urlnk.cc',
+    'home' => array(
+        'target' => '_blank', // _search _blank
+    ),
 );
