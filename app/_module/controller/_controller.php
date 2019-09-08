@@ -12,19 +12,28 @@ class _Controller extends \MagicCube\Controller
         $id = isset($_GET['id']) ? $_GET['id'] : '';
 
         $url = "/search/$id?q=%s";
+        $params = array();
         if ($id) {
             $sqlite = new \Ext\PhpPdoSqlite($_CONFIG['database']);
             $row =  $sqlite->find("SELECT * FROM search_url WHERE id='$id'");
             if ($row) {
                 $url = $row->url;
+                if ($row->param) {
+                    $this->enableView = true;
+                    $param = preg_replace('/%s/i', $q, $row->param);
+                    parse_str($param, $params);
+                }
             }
         } else {
             $url = "%s";
         }
         $url = preg_replace('/%s/i', urlencode($q), $url);
 
-        header("Location: $url");
-        return ['method' => __METHOD__];
+        if (!$this->enableView) {
+            header("Location: $url");
+            exit;
+        }
+        return get_defined_vars();
     }
 
     public function __destruct()

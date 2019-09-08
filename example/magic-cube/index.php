@@ -23,11 +23,9 @@ class Index
     public function dispatch($return = null)
     {
         return $result = $this->dispatcher->dispatch($return);
-
     }
 }
 
-
 $index = new Index($routeInfo);
 $result = $index->dispatch(0);
-print_r($result);
+# print_r($result);

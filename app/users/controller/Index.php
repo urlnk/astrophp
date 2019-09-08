@@ -6,6 +6,6 @@ class Index extends \MagicCube\Controller
 {
     public function index()
     {
-        echo __FILE__;
+        return __FILE__;
     }
 }
