@@ -8,7 +8,7 @@
 
 <body>
 <form id="search_form" action="/s" target="<?=$target?>">
-    <input type="text" name="q" />
+    <input type="text" name="q" value="<?=htmlspecialchars($query)?>" />
     <button type="submit">Go</button>
     <input type="hidden" name="id" id="engine_id">
 </form>
