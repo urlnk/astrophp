@@ -4,6 +4,7 @@ return array(
     'virtual_paths' => array(
         '^' => 'robot.urlnk.com',
         '' => array(
+            '/^([a-z0-9\-_\s]+)\/(.*)$/i' => 'chinese',
             '/^[a-z\.]{7,12}$/' => 'filename',
             '/^[a-z]{4}(.*)$/' => 'filename',
             '/^[\x7f-\xff]+$/' => 'chinese', // 中文
@@ -32,6 +33,8 @@ return array(
     # 'uri_custom' => 'get,post:users!wubenli@documents$1%2Fview', //$1
     'database' => array(
         'db_name' => ROOT_DIR . '/dev/storage/db/sqlite/search.sqlite3',
+        'username' => 'root',
+        'password' => 'root',
     ),
     'cdn_host' => 'lan.urlnk.cc',
     'home' => array(

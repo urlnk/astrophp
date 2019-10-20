@@ -4,7 +4,7 @@ namespace App\Index\Controller;
 
 class Index extends \MagicCube\Controller
 {
-    public function index()
+    public function index0()
     {
         global $_CONFIG;
         $q = isset($_GET['q']) ? $_GET['q'] : '';
@@ -24,6 +24,23 @@ class Index extends \MagicCube\Controller
         return array(
             'arr' => $data,
             'target' => $target,
+            'cdn_host' => $_CONFIG['cdn_host'],
+            'query' => $q,
+        );
+    }
+
+    public function index()
+    {
+        global $_CONFIG;
+        $q = isset($_GET['q']) ? $_GET['q'] : '';
+        $sql = "SELECT * FROM search";
+        $SearchURL = new \App\_Module\Model\SearchURL($_CONFIG['database'], 'catfan/medoo');
+        $statement = $SearchURL->query($sql);
+        print_r($statement->fetchAll(\PDO::FETCH_OBJ));exit;
+
+        return array(
+            'arr' => [],
+            'target' => '',
             'cdn_host' => $_CONFIG['cdn_host'],
             'query' => $q,
         );
