@@ -1,17 +1,17 @@
 {
     "autoload": {
         "psr-4": {
-          "App\\": "app/",
-          "EquivRoute\\": "vendor/wuding/equiv-route/src",
-          "MagicCube\\": "vendor/wuding/magic-cube/src",
-          "NewUI\\": "vendor/wuding/new-ui/src",
-          "Topdb\\": "vendor/wuding/topdb/src",
-          "Ext\\": "vendor/wuding/php-ext/src"
+          "App\\": "app/"
         }
     },
     "require": {
         "nikic/fast-route": "^1.3",
         "league/plates": "^3.3",
-        "catfan/medoo": "^1.5"
+        "catfan/medoo": "^1.5",
+        "wuding/equiv-route": "^1.1",
+        "wuding/magic-cube": "^1.1",
+        "wuding/new-ui": "^1.0",
+        "wuding/topdb": "^1.0",
+        "wuding/php-ext": "^1.1"
     }
 }
