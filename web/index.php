@@ -6,16 +6,18 @@ error_reporting(E_ALL);
 
 use EquivRoute\Router;
 use NewUI\Engine;
+use Topdb\Table;
 
 global $_CONFIG, $template;
 define('ROOT', dirname(__DIR__));
 
 require ROOT . '/vendor/autoload.php';
 $_CONFIG = include ROOT . '/app/config.php';
-$config = include ROOT . '/app/route.php';
+$route = include ROOT . '/app/route.php';
 
-$router = new Router($config['name'], $config['routes'], $config['options']);
+$router = new Router($route['name'], $route['routes'], $route['options']);
 $template = new Engine(ROOT . '/app/template');
+Table::init($_CONFIG['database'], 'catfan/medoo');
 $httpMethod = $_SERVER['REQUEST_METHOD'];
 $uri = $_CONFIG['uri_custom'] ? : $_SERVER['REQUEST_URI'];
 

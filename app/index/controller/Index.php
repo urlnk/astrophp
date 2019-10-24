@@ -34,7 +34,7 @@ class Index extends \MagicCube\Controller
         global $_CONFIG;
         $q = isset($_GET['q']) ? $_GET['q'] : '';
         $sql = "SELECT * FROM search";
-        $SearchURL = new \Model\SearchURL($_CONFIG['database'], 'catfan/medoo');
+        $SearchURL = new \Model\SearchURL();
         $statement = $SearchURL->query($sql);
         print_r($statement->fetchAll(\PDO::FETCH_OBJ));exit;
 
