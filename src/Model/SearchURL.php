@@ -1,6 +1,6 @@
 <?php
 
-namespace App\_Module\Model;
+namespace Model;
 
 class SearchURL extends \Topdb\Table
 {
