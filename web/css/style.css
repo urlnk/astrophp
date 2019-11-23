@@ -1,0 +1,586 @@
+/* reset */
+body, p, h2, h4 {
+    margin: 0;
+    font-family: 'Microsoft Yahei', sans-serif;
+}
+
+tt, pre {
+    font-family: 'Microsoft Yahei', sans-serif;
+}
+
+a {
+    text-decoration: none;
+}
+
+ul, ol {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+dl {
+    margin: 0;
+    display: block;
+}
+
+dd {
+    margin: 0;
+}
+
+select {
+    border: none;
+}
+
+button {
+    padding: 0;
+    border: none;
+}
+
+blockquote {
+    margin: 0;
+}
+
+/* login */
+
+.login {
+    background-color: #F0EFF4;
+}
+
+.login form {
+    padding: 5px;
+}
+
+.login div {
+    margin: 0 auto;
+    max-width: 400px;
+    background-color: #fff;
+    border: #D4D3D8 1px solid;
+    border-radius: 5px;
+    padding: 0px 0px 0px 16px;
+}
+
+.login dl {
+    border-bottom: 1px solid #D9D9D9;
+    line-height: 60px;
+    font-size: 20px;
+    height: 61px;
+}
+
+.login dl:last-child {
+    border-bottom: none;
+}
+
+.login dt {
+    width: 30%;
+    float: left;
+}
+
+.login dd {
+    float: left;
+    width: 70%;
+}
+
+.login select {
+    font-size: 20px;
+    outline: 0;
+}
+
+.login input {
+    display: block;
+    line-height: 60px;
+    font-size: 20px;
+    height: 60px;
+    border: none;
+    padding: 0;
+    outline: 0;
+    float: left;
+    width: 65%;
+}
+
+.login div button {
+    background-color: #fff;
+    color: #3DC620;
+    line-height: 60px;
+    font-size: 20px;
+    height: 60px;
+    outline: 0;
+    float: right;
+    width: 35%;
+}
+
+.login blockquote {
+    margin: 40px auto 0 auto;
+    max-width: 416px;
+}
+
+.login blockquote button {
+    display: block;
+    width: 100%;
+    background-color: #1AAC19;
+    color: #ffffff;
+    line-height: 60px;
+    font-size: 20px;
+    height: 60px;
+    border-radius: 8px;
+}
+
+/* home */
+
+.home {
+    background-color: #F0F0F0;
+}
+
+.home form {
+    padding: 5px;
+}
+
+.home div {
+    margin: 0 auto 0 auto;
+    max-width: 418px;
+    background-image: url(../img/bg.png);
+}
+
+.home blockquote {
+    padding: 20px 0 0 0;
+}
+
+.home img {
+    display: block;
+    margin: 0 auto;
+    height: 80px;
+    width: 80px;
+    border-radius: 50%;
+    border: 5px solid #fff;
+}
+
+.home h2 {
+    line-height: 40px;
+    font-size: 18px;
+    font-weight: normal;
+    text-align: center;
+    color: #fff;
+}
+
+.home p {
+    height: 50px;
+    padding: 20px 20px 20px 0;
+}
+
+.home button {
+    background: transparent;
+    background-color: rgba(255,255,255,0.9);
+    float: right;
+    line-height: 46px;
+    font-size: 18px;
+    padding: 0 40px;
+    border: 1px #ddd solid;
+    border-radius: 8px;
+    color: #4785FC;
+}
+
+.home ul {
+    width: 100%;
+    height: 160px;
+    margin: 0 auto 0 auto;
+    max-width: 416px;
+    background-color: #fff;
+    border: #D4D3D8 1px solid;
+    border-radius: 5px;
+}
+
+.home li {
+    width: 33%;    
+    height: 20px;
+    padding: 30px 0;
+    float: left;
+    border-bottom: 1px solid #E3E3E3;
+    border-right: 1px solid #E3E3E3;
+}
+
+.home li:last-child, .home li:nth-child(3) {
+    border-right: none;
+}
+
+.home li a {
+    display: block;
+    text-align: center;
+    line-height: 20px;
+    font-size: 18px;
+}
+
+/* account */
+.account {
+    background-color: #F0F0F0;
+}
+
+.account form {
+    padding: 5px;
+}
+
+.account div {
+    margin: 0 auto;
+    max-width: 416px;
+    background-color: #fff;
+    border: #D4D3D8 1px solid;
+    border-radius: 5px;
+}
+
+.account h4 {
+    color: #999;
+    font-size: 16px;
+    line-height: 40px;
+    padding-left: 20px;
+}
+
+.account ul {
+    background-color: #ddd;
+    padding-left: 20px;
+    font-size: 20px;
+    line-height: 50px;
+}
+
+.account dl {
+    border-bottom: 1px #aaa solid;
+}
+
+.account dl:last-child {
+    border-bottom: none;
+}
+
+.account dt {
+    float: left;
+}
+
+.account dd {
+    display: block;
+    text-align: right;
+    padding-right: 20px;
+    color: #999;
+}
+
+.account blockquote {
+    margin: 40px auto 0 auto;
+    max-width: 416px;
+}
+
+.account button {
+    display: block;
+    width: 100%;
+    background-color: #1AAC19;
+    color: #ffffff;
+    line-height: 60px;
+    font-size: 20px;
+    height: 60px;
+    border-radius: 8px;
+}
+
+.account p {
+    text-align: center;
+    font-size: 20px;
+    line-height: 60px;
+}
+
+/* consume */
+.consume {
+    max-width: 416px;
+    margin: 0 auto;
+}
+
+.consume section {
+    left: 0;
+    position: fixed;
+    padding-top: 150px;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+}
+
+.consume dialog {
+    position: relative;
+    display: block;
+    border: 1px #ddd solid;
+    margin: 0 auto 0 auto;
+    padding: 0;
+    border-radius: 8px;
+    background-color: #fff;
+    width: 300px;
+}
+
+.consume h2 {
+    line-height: 36px;
+    font-size: 20px;
+    min-width: 300px;
+    text-align: center;
+    padding: 6px 0 0 0;
+}
+
+.consume ol {
+
+}
+
+.consume dl {
+    width: 33%;
+    float: left;
+    text-align: center;
+    font-size: 18px;
+    line-height: 36px;
+}
+
+.consume b {
+    display: block;
+}
+
+.consume i {
+    display: block;
+    clear: left;
+    font-style: normal;
+}
+
+.consume p {
+    padding-left: 12px;
+    font-size: 18px;
+    line-height: 36px;
+}
+
+.consume tt {
+    font-weight: bold;
+}
+
+.consume var {
+    font-style: normal;
+    padding-left: 16px;
+}
+
+.consume blockquote {
+    padding: 2px 8px 8px 8px;
+}
+
+.consume button {
+    display: block;
+    width: 100%;
+    background-color: #1AAC19;
+    color: #ffffff;
+    line-height: 46px;
+    font-size: 16px;
+    border-radius: 6px;
+}
+
+.consume ul {
+
+}
+
+.consume li {
+    border-bottom: 1px #ccc solid;
+    padding: 8px 14px 8px 0;
+}
+
+.consume li:nth-child(even) {
+    background-color: #ddd;
+}
+
+.consume span {
+    display: block;
+    float: left;
+    height: 56px;
+    width: 40px;
+    background-image: url(../img/yuan.png);
+    background-size: 22px 22px;
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+
+span.chongzhi {
+    background-image: url(../img/chong.png);
+    background-size: 13px 23px;
+}
+
+.consume div {
+    margin-left: 40px;
+    font-size: 16px;
+    line-height: 28px;
+}
+
+.consume dt {
+    overflow: hidden;
+}
+
+.consume dd {
+
+}
+
+.consume h4 {
+    float: left;
+    font-weight: normal;
+}
+
+.consume time {
+    float: right;
+}
+
+.consume em {
+    font-style: normal;
+}
+
+.consume cite {
+    float: right;
+    font-style: normal;
+}
+
+.consume pre {
+    color: #777;
+    text-align: center;
+    font-size: 16px;
+}
+
+/* info */
+.info {
+
+}
+
+a.sex {
+    display: block;
+    float: right;
+    width: 40px;
+    height: 60px;
+    background-image: url(../img/gt.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 12px 16px;
+    overflow: hidden;
+}
+
+/* recharge */
+.recharge {
+    background-color: #F0F0F0;
+}
+
+.recharge form {
+    padding: 5px;
+    font-size: 20px;
+    line-height: 50px;
+}
+
+.recharge div {
+    margin: 0 auto;
+    max-width: 416px;
+    background-color: #fff;
+    border: #D4D3D8 1px solid;
+    border-radius: 5px;
+}
+
+.recharge h4 {
+    color: #999;
+    font-size: 16px;
+    line-height: 40px;
+    padding-left: 20px;
+    border-bottom: #d9d9d9 1px solid;
+}
+
+.recharge ul {
+    
+}
+
+.recharge dl {
+    border-bottom: 1px #aaa solid;
+    overflow: hidden;
+}
+
+.recharge dl:last-child {
+    border-bottom: none;    
+    background-color: #ddd;
+}
+
+.recharge dt {
+    float: left;
+    padding-left: 20px;
+}
+
+.recharge tt {
+    float: left;
+    padding: 0 20px;
+}
+
+.recharge dd {
+    display: block;
+    text-align: right;
+    color: #999;
+}
+
+.recharge span {
+    display: block;
+    text-align: right;
+    color: #999;
+    overflow: hidden;
+}
+
+.recharge var {
+    font-style: normal;
+    display: block;
+    float: right;
+}
+
+.recharge s {
+    text-decoration: none;
+    height: 50px;
+    width: 80px;
+    display: block;
+    float: right;
+}
+
+.recharge i {
+    display: block;
+    float: right;
+    height: 50px;
+    width: 10px;
+}
+
+s.sel {
+    background-image: url(../img/sel.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 21px 16px;
+}
+
+.recharge blockquote {
+    margin: 40px auto 0 auto;
+    max-width: 416px;
+}
+
+.recharge button {
+    display: block;
+    width: 100%;
+    background-color: #1AAC19;
+    color: #ffffff;
+    line-height: 60px;
+    font-size: 20px;
+    height: 60px;
+    border-radius: 8px;
+}
+
+.recharge input {
+    display: block;
+    line-height: 50px;
+    font-size: 20px;
+    height: 50px;
+    border: none;
+    padding: 0;
+    outline: 0;
+    float: right;
+    width: 90%;
+}
+
+div.pay {
+    margin: 10px auto 0 auto;
+}
+
+/* media */
+@media (min-width: 375px) {
+    .consume h2 {
+        min-width: 345px;
+    }
+
+    .consume p {
+        padding-left: 20px;
+    }
+}
