@@ -13,7 +13,7 @@
         <dl>
             <dt>姓名</dt>
             <dd>
-                <input type="text" name="" value="<?=$user->user_name?>" placeholder="请输入姓名" />
+                <input type="text" name="name" value="<?=$user->user_name?>" placeholder="请输入姓名" />
             </dd>
         </dl>
         <dl>
@@ -31,7 +31,7 @@
         </dl>
     </div>
     <blockquote>
-        <button type="submit">修改</button>
+        <button type="button">修改</button>
     </blockquote>
 </form>
 </body>

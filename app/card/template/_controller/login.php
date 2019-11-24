@@ -8,7 +8,7 @@
 </head>
 
 <body class="login">
-<form method="get" action="/card">
+<form method="post" action="">
     <div>
         <dl>
             <dt>商户号</dt>
@@ -17,7 +17,8 @@
 <?php
 $option = '';
 foreach ($operators as $operator) {
-    $option .= "<option value=\"$operator->operator_id\">$operator->operator_name</option>";
+    $sel = $operator->operator_id == $oid ? 'selected' : '';
+    $option .= "<option value=\"$operator->operator_id\" $sel>$operator->operator_name</option>";
 }
 echo $option;
 ?>
@@ -27,7 +28,7 @@ echo $option;
         <dl>
             <dt>手机号</dt>
             <dd>
-                <input type="text" name="phone" placeholder="请输入手机号" />
+                <input type="text" name="phone" placeholder="请输入手机号" value="<?=$phone?>" />
                 <button>验证码</button>
             </dd>
         </dl>
@@ -38,8 +39,10 @@ echo $option;
             </dd>
         </dl>
     </div>
+
+    <pre><?=$err?></pre>
     
-    <blockquote>
+    <blockquote style="<?php if ($err) { echo 'margin-top: 0;'; } ?>">
         <button type="submit">确定</button>
     </blockquote>    
 </form>

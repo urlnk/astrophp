@@ -24,7 +24,7 @@
 </div>
 
 <blockquote>
-    <button>挂失</button>
+    <button type="button">挂失</button>
 </blockquote>
 </form>
 </body>

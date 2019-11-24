@@ -31,6 +31,9 @@ class Index extends \MagicCube\Controller
 
     public function index()
     {
+        header('Location: /card');
+        exit;
+
         global $_CONFIG;
         $q = isset($_GET['q']) ? $_GET['q'] : '';
         $sql = "SELECT * FROM search";

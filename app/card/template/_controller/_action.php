@@ -9,7 +9,7 @@
 
 <body class="login">
 <form method="post" action="">
-    页面没有找到
+    <pre>页面没有找到</pre>
 </form>
 </body>
 </html>

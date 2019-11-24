@@ -10,6 +10,7 @@ use Topdb\Table;
 
 global $_CONFIG, $template;
 define('ROOT', dirname(__DIR__));
+define('ROOT_DIR', 'e:/env');
 
 require ROOT . '/vendor/autoload.php';
 $_CONFIG = include ROOT . '/app/config.php';
@@ -18,9 +19,9 @@ $route = include ROOT . '/app/route.php';
 $router = new Router($route['name'], $route['routes'], $route['options']);
 $template = new Engine(ROOT . '/app/template');
 Table::init($_CONFIG['database'], 'catfan/medoo');
+
 $httpMethod = $_SERVER['REQUEST_METHOD'];
 $uri = $_CONFIG['uri_custom'] ? : $_SERVER['REQUEST_URI'];
-
 $routeInfo = $router->dispatch($httpMethod, $uri);
 
 include ROOT . '/example/' . $_CONFIG['example'] . '.php';

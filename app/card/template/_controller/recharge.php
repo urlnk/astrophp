@@ -8,7 +8,7 @@
 </head>
 
 <body class="recharge">
-<form method="post" action="home.html">
+<form method="post" action="">
     <div>
         <h4>请选择充值账户</h4>
         <ul>
@@ -16,14 +16,14 @@
                 <dt>现金账户</dt>
                 <dd>
                     <s class="sel"></s>
-                    <var><?=$arr[3]?> 元</var>                    
+                    <var><?=$arr[1]?> 元</var>
                 </dd>
             </dl>
             <dl>
                 <dt>补贴账户</dt>
                 <dd>
                     <s></s>
-                    <var><?=$arr[1]?> 元</var>                    
+                    <var><?=$arr[3]?> 元</var>
                 </dd>
             </dl>
         </ul>
@@ -38,7 +38,7 @@
     </div>
 
     <blockquote>
-        <button type="submit">支付</button>
+        <button type="button">支付</button>
     </blockquote>    
 </form>
 </body>
