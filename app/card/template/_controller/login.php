@@ -29,7 +29,7 @@ echo $option;
             <dt>手机号</dt>
             <dd>
                 <input type="text" name="phone" placeholder="请输入手机号" value="<?=$phone?>" />
-                <button>验证码</button>
+                <button type="button">验证码</button>
             </dd>
         </dl>
         <dl>
