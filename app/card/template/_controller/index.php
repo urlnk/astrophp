@@ -10,7 +10,7 @@
 <body class="home">
 <div>
     <blockquote><img src="/img/IMG_1849.JPG"></blockquote>
-    <h2>卡内码 <?=$card->card_code?></h2>
+    <h2><?=$user->user_name?></h2>
     <p>
         <button type="button" onclick="window.location.href = '/card/logout';">退出</button>
     </p>

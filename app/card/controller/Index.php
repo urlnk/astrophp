@@ -6,10 +6,10 @@ class Index extends _controller
 {
     public function index()
     {
-        $card = $_SESSION['card'];
+        $user = $_SESSION['user'];
 
         return array(
-            'card' => $card,
+            'user' => $user,
         );
     }
 }
