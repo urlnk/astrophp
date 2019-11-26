@@ -8,7 +8,7 @@
 </head>
 
 <body class="account">
-<form>
+<form method="post" onsubmit="document.getElementsByTagName('button')[0].innerHTML = '请稍后……';">
 <div>
     <h4>卡信息</h4>
     <ul>
@@ -23,8 +23,10 @@
     </ul>
 </div>
 
+<input type="hidden" name="card_status" value="<?=$card->card_status?>">
+
 <blockquote>
-    <button type="button">挂失</button>
+    <button type="submit"><?php echo $status = 'LOST' == $card->card_status ? '解挂' : '挂失'; ?></button>
 </blockquote>
 </form>
 </body>

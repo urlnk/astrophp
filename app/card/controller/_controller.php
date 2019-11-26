@@ -43,7 +43,7 @@ class _Controller extends \MagicCube\Controller
             if (!$phone) {
                 $err = '请输入手机号';
             } else {
-                $sql = "SELECT user_id FROM $this->db.pl_user_t WHERE telephone = '$phone' AND operator_id = '$oid' LIMIT 1";
+                $sql = "SELECT user_id, user_name FROM $this->db.pl_user_t WHERE telephone = '$phone' AND operator_id = '$oid' LIMIT 1";
                 $statement = $SearchURL->query($sql);
                 $user = $statement->fetchObject();
                 if (!$user) {
@@ -202,14 +202,40 @@ LIMIT 20";
     public function loss()
     {
         $uid = $_SESSION['uid'];
+        $oid = $_SESSION['oid'];
+        $card = $_SESSION['card'];
+        $SearchURL = new \Model\SearchURL();
 
-        $sql = "SELECT param_name, card_code 
+        if ('POST' == $_SERVER['REQUEST_METHOD']) {
+            $card_status = $_POST['card_status'];
+            $status = null;
+            switch ($card_status) {
+                case 'RELEASED':
+                    $status = 'LOST';
+                    break;
+                case 'LOST':
+                    $status = 'RELEASED';
+                    break;
+            }
+
+            if ($status) {
+                $sql = "UPDATE $this->db.pl_card_t 
+SET card_status = '$status' 
+WHERE `user_id` = '$uid' AND `operator_id` = '$oid' AND `card_code` = '$card->card_code' 
+LIMIT 1";
+                $count = $SearchURL->exec($sql);
+            }
+
+            header('Location: /card/loss');
+            exit;
+        }
+
+        $sql = "SELECT param_name, card_code, card_status 
 FROM $this->db.pl_card_t A 
 LEFT JOIN $this->db.pl_parameter_code_t B ON B.param_type='card_status' AND B.param_code = A.card_status 
 WHERE user_id = '$uid' 
 LIMIT 1";
 
-        $SearchURL = new \Model\SearchURL();
         $statement = $SearchURL->query($sql);
         $card = $statement->fetchObject();
 
