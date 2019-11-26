@@ -8,7 +8,47 @@
 </head>
 
 <body class="account">
-<form>
+<section style="display: none;">
+<dialog>
+    <form method="post" action="/card/api/password" onsubmit="document.getElementsByTagName('section')[0].style.display = 'none'; return false;">
+        <ol>
+            <li>
+                <b>手机号</b>
+                <span>
+                    <input type="text" name="phone" value="<?=$_SESSION['phone']?>" placeholder="">
+                </span>
+            </li>
+            <li>
+                <b>
+                    <a href="javascript:">验证码</a>
+                </b>
+                <span>
+                    <input type="text" name="code" value="" placeholder="请输入验证码">
+                </span>
+            </li>
+            <li>
+                <b>新密码</b>
+                <span>
+                    <input type="text" name="password" value="" placeholder="请输入新密码">
+                </span>
+            </li>
+            <li>
+                <b>确认密码</b>
+                <span>
+                    <input type="text" name="pwd" value="" placeholder="请再次输入新密码">
+                </span>
+            </li>
+        </ol>
+
+        <footer>
+            <button type="button" onclick="document.getElementsByTagName('section')[0].style.display = 'none';">取消</button>
+            <button type="submit">确定</button>
+        </footer>
+    </form>
+</dialog>
+</section>
+
+<form class="form-layout">
 <div>
     <h4>卡信息</h4>
     <ul>
@@ -31,6 +71,15 @@
             <dt>补贴账户</dt>
             <dd><?=$arr[3]?>元</dd>
         </dl>
+<?php
+if ($arr[3]) {
+    $arr[3] += $arr[1];
+    echo "<dl>
+            <dt>账户合计</dt>
+            <dd>{$arr[3]}元</dd>
+        </dl>";
+}
+?>
     </ul>
     <h4>积分信息</h4>
     <ul>
@@ -42,11 +91,8 @@
 </div>
 
 <blockquote>
-    <button type="button">修改超额支付密码</button>
+    <button type="button" onclick="document.getElementsByTagName('section')[0].style.display = 'block';">修改超额支付密码</button>
 </blockquote>
-<p>
-    加个账户合计总额
-</p>
 </form>
 </body>
 </html>

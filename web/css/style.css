@@ -40,6 +40,11 @@ blockquote {
     margin: 0;
 }
 
+/* common */
+.form-layout {
+    padding: 5px;
+}
+
 /* login */
 
 .login {
@@ -222,10 +227,6 @@ blockquote {
     background-color: #F0F0F0;
 }
 
-.account form {
-    padding: 5px;
-}
-
 .account div {
     margin: 0 auto;
     max-width: 416px;
@@ -272,7 +273,7 @@ blockquote {
     max-width: 416px;
 }
 
-.account button {
+.account blockquote button {
     display: block;
     width: 100%;
     background-color: #1AAC19;
@@ -283,10 +284,76 @@ blockquote {
     border-radius: 8px;
 }
 
-.account p {
+.account dialog form {
+}
+
+.account ol {
+    overflow: hidden;
+    font-size: 18px;
+    line-height: 40px;
+    padding-left: 16px;
+    border-bottom: 1px solid #e2e2e2;
+}
+
+.account li {
+    overflow: hidden;
+    border-bottom: 1px solid #e7e7e7;
+    padding: 5px 8px 5px 0;
+}
+
+.account b {
+    display: block;
     text-align: center;
+    width: 90px;
+    padding: 0 10px;
+    float: left;
+    font-weight: normal;
+}
+
+.account a {
+    display: block;
+    background-color: #1AAC19;
+    color: #fff;
+    border-radius: 8px;
+}
+
+.account span {
+    display: block;
+    overflow: hidden;
+}
+
+.account input {
+    display: block;
+    line-height: 40px;
+    font-size: 18px;
+    height: 40px;
+    border: none;
+    padding: 0;
+    outline: 0;
+    float: left;
+}
+
+.account li:last-child {
+    border-bottom: none;
+}
+
+.account dialog footer {
+    overflow: hidden;
+    padding-left: 10px;
+}
+
+.account dialog button {
     font-size: 20px;
-    line-height: 60px;
+    line-height: 50px;
+    background-color: #fff;
+    display: block;
+    float: left;
+    width: 140px;
+    color: #666;
+}
+
+.account dialog button[type=submit] {
+    color: #1AAC19;
 }
 
 /* consume */
@@ -295,7 +362,7 @@ blockquote {
     margin: 0 auto;
 }
 
-.consume section {
+.consume section, .account section {
     left: 0;
     position: fixed;
     padding-top: 150px;
@@ -305,7 +372,7 @@ blockquote {
     background-color: rgba(0,0,0,0.5);
 }
 
-.consume dialog {
+.consume dialog, .account dialog {
     position: relative;
     display: block;
     border: 1px #ddd solid;
@@ -319,7 +386,6 @@ blockquote {
 .consume h2 {
     line-height: 36px;
     font-size: 20px;
-    min-width: 300px;
     text-align: center;
     padding: 6px 0 0 0;
 }
@@ -591,8 +657,8 @@ div.pay {
 
 /* media */
 @media (min-width: 375px) {
-    .consume h2 {
-        min-width: 345px;
+    .consume dialog {
+        width: 345px;
     }
 
     .consume p {
