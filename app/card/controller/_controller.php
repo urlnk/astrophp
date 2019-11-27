@@ -49,7 +49,7 @@ class _Controller extends \MagicCube\Controller
                 if (!$user) {
                     $err = '在该商户没有找到这个手机号';
                 } else {
-                    $sql = "SELECT card_code FROM $this->db.pl_card_t WHERE user_id = '$user->user_id' LIMIT 1";
+                    $sql = "SELECT card_code, card_id FROM $this->db.pl_card_t WHERE user_id = '$user->user_id' LIMIT 1";
                     $statement = $SearchURL->query($sql);
                     $card = $statement->fetchObject();
 
@@ -199,6 +199,7 @@ LIMIT 20";
         );
     }
 
+    /* 挂失解挂 */
     public function loss()
     {
         $uid = $_SESSION['uid'];
@@ -208,28 +209,41 @@ LIMIT 20";
 
         if ('POST' == $_SERVER['REQUEST_METHOD']) {
             $card_status = $_POST['card_status'];
-            $status = null;
+            $status = $type = null;
             switch ($card_status) {
                 case 'RELEASED':
                     $status = 'LOST';
+                    $type = 'LOSS_REPORT';
                     break;
                 case 'LOST':
                     $status = 'RELEASED';
+                    $type = 'HANG_CARD';
                     break;
             }
 
+            // 卡信息更新状态
             if ($status) {
                 $sql = "UPDATE $this->db.pl_card_t 
 SET card_status = '$status' 
 WHERE `user_id` = '$uid' AND `operator_id` = '$oid' AND `card_code` = '$card->card_code' 
 LIMIT 1";
                 $count = $SearchURL->exec($sql);
+
+                // 插入卡操作记录
+                if ($count) {
+                    $flow_no = date('YmdHis') . substr(explode(' ', microtime())[0], 2, 7);
+                    $time = date('Y-m-d H:i:s');
+                    $sql = "INSERT INTO $this->db.pl_card_history_t 
+SET operate_flow_no = '$flow_no', user_id = '$uid', card_id = '$card->card_id', operate_type = '$type', operate_time = '$time', operator_id = '$oid'";
+                    $count = $SearchURL->exec($sql);
+                }
             }
 
             header('Location: /card/loss');
             exit;
         }
 
+        // 读取卡信息
         $sql = "SELECT param_name, card_code, card_status 
 FROM $this->db.pl_card_t A 
 LEFT JOIN $this->db.pl_parameter_code_t B ON B.param_type='card_status' AND B.param_code = A.card_status 
