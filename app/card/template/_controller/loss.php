@@ -7,7 +7,7 @@
     <link rel="stylesheet" type="text/css" href="/css/style.css">
 </head>
 
-<body class="account">
+<body class="account form-layout">
 <form method="post" onsubmit="document.getElementsByTagName('button')[0].innerHTML = '请稍后……';">
 <div>
     <h4>卡信息</h4>

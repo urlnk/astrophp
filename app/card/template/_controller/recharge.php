@@ -38,7 +38,7 @@
     </div>
 
     <blockquote>
-        <button type="button">支付</button>
+        <button type="button">暂未开通在线支付功能</button>
     </blockquote>    
 </form>
 </body>

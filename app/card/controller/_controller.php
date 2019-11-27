@@ -261,18 +261,57 @@ LIMIT 1";
     public function info()
     {
         $uid = $_SESSION['uid'];
+        $year = date('Y');
+        $err = null;
+        $SearchURL = new \Model\SearchURL();
 
-        $sql = "SELECT user_name, sex, birthday, user_id 
+        if ('POST' == $_SERVER['REQUEST_METHOD']) {
+            extract($_POST);
+            $user_name = trim($user_name);
+            $time = strtotime($birthday);
+
+            // 异常检测
+            if (!$user_name) {
+                $err = '请输入姓名';
+            }
+
+            if (false === $time) {
+                $err = '请正确输入生日';
+            } else {
+                $date = date('Y-m-d H:i:s', $time);
+            }
+
+            // 更新数据
+            if (!$err) {
+                $sql = "UPDATE $this->db.pl_user_t 
+SET user_name = '$user_name', sex = '$sex', birthday = '$date' 
+WHERE user_id = '$uid' 
+LIMIT 1";
+                $count = $SearchURL->exec($sql);
+
+                header("Location: /card/info");
+                exit;
+            }
+
+            $user = (object) $_POST;
+
+        } else {
+            $sql = "SELECT user_name, sex, birthday, user_id 
 FROM $this->db.pl_user_t 
 WHERE user_id = '$uid' 
 LIMIT 1";
 
-        $SearchURL = new \Model\SearchURL();
-        $statement = $SearchURL->query($sql);
-        $user = $statement->fetchObject();
+            $statement = $SearchURL->query($sql);
+            $user = $statement->fetchObject();
+            $birthday = $user->birthday;
+            $time = strtotime($birthday);
+            $user->birthday = $date = date('Y/m/d', $time);
+        } 
 
         return array(
             'user' => $user,
+            'year' => $year,
+            'err' => $err,
         );
     }
 
