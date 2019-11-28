@@ -15,15 +15,15 @@
             <li>
                 <b>从</b>
                 <span>
-                    <time onclick="cxCalendarApi.show();">1990/01/01</time>
-                    <input id="element_id" type="hidden" name="start" value="" data-format="YYYY/MM/DD" data-start-date="1919" data-end-date="2019" onchange="chg(this)">
+                    <time onclick="cxCalendarApi.show();"><?=$start?></time>
+                    <input id="element_id" type="hidden" name="start" value="<?=$start?>" data-format="YYYY/MM/DD" data-start-date="<?=$start_date?>" data-end-date="<?=$end_date?>" onchange="chg(this)">
                 </span>
             </li>
             <li>
                 <b>至</b>
                 <span>
-                    <time onclick="cxCalendarApi2.show();">1990/01/01</time>
-                    <input id="element_id2" type="hidden" name="end" value="" data-format="YYYY/MM/DD" data-start-date="2019-01-01" data-end-date="2019/11/28" onchange="chg(this, 1)">
+                    <time onclick="cxCalendarApi2.show();"><?=$end?></time>
+                    <input id="element_id2" type="hidden" name="end" value="<?=$end?>" data-format="YYYY/MM/DD" data-start-date="<?=$start_date?>" data-end-date="<?=$end_date?>" onchange="chg(this, 1)">
                 </span>
             </li>
         </ol>
