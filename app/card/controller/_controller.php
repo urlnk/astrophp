@@ -4,6 +4,8 @@ namespace App\Card\Controller;
 
 class _Controller extends \MagicCube\Controller
 {
+    public $static_version = '?v=1';
+
     public function __construct($vars = [])
     {
         global $_CONFIG;
@@ -21,7 +23,9 @@ class _Controller extends \MagicCube\Controller
 
     public function _action()
     {
-        return ['method' => __METHOD__];
+        return array(
+            'static_version' => $this->static_version,
+        );
     }
 
     public function logout()
@@ -81,6 +85,7 @@ LIMIT 50";
             'err' => $err,
             'phone' => $phone,
             'oid' => $oid,
+            'static_version' => $this->static_version,
         );
     }
 
@@ -111,6 +116,7 @@ LIMIT 50";
         return array(
             'card' => $card,
             'arr' => $arr,
+            'static_version' => $this->static_version,
         );
     }
 
@@ -134,6 +140,7 @@ LIMIT 50";
 
         return array(
             'arr' => $arr,
+            'static_version' => $this->static_version,
         );
     }
 
@@ -182,6 +189,7 @@ LIMIT 20";
             'end_date' => $end_date,
             'start' => $start,
             'end' => $end,
+            'static_version' => $this->static_version,
         );
     }
 
@@ -255,6 +263,7 @@ LIMIT 20";
             'end_date' => $end_date,
             'start' => $start,
             'end' => $end,
+            'static_version' => $this->static_version,
         );
     }
 
@@ -314,6 +323,7 @@ LIMIT 1";
 
         return array(
             'card' => $card,
+            'static_version' => $this->static_version,
         );
     }
 
@@ -371,6 +381,7 @@ LIMIT 1";
             'user' => $user,
             'year' => $year,
             'err' => $err,
+            'static_version' => $this->static_version,
         );
     }
 

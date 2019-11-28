@@ -10,6 +10,7 @@ class Index extends _controller
 
         return array(
             'user' => $user,
+            'static_version' => $this->static_version,
         );
     }
 }

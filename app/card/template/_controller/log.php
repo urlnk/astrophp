@@ -4,8 +4,8 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
     <title>充值记录</title>
-    <link rel="stylesheet" type="text/css" href="/css/style.css">
-    <link rel="stylesheet" href="/css/jquery.cxcalendar.css">
+    <link rel="stylesheet" type="text/css" href="/css/style.css<?=$static_version?>">
+    <link rel="stylesheet" href="/css/jquery.cxcalendar.css<?=$static_version?>">
 </head>
 
 <body class="consume">
@@ -68,8 +68,8 @@ echo $li;
 <pre>没有更多数据了</pre>
 
 <script src="/js/jquery.min.js"></script>
-<script src="/js/jquery.cxcalendar.js"></script>
+<script src="/js/jquery.cxcalendar.js<?=$static_version?>"></script>
 <script src="/js/jquery.cxcalendar.languages.js"></script>
-<script type="text/javascript" src="/js/consume.js"></script>
+<script type="text/javascript" src="/js/consume.js<?=$static_version?>"></script>
 </body>
 </html>
