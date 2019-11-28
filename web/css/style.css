@@ -46,6 +46,7 @@ blockquote {
 }
 
 .top {
+    overflow: hidden;
     background-color: #fff;
     border-bottom: 1px solid #ddd;
     font-size: 16px;
@@ -54,7 +55,7 @@ blockquote {
 
 .back {
     display: block;
-    float: right;
+    float: left;
     width: 40px;
     height: 40px;
     background-image: url(../img/lt.png);
@@ -65,8 +66,11 @@ blockquote {
 }
 
 .filter {
-
+    display: block;
+    float: right;
+    padding: 0 18px;
 }
+
 
 /* login */
 
@@ -395,6 +399,7 @@ blockquote {
 
 .account dialog button[type=submit] {
     color: #1AAC19;
+    border-left: 1px solid #e2e2e2;
 }
 
 /* consume */
@@ -483,7 +488,7 @@ blockquote {
     padding: 2px 8px 8px 8px;
 }
 
-.consume button {
+.consume blockquote button {
     display: block;
     width: 100%;
     background-color: #1AAC19;
@@ -493,20 +498,16 @@ blockquote {
     border-radius: 6px;
 }
 
-.consume ul {
-
-}
-
-.consume li {
+.list li {
     border-bottom: 1px #ccc solid;
     padding: 8px 14px 8px 0;
 }
 
-.consume li:nth-child(even) {
+.list li:nth-child(even) {
     background-color: #ddd;
 }
 
-.consume span {
+.list span {
     display: block;
     float: left;
     height: 56px;
@@ -522,34 +523,34 @@ span.chongzhi {
     background-size: 13px 23px;
 }
 
-.consume div {
+.list div {
     margin-left: 40px;
     font-size: 16px;
     line-height: 28px;
 }
 
-.consume dt {
+.list dt {
     overflow: hidden;
 }
 
-.consume dd {
+.list dd {
 
 }
 
-.consume h4 {
+.list h4 {
     float: left;
     font-weight: normal;
 }
 
-.consume time {
+.list time {
     float: right;
 }
 
-.consume em {
+.list em {
     font-style: normal;
 }
 
-.consume cite {
+.list cite {
     float: right;
     font-style: normal;
 }
@@ -700,6 +701,86 @@ s.sel {
 
 div.pay {
     margin: 10px auto 0 auto;
+}
+
+/* filter */
+.flt {
+    position: fixed;
+    z-index: 2;
+    height: 100%;
+    width: 100%;
+    left: 0;
+    background-color: rgba(0,0,0,0.5);
+}
+
+.flt form {
+    background-color: #fff;
+}
+
+.flt ol {
+    overflow: hidden;
+    font-size: 18px;
+    line-height: 40px;
+    padding-left: 16px;
+    border-bottom: 1px solid #e2e2e2;
+}
+
+.flt li {
+    overflow: hidden;
+    border-bottom: 1px solid #e7e7e7;
+    padding: 5px 8px 5px 0;
+    max-width: 408px;
+    margin: 0 auto;
+}
+
+.flt b {
+    display: block;
+    text-align: center;
+    width: 90px;
+    padding: 0 10px;
+    float: left;
+    font-weight: normal;
+}
+
+.flt span {
+    display: block;
+    overflow: hidden;
+}
+
+.flt input {
+    display: block;
+    line-height: 40px;
+    font-size: 18px;
+    height: 40px;
+    border: none;
+    padding: 0;
+    outline: 0;
+    float: left;
+}
+
+.flt li:last-child {
+    border-bottom: none;
+}
+
+.flt footer {
+    overflow: hidden;
+    width: 300px;
+    margin: 0 auto;
+}
+
+.flt button {
+    font-size: 20px;
+    line-height: 50px;
+    background-color: #fff;
+    display: block;
+    float: left;
+    width: 150px;
+    color: #666;
+}
+
+.flt button[type=submit] {
+    color: #1AAC19;
+    border-left: 1px solid #e2e2e2;
 }
 
 /* media */

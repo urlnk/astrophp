@@ -5,9 +5,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
     <title>消费记录</title>
     <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <link rel="stylesheet" href="/css/jquery.cxcalendar.css">
 </head>
 
 <body class="consume">
+<div id="filter" class="flt" style="display: none">
+    <form>
+        <ol>
+            <li>
+                <b>从</b>
+                <span>
+                    <time onclick="cxCalendarApi.show();">1990/01/01</time>
+                    <input id="element_id" type="hidden" name="start" value="" data-format="YYYY/MM/DD" data-start-date="1919" data-end-date="2019" onchange="chg(this)">
+                </span>
+            </li>
+            <li>
+                <b>至</b>
+                <span>
+                    <time onclick="cxCalendarApi2.show();">1990/01/01</time>
+                    <input id="element_id2" type="hidden" name="end" value="" data-format="YYYY/MM/DD" data-start-date="2019-01-01" data-end-date="2019/11/28" onchange="chg(this, 1)">
+                </span>
+            </li>
+        </ol>
+
+        <footer>
+            <button type="button" onclick="flt()">取消</button>
+            <button type="submit">确定</button>
+        </footer>
+    </form>
+</div>
+
 <section style="display: none;">
 <dialog>
     <h2>消费详情</h2>
@@ -39,7 +66,12 @@
 </dialog>
 </section>
 
-<ul>
+<header class="top">
+    <a href="/card" class="back"></a>
+    <a href="javascript:" class="filter" onclick="flt()">筛选</a>
+</header>
+
+<ul class="list">
 <?php
 $li = '';
 foreach ($consumes as $consume) {
@@ -85,37 +117,10 @@ echo $li;
 </ul>
 
 <pre>没有更多数据了</pre>
-<script>
-function show(obj) {
-    document.getElementsByTagName('section')[0].style.display = 'block'
-    a = document.getElementsByTagName('i')
-    s = document.getElementsByTagName('s')
-    v = document.getElementsByTagName('var')[0]
-    for (i = 0; i < 3; i++) {
-        a[i].innerHTML = ''
-        s[i].innerHTML = ''
-    }
 
-    cash = obj.getAttribute('data-cash')
-    if (cash) {
-        c = JSON.parse(cash)
-        a[0].innerHTML = '现金账户'
-        a[1].innerHTML = c.order_amount + '元'
-        a[2].innerHTML = c.balance + '元'
-    }
-
-    row = obj.getAttribute('data-row')
-    if (row) {
-        r = JSON.parse(row)
-        s[0].innerHTML = '补贴账户'
-        s[1].innerHTML = r.order_amount + '元'
-        s[2].innerHTML = r.balance + '元'
-    }
-
-    amount = obj.getAttribute('data-amount')
-    v.innerHTML = amount + '（元）'
-
-}
-</script>
+<script src="/js/jquery.min.js"></script>
+<script src="/js/jquery.cxcalendar.js"></script>
+<script src="/js/jquery.cxcalendar.languages.js"></script>
+<script type="text/javascript" src="/js/consume.js"></script>
 </body>
 </html>
