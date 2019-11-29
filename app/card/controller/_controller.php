@@ -4,7 +4,7 @@ namespace App\Card\Controller;
 
 class _Controller extends \MagicCube\Controller
 {
-    public $static_version = '?v=3';
+    public $static_version = '?v=4';
 
     public function __construct($vars = [])
     {
@@ -149,7 +149,11 @@ LIMIT 50";
         $uid = $_SESSION['uid'];
         $start = isset($_GET['start']) ? $_GET['start'] : null;
         $end = isset($_GET['end']) ? $_GET['end'] : null;
+        $SearchURL = new \Model\SearchURL();
+        $limit = 10;
+        $total = $overflow = 0;
 
+        // 筛选日期
         $filter = '';
         if (preg_match('/^\d{4}\/\d{2}\/\d{2}$/', $start, $matches)) {
             $start_time = str_replace('/', '-', $start);
@@ -160,14 +164,26 @@ LIMIT 50";
             $filter .= " AND order_time <= '$end_time 23:59:59'";
         }
 
+        // 总条数
+        $sql = "SELECT COUNT(1) AS total 
+FROM $this->db.pl_order_flow_t A 
+WHERE user_id = '$uid' AND order_type_code = 'RECHARGE' AND refund_flag = '0' $filter ";
+
+        $sth = $SearchURL->query($sql);
+        $var = $sth->fetchObject();
+        if ($var) {
+            $total = $var->total;
+        }
+        $overflow = $limit >= $total ? 1 : 0;
+
+        // 所有条目
         $sql = "SELECT order_amount, param_name, order_time 
 FROM $this->db.pl_order_flow_t A 
 LEFT JOIN $this->db.pl_parameter_code_t B ON B.param_type='payment_code' AND B.param_code=A.payment_code 
 WHERE user_id = '$uid' AND order_type_code = 'RECHARGE' AND refund_flag = '0' $filter 
 ORDER BY order_flow_no DESC 
-LIMIT 20";
+LIMIT $limit";
 
-        $SearchURL = new \Model\SearchURL();
         $statement = $SearchURL->query($sql);
         $payments = $statement->fetchAll(\PDO::FETCH_OBJ);
 
@@ -190,6 +206,8 @@ LIMIT 20";
             'start' => $start,
             'end' => $end,
             'static_version' => $this->static_version,
+            'total' => $total,
+            'overflow' => $overflow,
         );
     }
 
@@ -198,7 +216,14 @@ LIMIT 20";
         $uid = $_SESSION['uid'];
         $start = isset($_GET['start']) ? $_GET['start'] : null;
         $end = isset($_GET['end']) ? $_GET['end'] : null;
+        $start_date = '2019/01/01';
+        $end_date = date('Y/m/d');
+        $SearchURL = new \Model\SearchURL();
+        $limit = 20;
+        $total = $overflow = 0;
+        $consumes = $variable = array();
 
+        // 筛选日期
         $filter = '';
         if (preg_match('/^\d{4}\/\d{2}\/\d{2}$/', $start, $matches)) {
             $start_time = str_replace('/', '-', $start);
@@ -208,9 +233,22 @@ LIMIT 20";
             $end_time = str_replace('/', '-', $end);
             $filter .= " AND order_time <= '$end_time 23:59:59'";
         }
-        # echo $filter;exit;
 
-        $sql = "SELECT order_time, device_name, order_amount, payment_amount, balance, acct_type_no, request_flow_no, param_name, payment_flow_no 
+        // 总条数
+        $sql = "SELECT COUNT(1) AS total 
+FROM $this->db.pl_order_flow_t A 
+LEFT JOIN $this->db.pl_payment_flow_t B ON B.order_flow_no = A.order_flow_no 
+WHERE user_id = '$uid' AND order_type_code = 'CONSUME' AND refund_flag = 0 $filter ";
+
+        $sth = $SearchURL->query($sql);
+        $var = $sth->fetchObject();
+        if ($var) {
+            $total = $var->total;
+        }
+
+        if ($total) {
+            // 所有条目
+            $sql = "SELECT order_time, device_name, order_amount, payment_amount, balance, acct_type_no, request_flow_no, param_name, payment_flow_no 
 FROM $this->db.pl_order_flow_t A 
 LEFT JOIN $this->db.pl_payment_flow_t B ON B.order_flow_no = A.order_flow_no 
 LEFT JOIN $this->db.pl_logical_device_t C ON C.operator_id = A.operator_id AND C.device_no = A.device_no 
@@ -218,25 +256,26 @@ LEFT JOIN $this->db.xf_assistant_flow_t D ON D.order_flow_no = A.order_flow_no
 LEFT JOIN $this->db.pl_parameter_code_t E ON E.param_type='consume_model' AND E.param_code=D.consume_model
 WHERE user_id = '$uid' AND order_type_code = 'CONSUME' AND refund_flag = 0 $filter 
 ORDER BY B.payment_flow_no DESC 
-LIMIT 20";
+LIMIT $limit";
 
-        $SearchURL = new \Model\SearchURL();
-        $statement = $SearchURL->query($sql);
-        $variable = $statement->fetchAll(\PDO::FETCH_OBJ);
+            $statement = $SearchURL->query($sql);
+            $variable = $statement->fetchAll(\PDO::FETCH_OBJ);
 
-        $sql = "SELECT order_time FROM $this->db.pl_order_flow_t WHERE user_id = '$uid' ORDER BY order_time LIMIT 1";
-        $sth = $SearchURL->query($sql);
-        $order = $sth->fetchObject();
-        $start_date = '2019/01/01';
-        if ($order) {
-            $time = strtotime($order->order_time);
-            $start_date = date('Y/m/d', $time);
+            // 最早日期
+            $sql = "SELECT order_time FROM $this->db.pl_order_flow_t WHERE user_id = '$uid' ORDER BY order_time LIMIT 1";
+            $sth = $SearchURL->query($sql);
+            $order = $sth->fetchObject();
+            if ($order) {
+                $time = strtotime($order->order_time);
+                $start_date = date('Y/m/d', $time);
+            }
         }
-        $end_date = date('Y/m/d');
+
         $start = $start ? : $start_date;
         $end = $end ? : $end_date;
+        $overflow = $limit >= $total ? 1 : 0;
 
-        $consumes = array();
+        // 合并条目
         $previous = null;
         $i = 0;
         foreach ($variable as $value) {
@@ -255,7 +294,6 @@ LIMIT 20";
             $previous = $value;
             $i++;
         }
-        # print_r($consumes);exit;
 
         return array(
             'consumes' => $consumes,
@@ -264,6 +302,8 @@ LIMIT 20";
             'start' => $start,
             'end' => $end,
             'static_version' => $this->static_version,
+            'total' => $total,
+            'overflow' => $overflow,
         );
     }
 

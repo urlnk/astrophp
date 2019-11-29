@@ -10,7 +10,7 @@
 
 <body class="consume">
 <div id="filter" class="flt" style="display: none">
-    <form>
+    <form id="search_form">
         <ol>
             <li>
                 <b>从</b>
@@ -71,7 +71,7 @@
     <a href="javascript:" class="filter" onclick="flt()">筛选</a>
 </header>
 
-<ul class="list">
+<ul class="list" id="items_list">
 <?php
 $li = '';
 foreach ($consumes as $consume) {
@@ -116,8 +116,18 @@ echo $li;
 ?>
 </ul>
 
-<pre>没有更多数据了</pre>
+<pre id="load_info">没有更多数据了</pre>
+<div class="goto" id="got_top" onclick="goTop()"></div>
 
+<script type="text/javascript">
+// 服务器变量
+server = {
+    page: 1,
+    count: <?=$total?>,
+    overflow: <?=$overflow?>,
+    uri: 'consume'
+}
+</script>
 <script src="/js/jquery.min.js"></script>
 <script src="/js/jquery.cxcalendar.js<?=$static_version?>"></script>
 <script src="/js/jquery.cxcalendar.languages.js"></script>
