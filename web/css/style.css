@@ -29,6 +29,7 @@ dd {
 
 select {
     border: none;
+    background-color: #fff;
 }
 
 button {
