@@ -150,7 +150,7 @@ LIMIT 50";
         $start = isset($_GET['start']) ? $_GET['start'] : null;
         $end = isset($_GET['end']) ? $_GET['end'] : null;
         $SearchURL = new \Model\SearchURL();
-        $limit = 10;
+        $limit = 20;
         $total = $overflow = 0;
 
         // 筛选日期
@@ -187,7 +187,8 @@ LIMIT $limit";
         $statement = $SearchURL->query($sql);
         $payments = $statement->fetchAll(\PDO::FETCH_OBJ);
 
-        $sql = "SELECT order_time FROM $this->db.pl_order_flow_t WHERE user_id = '$uid' ORDER BY order_time LIMIT 1";
+        // 最早日期
+        $sql = "SELECT order_time FROM $this->db.pl_order_flow_t WHERE user_id = '$uid' AND order_type_code = 'RECHARGE' ORDER BY order_time LIMIT 1";
         $sth = $SearchURL->query($sql);
         $order = $sth->fetchObject();
         $start_date = '2019/01/01';
@@ -262,7 +263,7 @@ LIMIT $limit";
             $variable = $statement->fetchAll(\PDO::FETCH_OBJ);
 
             // 最早日期
-            $sql = "SELECT order_time FROM $this->db.pl_order_flow_t WHERE user_id = '$uid' ORDER BY order_time LIMIT 1";
+            $sql = "SELECT order_time FROM $this->db.pl_order_flow_t WHERE user_id = '$uid' AND order_type_code = 'CONSUME' ORDER BY order_time LIMIT 1";
             $sth = $SearchURL->query($sql);
             $order = $sth->fetchObject();
             if ($order) {

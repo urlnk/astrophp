@@ -188,7 +188,6 @@ function scroll() {
     }
 
     height = viewport.scrollHeight - 144
-    console.log({scrollTop:scrollTop, clientHeight:clientHeight, height:height})
     if (height <= clientHeight + scrollTop) {
         loadData()
     }
