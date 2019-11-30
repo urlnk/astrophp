@@ -371,6 +371,7 @@ LIMIT 1";
     public function info()
     {
         $uid = $_SESSION['uid'];
+        $tip = isset($_GET['tip']);
         $year = date('Y');
         $err = null;
         $SearchURL = new \Model\SearchURL();
@@ -399,7 +400,7 @@ WHERE user_id = '$uid'
 LIMIT 1";
                 $count = $SearchURL->exec($sql);
 
-                header("Location: /card/info");
+                header("Location: /card/info?tip");
                 exit;
             }
 
@@ -423,6 +424,7 @@ LIMIT 1";
             'year' => $year,
             'err' => $err,
             'static_version' => $this->static_version,
+            'tip' => $tip,
         );
     }
 

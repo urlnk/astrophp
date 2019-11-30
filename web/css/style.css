@@ -72,6 +72,12 @@ blockquote {
     padding: 0 18px;
 }
 
+.account blockquote button.disable {
+    background-color: #F7F7F7;
+    color: #A7A7A7;
+    border: 1px solid #C4C4C4;
+}
+
 
 /* login */
 
@@ -579,6 +585,29 @@ a.sex {
     background-position: center;
     background-size: 12px 16px;
     overflow: hidden;
+}
+
+.info dialog p {
+    border-bottom: 1px solid #e2e2e2;
+    text-align: center;
+    font-size: 18px;
+    line-height: 80px;
+}
+
+.info dialog footer {
+    overflow: hidden;
+    width: 280px;
+    margin: 0 auto;
+}
+
+.info dialog button {
+    font-size: 20px;
+    line-height: 50px;
+    background-color: #fff;
+    display: block;
+    float: left;
+    width: 280px;
+    color: #1AAC19;
 }
 
 /* recharge */

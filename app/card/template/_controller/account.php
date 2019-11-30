@@ -92,7 +92,7 @@ if ($arr[3]) {
 </div>
 
 <blockquote>
-    <button type="button" onclick="document.getElementsByTagName('section')[0].style.display = 'block';">修改超额支付密码</button>
+    <button class="disable" type="button" onclick0="document.getElementsByTagName('section')[0].style.display = 'block';">修改超额支付密码</button>
 </blockquote>
 </form>
 </body>

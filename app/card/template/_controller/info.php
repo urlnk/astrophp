@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="/css/jquery.cxcalendar.css<?=$static_version?>">
 </head>
 
-<body class="login">
+<body class="login info">
 <section style="display: none">
     <dialog>
         <ol>
@@ -25,6 +25,18 @@
                 </label>
             </li>
         </ol>
+    </dialog>
+</section>
+
+<section style="display: <?=$tip ? 'block' : 'none'?>;">
+    <dialog>
+        <p>
+            修改成功
+        </p>
+
+        <footer>
+            <button type="button" onclick="document.getElementsByTagName('section')[1].style.display = 'none';">确定</button>
+        </footer>
     </dialog>
 </section>
 
