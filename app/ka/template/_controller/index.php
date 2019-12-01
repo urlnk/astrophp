@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
     <title>易捷一卡通查询系统</title>
-    <link rel="stylesheet" type="text/css" href="/css/touch.css">
+    <link rel="stylesheet" type="text/css" href="/css/touch.css<?=$static_version?>">
 </head>
 
 <body class="start">
@@ -52,6 +52,6 @@
     <input id="query" value="" placeholder="请输入明码" onfocus="this.select()" onchange="detect(this)">
 </blockquote>
 
-<script type="text/javascript" src="/js/start.js"></script>
+<script type="text/javascript" src="/js/start.js<?=$static_version?>"></script>
 </body>
 </html>

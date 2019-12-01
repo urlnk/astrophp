@@ -1,8 +1,9 @@
 body, blockquote, h1, h2 {
     margin: 0;
+    font-family: 'Microsoft Yahei', sans-serif;
 }
 
-ol, ul, dl {
+ol, ul, dl, dialog {
     margin: 0;
     padding: 0;
     list-style: none;
@@ -126,4 +127,6 @@ a {
     font-size: 32px;
     line-height: 160px;
     border: 1px solid #666;
+    width: 460px;
+    text-align: center;
 }
