@@ -4,13 +4,14 @@ namespace App\Ka\Controller;
 
 class _Controller extends \MagicCube\Controller
 {
-    public $static_version = '?v=0';
+    public $static_version = '?v=1';
 
     public function __construct($vars = [])
     {
         global $_CONFIG;
         parent::__construct($vars);
         $this->db = $_CONFIG['database']['db_name'];
+        session_start();
     }
 
     public function _action()
