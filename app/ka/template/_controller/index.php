@@ -7,32 +7,15 @@
     <link rel="stylesheet" type="text/css" href="/css/touch.css<?=$static_version?>">
 </head>
 
-<body class="start">
+<body>
 <section>
     <dialog>
         请稍后，正在查询卡信息……
     </dialog>
 </section>
 
-<div id="choice_user" style="display: none;">
-    <header style="display: block; margin: 0;">
-        <h2>
-            <a href="javascript:" style="float: left">返回</a>
-            <b style="padding: 0 120px 0 0;">&nbsp;</b>
-        </h2>
-    </header>
-    <h1>请选择用户：</h1>
-    <ul id="users_list">
-    </ul>
-</div>
-
-<div id="start_screen">
-    <header>
-        <h2>
-            <a href="javascript:">退出</a>
-            <b>周晓明</b>
-        </h2>
-    </header>
+<article class="start">
+<div id="start_screen" style="display0: none">
     <h1>易捷一卡通查询系统</h1>
     <ol>
         <dl><a href="javascript:">手机号登录</a></dl>
@@ -47,6 +30,169 @@
         <li><a href="javascript:">完善信息</a></li>
     </ul>
 </div>
+</article>
+
+<article class="users">
+<div id="choice_user" style="display: none">
+    <header>
+        <h2>
+            <a href="javascript:" onclick="back('choice_user', 'start_screen')">返回</a>
+            <b>&nbsp;</b>
+        </h2>
+    </header>
+    <h1>请选择用户：</h1>
+    <ul id="users_list">
+        <li>
+            <a href="javascript:" onclick="choice(this)" data-uid="100">
+                <u>测试调试卡测试调试卡测试调试卡</u>
+                <p>1566555166015665551660</p>
+                <p>马鞍山慈湖高新区马鞍山慈湖高新区</p>
+                <p>默认机构默认机构默认机构默认机构</p>
+            </a>
+        </li>
+        <li>
+            <a href="javascript:">
+                <u>测试调试卡</u>
+                <p>15665551660</p>
+                <p>马鞍山慈湖高新区</p>
+                <p>默认机构</p>
+            </a>
+        </li>
+        <li>
+            <a href="javascript:">
+                <u>测试调试卡</u>
+                <p>15665551660</p>
+                <p>马鞍山慈湖高新区</p>
+                <p>默认机构</p>
+            </a>
+        </li>
+        <li>
+            <a href="javascript:">
+                <u>测试调试卡</u>
+                <p>15665551660</p>
+                <p>马鞍山慈湖高新区</p>
+                <p>默认机构</p>
+            </a>
+        </li>
+        <li>
+            <a href="javascript:">
+                <u>测试调试卡</u>
+                <p>15665551660</p>
+                <p>马鞍山慈湖高新区</p>
+                <p>默认机构</p>
+            </a>
+        </li>
+    </ul>
+</div>
+</article>
+
+<article class="home">
+<div id="home" style="display: none;">
+    <header>
+        <h2>
+            <a href="javascript:" onclick="back('home', 'choice_user')">返回</a>
+            <a href="javascript:" onclick="exit()">退出</a>
+            <b>周晓明</b>
+        </h2>
+    </header>
+    <ul>
+        <li><a href="javascript:" onclick="showAccount()">账户信息</a></li>
+        <li><a href="javascript:" onclick="show('home', 'recharge')">账户充值</a></li>
+        <li><a href="javascript:" onclick="show('home', 'log')">充值记录</a></li>
+        <li><a href="javascript:" onclick="show('home', 'consume')">消费记录</a></li>
+        <li><a href="javascript:" onclick="show('home', 'loss')">挂失解挂</a></li>
+        <li><a href="javascript:" onclick="show('home', 'info')">完善信息</a></li>
+    </ul>
+</div>
+</article>
+
+<article class="account">
+<div id="account" style="display: none;">
+    <header>
+        <h2>
+            <a href="javascript:" onclick="back('account', 'home')">返回</a>
+            <b>账户信息</b>
+        </h2>
+    </header>
+    <ul>
+        <dl>
+            <dt>卡内码</dt>
+            <dd>3009340722</dd>
+        </dl>
+        <dl>
+            <dt>卡有效期</dt>
+            <dd>2022-01-15 00:59:26</dd>
+        </dl>
+        <dl>
+            <dt>现金账户</dt>
+            <dd>100.00元</dd>
+        </dl>
+        <dl>
+            <dt>补贴账户</dt>
+            <dd>200.00元</dd>
+        </dl>
+        <dl>
+            <dt>手机号码</dt>
+            <dd>17621113580</dd>
+        </dl>
+    </ul>
+</div>
+</article>
+
+<article class="account">
+<div id="recharge" style="display: none;">
+    <header>
+        <h2>
+            <a href="javascript:" onclick="back('recharge', 'home')">返回</a>
+            <b>账户充值</b>
+        </h2>
+    </header>
+</div>
+</article>
+
+<article class="account">
+<div id="log" style="display: none;">
+    <header>
+        <h2>
+            <a href="javascript:" onclick="back('log', 'home')">返回</a>
+            <b>充值记录</b>
+        </h2>
+    </header>
+</div>
+</article>
+
+<article class="account">
+<div id="consume" style="display: none;">
+    <header>
+        <h2>
+            <a href="javascript:" onclick="back('consume', 'home')">返回</a>
+            <b>消费记录</b>
+        </h2>
+    </header>
+</div>
+</article>
+
+<article class="account">
+<div id="loss" style="display: none;">
+    <header>
+        <h2>
+            <a href="javascript:" onclick="back('loss', 'home')">返回</a>
+            <b>挂失解挂</b>
+        </h2>
+    </header>
+</div>
+</article>
+
+<article class="account">
+<div id="info" style="display: none;">
+    <header>
+        <h2>
+            <a href="javascript:" onclick="back('info', 'home')">返回</a>
+            <b>完善信息</b>
+        </h2>
+    </header>
+</div>
+</article>
 
 <blockquote>
     <input id="query" value="" placeholder="请输入明码" onfocus="this.select()" onchange="detect(this)">

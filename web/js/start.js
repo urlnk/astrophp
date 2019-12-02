@@ -1,5 +1,6 @@
 // 全局变量
 global = {
+    uid: null
 }
 
 XHR = []
@@ -26,14 +27,58 @@ function keep() {
 }
 
 function detect(obj) {
+    global.uid = null
     console.log(obj.value)
     document.getElementsByTagName('section')[0].style.display = 'block'
+    div = document.getElementsByTagName('div')
+    len = div.length
+    for (i = 0; i < len; i++) {
+        div[i].style.display = 'none'
+    }
+    start_screen.style.display = 'block'
 
     uri = 'swipe'
     formData = {}
     formData['no'] = obj.value
     _.api( uri, formData, 'post' )
     obj.value = ''
+}
+
+function wtf() {
+    document.getElementsByTagName('section')[0].style.display = 'none'
+    back('start_screen', 'choice_user')
+}
+
+function choice(obj) {
+    global.uid = obj.getAttribute('data-uid')
+    choice_user.style.display = 'none'
+    home.style.display = 'block'
+    home.getElementsByTagName('b')[0].innerHTML = obj.getElementsByTagName('u')[0].innerHTML
+}
+
+function show(i, id) {
+    back(i, id)
+}
+
+function showAccount() {
+    document.getElementsByTagName('section')[0].style.display = 'block'
+
+    uri = 'account'
+    formData = {}
+    formData['uid'] = global.uid
+    _.api( uri, formData, 'post' )
+}
+
+function back(i, id) {
+    o = document.getElementById(i)
+    obj = document.getElementById(id)
+    o.style.display = 'none'
+    obj.style.display = 'block'
+}
+
+function exit() {
+    global.uid = null
+    back('home', 'start_screen')
 }
 
 /*---- polyfill ------*/
@@ -148,6 +193,7 @@ function api_swipe(arg) {
     json = RESP['swipe']
     code = json.code
     msg = json.msg
+    data = json.data
     switch (code) {
         case 0:
             break
@@ -163,21 +209,65 @@ function api_swipe(arg) {
             return
     }
 
-    choice_user.style.display = 'block'
-    start_screen.style.display = 'none'
+    // choice_user.style.display = 'block'
+    // start_screen.style.display = 'none'
 
-    data = json.data
     users_list.innerHTML = ''
     len = data.length
     i = 0
     for (; i < len; i++) {
         row = data[i]
 
-        html = '<li><a href="javascript:">' + row.user_name + '</a></li>'
+        html = '<li><a href="javascript:" onclick="choice(this)" data-uid="' + row.user_id + '"><u>' + row.user_name + '</u><p>' + row.telephone + '</p><p>' + row.operator_name + '</p><p>' + row.organ_name + '</p></a></li>'
 
         users_list.insertAdjacentHTML(position, html)
     }
 
+    // document.getElementsByTagName('section')[0].style.display = 'none'
+    wtf()
+    console.log(json)
+}
+
+function api_account(arg) {
+    position = 'beforeEnd'
+    load_msg = ''
+    json = RESP['account']
+    code = json.code
+    msg = json.msg
+    data = json.data
+    switch (code) {
+        case 0:
+            break
+        case 1:
+        case 2:
+            load_msg = msg
+            break
+        case 3:
+            alert(msg)
+            return
+        default:
+            alert(code + ': ' + msg)
+            return
+    }
+
+    // choice_user.style.display = 'block'
+    // start_screen.style.display = 'none'
+
+    dd = account.getElementsByTagName('dd')
+    len = dd.length
+    i = 0
+    for (; i < len; i++) {
+        row = dd[i]
+        row.innerHTML = '-'
+    }
+
+    dd[0].innerHTML = data.card_code
+    dd[1].innerHTML = data.effective_time
+    dd[2].innerHTML = data.cash
+    dd[3].innerHTML = data.subsidy
+    dd[4].innerHTML = data.telephone || '无'
+
     document.getElementsByTagName('section')[0].style.display = 'none'
+    show('home', 'account')
     console.log(json)
 }

@@ -3,7 +3,7 @@ body, blockquote, h1, h2 {
     font-family: 'Microsoft Yahei', sans-serif;
 }
 
-ol, ul, dl, dialog {
+ol, ul, dl, dd, dialog, p {
     margin: 0;
     padding: 0;
     list-style: none;
@@ -13,12 +13,34 @@ a {
     text-decoration: none;
 }
 
+/* 开始屏幕 */
 .start {
     background-color: #ccc;
 }
 
-.start div {
-    /*display: none;*/
+section {
+    display: none;
+    overflow: hidden;
+    position: fixed;
+    z-index: 3;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.6);
+    padding-top: 240px;
+}
+
+dialog {
+    display: block;
+    margin: 0 auto;
+    background-color: rgba(255,255,255,0.9);
+    font-size: 32px;
+    line-height: 160px;
+    border: 1px solid #666;
+    width: 460px;
+    text-align: center;
+}
+
+.start div, .users div, .home div, .account div {
     background-color: #6DBB27;
     z-index: 2;
     position: fixed;
@@ -29,45 +51,15 @@ a {
     text-align: center;
 }
 
-.start blockquote {
+blockquote {
 }
 
-.start header {
-    display: none;
-    background-color: #9CEE52;
-    border-bottom: 1px solid #204201;
-    margin-bottom: 80px;
-}
-
-.start h2 {
-    font-size: 32px;
-    line-height: 80px;
-    width: 900px;
-    margin: 0 auto;
-    font-weight: normal;
-}
-
-.start h2 b {
-    display: block;
-    font-weight: normal;
-    width: 780px;
-    padding-left: 120px;
-}
-
-.start h2 a {
-    display: block;
-    float: right;
-    width: 120px;
-}
-
-.start h1 {
-    /*display: none;*/
+.start h1, .users h1 {
     font-size: 48px;
     line-height: 160px;
 }
 
 .start ol {
-    /*display: none;*/
     overflow: hidden;
     font-size: 32px;
     margin: 0 auto;
@@ -88,20 +80,20 @@ a {
     margin: 0 10px;
 }
 
-.start ul {
+.start ul, .users ul, .home ul {
     overflow: hidden;
     font-size: 36px;
     margin: 0 auto;
     width: 900px;
 }
 
-.start li {
+.start li, .users li, .home li {
     float: left;
     width: 300px;
     padding: 10px 0;
 }
 
-.start li a {
+.start li a, .home li a {
     display: block;
     line-height: 200px;
     background-color: #007DFC;
@@ -109,24 +101,102 @@ a {
     margin: 0 10px;
 }
 
-.start section {
-    display: none;
-    overflow: hidden;
-    position: fixed;
-    z-index: 3;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0,0,0,0.6);
-    padding-top: 240px;
+/* 选择用户 */
+.users header, .home header, .account header {
+    background-color: #9CEE52;
+    border-bottom: 1px solid #204201;
 }
 
-.start dialog {
-    display: block;
-    margin: 0 auto;
-    background-color: rgba(255,255,255,0.9);
+.users h2, .home h2, .account h2 {
     font-size: 32px;
-    line-height: 160px;
-    border: 1px solid #666;
-    width: 460px;
-    text-align: center;
+    line-height: 80px;
+    width: 900px;
+    margin: 0 auto;
+    font-weight: normal;
+}
+
+.users h2 b, .home h2 b, .account h2 b {
+    display: block;
+    font-weight: normal;
+    width: 780px;
+    padding-right: 120px;
+}
+
+.users h2 a, .home h2 a, .account h2 a {
+    display: block;
+    float: left;
+    width: 120px;
+}
+
+.users li a {
+    display: block;
+    height: 172px;
+    background-color: #007DFC;
+    color: #fff;
+    margin: 0 10px;
+    text-align: left;
+    padding: 20px;
+}
+
+.users li u {
+    display: block;
+    text-decoration: none;
+    line-height: 52px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.users li p {
+    font-size: 24px;
+    line-height: 40px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* 主页 */
+.home h2 b {
+    padding: 0 120px;
+    width: 660px;
+}
+
+.home h2 a {
+    float: left;
+}
+
+.home h2 a:nth-child(2) {
+    float: right;
+}
+
+.home ul {
+    padding: 80px 0 0 0;
+}
+
+/* 账户信息 */
+.account ul {
+    margin: 80px auto 0 auto;
+    border: 1px solid #204201;
+    width: 500px;
+    font-size: 28px;
+    line-height: 56px;
+    padding: 0 0 0 20px;
+    background-color: #ECFEC0;
+}
+
+.account dl {
+    padding: 0 20px 0 0;
+    border-bottom: 1px solid #999;
+}
+
+.account dl:last-child {
+    border-bottom: none;
+}
+
+.account dt {
+    float: left;
+}
+
+.account dd {
+    text-align: right;
 }

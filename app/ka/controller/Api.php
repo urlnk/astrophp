@@ -27,6 +27,7 @@ class Api extends _controller
             $back = substr($hex, 4, 4);
             $str = $back . $front;
             $decimal = base_convert($str, 16, 10);
+            # $decimal = '507015516';
 
             $sql = "SELECT A.user_id AS user_id, user_name, telephone, operator_name, organ_name 
 FROM $this->db.pl_card_t A 
@@ -172,5 +173,57 @@ LIMIT 50";
         }
 
         return $res;
+    }
+
+    public function account()
+    {
+        $uid = isset($_POST['uid']) ? trim($_POST['uid']) : null;
+        $code = 0;
+        $msg = '';
+        $data = array();
+        $SearchURL = new \Model\SearchURL();
+
+        if (is_numeric($uid)) {
+            $arr = array(
+                0,
+                0,
+                0,
+                0,
+            );
+
+            $sql = "SELECT acct_type, balance FROM $this->db.pl_acct_balance_t WHERE user_id = '$uid' LIMIT 2";
+            $SearchURL = new \Model\SearchURL();
+            $sth = $SearchURL->query($sql);
+            $balances = $sth->fetchAll(\PDO::FETCH_OBJ);
+            foreach ($balances as $balance) {
+                $arr[$balance->acct_type] = $balance->balance;
+            }
+
+            $sql = "SELECT card_code, effective_time FROM $this->db.pl_card_t WHERE user_id = '$uid' LIMIT 1";
+            $sth = $SearchURL->query($sql);
+            $card = $sth->fetchObject();
+
+            $sql = "SELECT telephone FROM $this->db.pl_user_t WHERE user_id = '$uid' LIMIT 1";
+            $sth = $SearchURL->query($sql);
+            $user = $sth->fetchObject();
+
+            $data['cash'] = $arr[1];
+            $data['subsidy'] = $arr[3];
+            $data['card_code'] = $card->card_code;
+            $data['effective_time'] = $card->effective_time;
+            $data['telephone'] = $user->telephone;
+
+        } else {
+            $code = 3;
+            $msg = '不是有效的用户ID';
+        }
+
+        $arr = array(
+            'code' => $code,
+            'msg' => $msg,
+            'data' => $data,
+        );
+        echo json_encode($arr);
+        exit;
     }
 }
