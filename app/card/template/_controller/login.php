@@ -8,7 +8,7 @@
 </head>
 
 <body class="login">
-<form method="post" action="">
+<form method="post" action="" name="loginForm">
     <div>
         <dl>
             <dt>商户号</dt>
@@ -29,7 +29,7 @@ echo $option;
             <dt>手机号</dt>
             <dd>
                 <input type="text" name="phone" placeholder="请输入手机号" value="<?=$phone?>" />
-                <button type="button">验证码</button>
+                <button type="button" onclick="sendsms(this)" id="btnSms">验证码</button>
             </dd>
         </dl>
         <dl>
@@ -46,5 +46,8 @@ echo $option;
         <button type="submit">确定</button>
     </blockquote>    
 </form>
+
+<script type="text/javascript" src="/js/script.js<?=$static_version?>"></script>
+<script type="text/javascript" src="/js/login.js<?=$static_version?>"></script>
 </body>
 </html>

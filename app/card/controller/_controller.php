@@ -4,7 +4,7 @@ namespace App\Card\Controller;
 
 class _Controller extends \MagicCube\Controller
 {
-    public $static_version = '?v=5';
+    public $static_version = '?v=7';
 
     public function __construct($vars = [])
     {
@@ -35,10 +35,32 @@ class _Controller extends \MagicCube\Controller
         exit;
     }
 
+    public function captcha($phone, $oid, $code)
+    {
+        $msg = null;
+        $SearchURL = new \Model\SearchURL();
+        $sql = "SELECT send_time FROM $this->db.pl_sms_code_t WHERE mobile_no = '$phone' AND operator_id = '$oid' AND send_content = '$code' ORDER BY `sms_id` DESC LIMIT 1";
+        $sth = $SearchURL->query($sql);
+        $sms = $sth->fetchObject();
+        if ($sms) {
+            $oldTime = strtotime($sms->send_time);
+            $nowTime = time();
+            # $nowTime = 1575285282;
+            $stepTime = $nowTime - $oldTime;
+            if ($stepTime > 300) {
+                $msg = '验证码已经过期，请重新发送验证码！';
+            }
+        } else {
+            $msg = '验证码不正确';
+        }
+        return $msg;
+    }
+
     public function login()
     {
         $oid = isset($_POST['oid']) ? $_POST['oid'] : null;
         $phone = isset($_POST['phone']) ? $_POST['phone'] : null;
+        $code = isset($_POST['code']) ? $_POST['code'] : null;
 
         $err = null;
         $SearchURL = new \Model\SearchURL();
@@ -53,20 +75,23 @@ class _Controller extends \MagicCube\Controller
                 if (!$user) {
                     $err = '在该商户没有找到这个手机号';
                 } else {
-                    $sql = "SELECT card_code, card_id FROM $this->db.pl_card_t WHERE user_id = '$user->user_id' LIMIT 1";
-                    $statement = $SearchURL->query($sql);
-                    $card = $statement->fetchObject();
+                    $err = $this->captcha($phone, $oid, $code);
+                    if (!$err) {
+                        $sql = "SELECT card_code, card_id FROM $this->db.pl_card_t WHERE user_id = '$user->user_id' LIMIT 1";
+                        $statement = $SearchURL->query($sql);
+                        $card = $statement->fetchObject();
 
-                    if ($card) {
-                        $_SESSION['user'] = $user;
-                        $_SESSION['card'] = $card;
-                        $_SESSION['uid'] = $user->user_id;
-                        $_SESSION['oid'] = $oid;
-                        $_SESSION['phone'] = $phone;
-                        header("Location: /card");
-                        exit;
-                    } else {
-                        $err = '无卡用户';
+                        if ($card) {
+                            $_SESSION['user'] = $user;
+                            $_SESSION['card'] = $card;
+                            $_SESSION['uid'] = $user->user_id;
+                            $_SESSION['oid'] = $oid;
+                            $_SESSION['phone'] = $phone;
+                            header("Location: /card");
+                            exit;
+                        } else {
+                            $err = '无卡用户';
+                        }
                     }
                 }
             }

@@ -78,6 +78,10 @@ blockquote {
     border: 1px solid #C4C4C4;
 }
 
+.login div button:disabled {
+    color: rgb(170,170,170);
+}
+
 
 /* login */
 
