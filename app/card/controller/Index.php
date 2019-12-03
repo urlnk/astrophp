@@ -6,7 +6,7 @@ class Index extends _controller
 {
     public function index()
     {
-        $user = $_SESSION['user'];
+        $user = isset($_SESSION['user']) ? $_SESSION['user'] : null;
 
         return array(
             'user' => $user,

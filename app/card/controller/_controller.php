@@ -12,12 +12,17 @@ class _Controller extends \MagicCube\Controller
         parent::__construct($vars);
         $controller = $vars['uriInfo']['controller'];
 
-        session_start();
+        session_start(['cookie_lifetime' => $_CONFIG['cookie_lifetime'],]);
         $uid = isset($_SESSION['uid']) ? $_SESSION['uid'] : null;
         if (!$uid && 'Login' != $controller) {
             header("Location: /card/login");
             exit;
+
+        } elseif ($uid && 'Login' == $controller) {
+            header("Location: /card");
+            exit;
         }
+
         $this->db = $_CONFIG['database']['db_name'];
     }
 
