@@ -65,8 +65,8 @@ class _Controller extends \MagicCube\Controller
     public function login()
     {
         $oid = isset($_POST['oid']) ? $_POST['oid'] : null;
-        $phone = isset($_POST['phone']) ? $_POST['phone'] : null;
-        $code = isset($_POST['code']) ? $_POST['code'] : null;
+        $phone = isset($_POST['phone']) ? trim($_POST['phone']) : null;
+        $code = isset($_POST['code']) ? trim($_POST['code']) : null;
 
         $err = null;
         $SearchURL = new \Model\SearchURL();
@@ -74,6 +74,10 @@ class _Controller extends \MagicCube\Controller
         if ('POST' == $_SERVER['REQUEST_METHOD']) {
             if (!$phone) {
                 $err = '请输入手机号';
+
+            } elseif (!$code) {
+                $err = '请输入验证码';
+
             } else {
                 $sql = "SELECT user_id, user_name FROM $this->db.pl_user_t WHERE telephone = '$phone' AND operator_id = '$oid' LIMIT 1";
                 $statement = $SearchURL->query($sql);
