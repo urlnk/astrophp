@@ -36,6 +36,7 @@ class _Controller extends \MagicCube\Controller
     public function logout()
     {
         session_destroy();
+        session_regenerate_id(true);
         header("Location: /card");
         exit;
     }
