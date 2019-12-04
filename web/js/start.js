@@ -30,11 +30,29 @@ function detect(obj) {
     global.uid = null
     console.log(obj.value)
     document.getElementsByTagName('section')[0].style.display = 'block'
-    div = document.getElementsByTagName('div')
-    len = div.length
-    for (i = 0; i < len; i++) {
-        div[i].style.display = 'none'
+    article = document.getElementsByTagName('article')
+    leng = article.length
+    for (j = 0; j < leng; j++) {
+        div = article[j].getElementsByTagName('div')
+        len = div.length
+        for (i = 0; i < len; i++) {
+            div[i].style.display = 'none'
+        }
     }
+
+    cx = document.getElementsByClassName('cxcalendar')
+    len = cx.length
+    for (k = 0; k < len; k++) {
+        cx[k].style.display = 'none'
+    }
+
+    cx = document.getElementsByClassName('cxcalendar_lock')
+    len = cx.length
+    for (k = 0; k < len; k++) {
+        cx[k].style.display = 'none'
+    }
+
+    filter.style.display = 'none'
     start_screen.style.display = 'block'
 
     uri = 'swipe'

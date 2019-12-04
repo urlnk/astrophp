@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
     <title>易捷一卡通查询系统</title>
     <link rel="stylesheet" type="text/css" href="/css/touch.css<?=$static_version?>">
+    <link rel="stylesheet" href="/css/jquery.cxcalendar.css<?=$static_version?>">
 </head>
 
 <body>
@@ -13,6 +14,32 @@
         请稍后，正在查询卡信息……
     </dialog>
 </section>
+
+<div id="filter" class="flt" style="display: none">
+    <form id="search_form">
+        <ol>
+            <li>
+                <b>从</b>
+                <span>
+                    <time onclick="cxCalendarApi.show();">1990/01/01</time>
+                    <input id="element_id" type="hidden" name="start" value="2019/01/01" data-format="YYYY/MM/DD" data-start-date="1919" data-end-date="2019" onchange="chg(this)">
+                </span>
+            </li>
+            <li>
+                <b>至</b>
+                <span>
+                    <time onclick="cxCalendarApi2.show();">1990/01/01</time>
+                    <input id="element_id2" type="hidden" name="end" value="2019/11/28" data-format="YYYY/MM/DD" data-start-date="2019-01-01" data-end-date="2019/11/28" onchange="chg(this, 1)">
+                </span>
+            </li>
+        </ol>
+
+        <footer>
+            <button type="button" onclick="flt()">取消</button>
+            <button type="button">确定</button>
+        </footer>
+    </form>
+</div>
 
 <article class="start">
 <div id="start_screen" style="display0: none">
@@ -150,14 +177,227 @@
 </div>
 </article>
 
-<article class="account">
+<article class="log">
 <div id="log" style="display: none;">
     <header>
         <h2>
             <a href="javascript:" onclick="back('log', 'home')">返回</a>
+            <a href="javascript:" onclick="flt()">筛选</a>
             <b>充值记录</b>
         </h2>
     </header>
+    <ul>
+        <li>
+            <dfn>现金</dfn>
+            <var>200.00元</var>
+            <time>2019-10-05 15:43:52</time>
+        </li>
+        <li>
+            <dfn>现金</dfn>
+            <var>200.00元</var>
+            <time>2019-10-05 15:43:52</time>
+        </li>
+        <li>
+            <dfn>现金</dfn>
+            <var>200.00元</var>
+            <time>2019-10-05 15:43:52</time>
+        </li>
+        <li>
+            <dfn>现金</dfn>
+            <var>200.00元</var>
+            <time>2019-10-05 15:43:52</time>
+        </li>
+        <li>
+            <dfn>现金</dfn>
+            <var>200.00元</var>
+            <time>2019-10-05 15:43:52</time>
+        </li>
+        <li>
+            <dfn>现金</dfn>
+            <var>200.00元</var>
+            <time>2019-10-05 15:43:52</time>
+        </li>
+        <li>
+            <dfn>现金</dfn>
+            <var>200.00元</var>
+            <time>2019-10-05 15:43:52</time>
+        </li>
+        <li>
+            <dfn>现金</dfn>
+            <var>200.00元</var>
+            <time>2019-10-05 15:43:52</time>
+        </li>
+        <li>
+            <dfn>现金</dfn>
+            <var>200.00元</var>
+            <time>2019-10-05 15:43:52</time>
+        </li>
+        <li>
+            <dfn>现金</dfn>
+            <var>200.00元</var>
+            <time>2019-10-05 15:43:52</time>
+        </li>
+        <li>
+            <dfn>现金</dfn>
+            <var>200.00元</var>
+            <time>2019-10-05 15:43:52</time>
+        </li>
+        <li>
+            <dfn>现金</dfn>
+            <var>200.00元</var>
+            <time>2019-10-05 15:43:52</time>
+        </li>
+        <li>
+            <dfn>现金</dfn>
+            <var>200.00元</var>
+            <time>2019-10-05 15:43:52</time>
+        </li>
+        <li>
+            <dfn>现金</dfn>
+            <var>200.00元</var>
+            <time>2019-10-05 15:43:52</time>
+        </li>
+        <li>
+            <dfn>现金</dfn>
+            <var>200.00元</var>
+            <time>2019-10-05 15:43:52</time>
+        </li>
+        <li>
+            <dfn>现金</dfn>
+            <var>200.00元</var>
+            <time>2019-10-05 15:43:52</time>
+        </li>
+        <li>
+            <dfn>现金</dfn>
+            <var>200.00元</var>
+            <time>2019-10-05 15:43:52</time>
+        </li>
+        <li>
+            <dfn>现金</dfn>
+            <var>200.00元</var>
+            <time>2019-10-05 15:43:52</time>
+        </li>
+        <li>
+            <dfn>现金</dfn>
+            <var>200.00元</var>
+            <time>2019-10-05 15:43:52</time>
+        </li>
+        <li>
+            <dfn>现金</dfn>
+            <var>200.00元</var>
+            <time>2019-10-05 15:43:52</time>
+        </li>
+        <li>
+            <dfn>现金</dfn>
+            <var>200.00元</var>
+            <time>2019-10-05 15:43:52</time>
+        </li>
+        <li>
+            <dfn>现金</dfn>
+            <var>200.00元</var>
+            <time>2019-10-05 15:43:52</time>
+        </li>
+        <li>
+            <dfn>现金</dfn>
+            <var>200.00元</var>
+            <time>2019-10-05 15:43:52</time>
+        </li>
+        <li>
+            <dfn>现金</dfn>
+            <var>200.00元</var>
+            <time>2019-10-05 15:43:52</time>
+        </li>
+        <li>
+            <dfn>现金</dfn>
+            <var>200.00元</var>
+            <time>2019-10-05 15:43:52</time>
+        </li>
+        <li>
+            <dfn>现金</dfn>
+            <var>200.00元</var>
+            <time>2019-10-05 15:43:52</time>
+        </li>
+        <li>
+            <dfn>现金</dfn>
+            <var>200.00元</var>
+            <time>2019-10-05 15:43:52</time>
+        </li>
+        <li>
+            <dfn>现金</dfn>
+            <var>200.00元</var>
+            <time>2019-10-05 15:43:52</time>
+        </li>
+        <li>
+            <dfn>现金</dfn>
+            <var>200.00元</var>
+            <time>2019-10-05 15:43:52</time>
+        </li>
+        <li>
+            <dfn>现金</dfn>
+            <var>200.00元</var>
+            <time>2019-10-05 15:43:52</time>
+        </li>
+        <li>
+            <dfn>现金</dfn>
+            <var>200.00元</var>
+            <time>2019-10-05 15:43:52</time>
+        </li>
+        <li>
+            <dfn>现金</dfn>
+            <var>200.00元</var>
+            <time>2019-10-05 15:43:52</time>
+        </li>
+        <li>
+            <dfn>现金</dfn>
+            <var>200.00元</var>
+            <time>2019-10-05 15:43:52</time>
+        </li>
+        <li>
+            <dfn>现金</dfn>
+            <var>200.00元</var>
+            <time>2019-10-05 15:43:52</time>
+        </li>
+        <li>
+            <dfn>现金</dfn>
+            <var>200.00元</var>
+            <time>2019-10-05 15:43:52</time>
+        </li>
+        <li>
+            <dfn>现金</dfn>
+            <var>200.00元</var>
+            <time>2019-10-05 15:43:52</time>
+        </li>
+        <li>
+            <dfn>现金</dfn>
+            <var>200.00元</var>
+            <time>2019-10-05 15:43:52</time>
+        </li>
+        <li>
+            <dfn>现金</dfn>
+            <var>200.00元</var>
+            <time>2019-10-05 15:43:52</time>
+        </li>
+        <li>
+            <dfn>现金</dfn>
+            <var>200.00元</var>
+            <time>2019-10-05 15:43:52</time>
+        </li>
+        <li>
+            <dfn>现金</dfn>
+            <var>200.00元</var>
+            <time>2019-10-05 15:43:52</time>
+        </li>
+        <li>
+            <dfn>现金</dfn>
+            <var>200.00元</var>
+            <time>2019-10-05 15:43:52</time>
+        </li>
+        <li>
+            <dfn>现金</dfn>
+            <var>200.00元</var>
+            <time>2019-10-05 15:43:52</time>
+        </li>
+    </ul>
 </div>
 </article>
 
@@ -198,6 +438,10 @@
     <input id="query" value="" placeholder="请输入明码" onfocus="this.select()" onchange="detect(this)">
 </blockquote>
 
+<script src="/js/jquery.min.js"></script>
+<script src="/js/jquery.cxcalendar.js"></script>
+<script src="/js/jquery.cxcalendar.languages.js"></script>
 <script type="text/javascript" src="/js/start.js<?=$static_version?>"></script>
+<script type="text/javascript" src="/js/log.js<?=$static_version?>"></script>
 </body>
 </html>

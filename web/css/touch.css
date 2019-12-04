@@ -13,6 +13,15 @@ a {
     text-decoration: none;
 }
 
+dfn, var {
+    font-style: normal;
+}
+
+button {
+    padding: 0;
+    border: none;
+}
+
 /* 开始屏幕 */
 .start {
     background-color: #ccc;
@@ -40,7 +49,7 @@ dialog {
     text-align: center;
 }
 
-.start div, .users div, .home div, .account div {
+.start div, .users div, .home div, .account div, .log div {
     background-color: #6DBB27;
     z-index: 2;
     position: fixed;
@@ -102,12 +111,12 @@ blockquote {
 }
 
 /* 选择用户 */
-.users header, .home header, .account header {
+.users header, .home header, .account header, .log header {
     background-color: #9CEE52;
     border-bottom: 1px solid #204201;
 }
 
-.users h2, .home h2, .account h2 {
+.users h2, .home h2, .account h2, .log h2 {
     font-size: 32px;
     line-height: 80px;
     width: 900px;
@@ -115,14 +124,14 @@ blockquote {
     font-weight: normal;
 }
 
-.users h2 b, .home h2 b, .account h2 b {
+.users h2 b, .home h2 b, .account h2 b, .log h2 b {
     display: block;
     font-weight: normal;
     width: 780px;
     padding-right: 120px;
 }
 
-.users h2 a, .home h2 a, .account h2 a {
+.users h2 a, .home h2 a, .account h2 a, .log h2 a {
     display: block;
     float: left;
     width: 120px;
@@ -165,7 +174,7 @@ blockquote {
     float: left;
 }
 
-.home h2 a:nth-child(2) {
+.home h2 a:nth-child(2), .log h2 a:nth-child(2) {
     float: right;
 }
 
@@ -200,3 +209,129 @@ blockquote {
 .account dd {
     text-align: right;
 }
+
+/* 充值记录 */
+.log {
+
+}
+
+.log header {
+    /*position: fixed;
+    z-index: 4;
+    width: 100%;*/
+}
+
+.log ul {
+    margin: 0 auto;
+    height: 687px;
+    width: 900px;
+    overflow-y: scroll;
+    background-color: rgba(255, 255, 255, 0.5);
+    font-size: 24px;
+    line-height: 60px;
+    text-align: left;
+}
+
+.log li {
+    height: 60px;
+    padding: 0 30px;
+}
+
+.log li:nth-child(even) {
+    background-color: rgba(255, 255, 255, 0.7);
+}
+
+.log li dfn {
+    float: left;
+    width: 280px;
+}
+
+.log li var {
+    float: left;
+    width: 280px;
+}
+
+.log li time {
+    float: right;
+}
+
+/* 筛选 */
+.flt {
+    position: fixed;
+    z-index: 3;
+    height: 100%;
+    width: 100%;
+    left: 0;
+    background-color: rgba(0,0,0,0.5);
+}
+
+.flt form {
+    background-color: #fff;
+}
+
+.flt ol {
+    overflow: hidden;
+    font-size: 18px;
+    line-height: 40px;
+    padding-left: 16px;
+    border-bottom: 1px solid #e2e2e2;
+}
+
+.flt li {
+    overflow: hidden;
+    border-bottom: 1px solid #e7e7e7;
+    padding: 5px 8px 5px 0;
+    max-width: 408px;
+    margin: 0 auto;
+}
+
+.flt b {
+    display: block;
+    text-align: center;
+    width: 90px;
+    padding: 0 10px;
+    float: left;
+    font-weight: normal;
+}
+
+.flt span {
+    display: block;
+    overflow: hidden;
+}
+
+.flt input {
+    display: block;
+    line-height: 40px;
+    font-size: 18px;
+    height: 40px;
+    border: none;
+    padding: 0;
+    outline: 0;
+    float: left;
+}
+
+.flt li:last-child {
+    border-bottom: none;
+}
+
+.flt footer {
+    overflow: hidden;
+    width: 300px;
+    margin: 0 auto;
+}
+
+.flt button {
+    font-size: 20px;
+    line-height: 50px;
+    background-color: #fff;
+    display: block;
+    float: left;
+    width: 150px;
+    color: #666;
+}
+
+.flt button[type=submit] {
+    color: #1AAC19;
+    border-left: 1px solid #e2e2e2;
+}
+
