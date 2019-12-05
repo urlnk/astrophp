@@ -27,7 +27,7 @@ class Api extends _controller
             $back = substr($hex, 4, 4);
             $str = $back . $front;
             $decimal = base_convert($str, 16, 10);
-            $decimal = '507015516';# 
+            # $decimal = '507015516';
 
             $sql = "SELECT A.user_id AS user_id, user_name, telephone, operator_name, organ_name 
 FROM $this->db.pl_card_t A 
