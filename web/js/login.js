@@ -1,5 +1,6 @@
 global.timeinterval = null
 global.total = 0
+btnSms0 = document.getElementById('btnSms')
 
 /* 发送短信验证码 */
 function sendsms(obj) {
@@ -14,7 +15,7 @@ function sendsms(obj) {
 
     global.total = 60
     global.timeinterval = setInterval(countdown, 1000)
-    btnSms.setAttribute('disabled', 'disabled')
+    btnSms0.setAttribute('disabled', 'disabled')
 
     formData = {phone:no, oid:oid}
     _.api( uri, formData )
@@ -26,12 +27,12 @@ function isPhone(str) {
 
 function countdown() {
     global.total--
-    btnSms.innerHTML = global.total + 's'
+    btnSms0.innerHTML = global.total + 's'
     console.log(global.total)
     if (global.total < 1) {
         clearInterval(global.timeinterval)
-        btnSms.innerHTML = '验证码'
-        btnSms.removeAttribute('disabled')
+        btnSms0.innerHTML = '验证码'
+        btnSms0.removeAttribute('disabled')
         console.log(Date())
     }
 }
