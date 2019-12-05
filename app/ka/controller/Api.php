@@ -27,7 +27,7 @@ class Api extends _controller
             $back = substr($hex, 4, 4);
             $str = $back . $front;
             $decimal = base_convert($str, 16, 10);
-            # $decimal = '507015516';
+            $decimal = '507015516';# 
 
             $sql = "SELECT A.user_id AS user_id, user_name, telephone, operator_name, organ_name 
 FROM $this->db.pl_card_t A 
@@ -216,6 +216,109 @@ LIMIT 50";
         } else {
             $code = 3;
             $msg = '不是有效的用户ID';
+        }
+
+        $arr = array(
+            'code' => $code,
+            'msg' => $msg,
+            'data' => $data,
+        );
+        echo json_encode($arr);
+        exit;
+    }
+
+    public function order()
+    {
+        $uid = isset($_GET['uid']) ? trim($_GET['uid']) : null;
+        $type = isset($_GET['type']) ? trim($_GET['type']) : null;
+        $SearchURL = new \Model\SearchURL();
+        $code = 0;
+        $msg = '';
+        $orderType = $type ? 'CONSUME' : 'RECHARGE';
+
+        // 最早日期
+        $sql = "SELECT order_time FROM $this->db.pl_order_flow_t WHERE user_id = '$uid' AND order_type_code = '$orderType' ORDER BY order_time LIMIT 1";
+        $sth = $SearchURL->query($sql);
+        $order = $sth->fetchObject();
+        $start_date = '2019/01/01';
+        if ($order) {
+            $time = strtotime($order->order_time);
+            $start_date = date('Y/m/d', $time);
+        }
+        $end_date = date('Y/m/d');
+
+        $data = array(
+            'start_date' => $start_date,
+            'end_date' => $end_date,
+        );
+
+        $arr = array(
+            'code' => $code,
+            'msg' => $msg,
+            'data' => $data,
+        );
+        echo json_encode($arr);
+        exit;
+    }
+
+    public function log()
+    {
+        $uid = isset($_GET['uid']) ? trim($_GET['uid']) : null;
+        $start = isset($_GET['start']) ? $_GET['start'] : null;
+        $end = isset($_GET['end']) ? $_GET['end'] : null;
+        $page = isset($_GET['page']) ? $_GET['page'] : 1;
+        $SearchURL = new \Model\SearchURL();
+        $limit = 20;
+        $offset = $limit * $page - $limit;
+        $code = $total = 0;
+        $msg = '';
+        $data = array();
+
+        // 筛选日期
+        $filter = '';
+        if (preg_match('/^\d{4}\/\d{2}\/\d{2}$/', $start, $matches)) {
+            $start_time = str_replace('/', '-', $start);
+            $filter .= " AND order_time >= '$start_time 00:00:00'";
+        }
+        if (preg_match('/^\d{4}\/\d{2}\/\d{2}$/', $end, $matches)) {
+            $end_time = str_replace('/', '-', $end);
+            $filter .= " AND order_time <= '$end_time 23:59:59'";
+        }
+
+        // 总条数
+        $sql = "SELECT COUNT(1) AS total 
+FROM $this->db.pl_order_flow_t A 
+WHERE user_id = '$uid' AND order_type_code = 'RECHARGE' AND refund_flag = '0' $filter ";
+
+        $sth = $SearchURL->query($sql);
+        $var = $sth->fetchObject();
+        if ($var) {
+            $total = $var->total;
+        }
+        $pages = ceil($total / $limit);
+        $code = $overflow = (int) ($page >= $pages);
+        if ($overflow) {
+            $msg = '没有更多数据了';
+        }
+
+        // 所有条目
+        $sql = "SELECT order_amount, param_name, order_time 
+FROM $this->db.pl_order_flow_t A 
+LEFT JOIN $this->db.pl_parameter_code_t B ON B.param_type='payment_code' AND B.param_code=A.payment_code 
+WHERE user_id = '$uid' AND order_type_code = 'RECHARGE' AND refund_flag = '0' $filter 
+ORDER BY order_flow_no DESC 
+LIMIT $offset, $limit";
+
+        $statement = $SearchURL->query($sql);
+        $payments = $statement->fetchAll(\PDO::FETCH_OBJ);
+
+        // 遍历数据
+        foreach ($payments as $payment) {
+            $data[] = array(
+                'order_amount' => $payment->order_amount,
+                'param_name' => $payment->param_name,
+                'order_time' => $payment->order_time,
+            );
         }
 
         $arr = array(

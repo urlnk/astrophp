@@ -125,7 +125,7 @@
     <ul>
         <li><a href="javascript:" onclick="showAccount()">账户信息</a></li>
         <li><a href="javascript:" onclick="show('home', 'recharge')">账户充值</a></li>
-        <li><a href="javascript:" onclick="show('home', 'log')">充值记录</a></li>
+        <li><a href="javascript:" onclick="showLog()">充值记录</a></li>
         <li><a href="javascript:" onclick="show('home', 'consume')">消费记录</a></li>
         <li><a href="javascript:" onclick="show('home', 'loss')">挂失解挂</a></li>
         <li><a href="javascript:" onclick="show('home', 'info')">完善信息</a></li>
@@ -186,7 +186,7 @@
             <b>充值记录</b>
         </h2>
     </header>
-    <ul>
+    <ul id="logs_list">
         <li>
             <dfn>现金</dfn>
             <var>200.00元</var>

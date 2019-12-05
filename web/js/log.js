@@ -3,8 +3,10 @@ function flt() {
     el = document.getElementById('filter')
     if (el.style.display != 'none') {
         el.style.display = 'none'
+        global.focus = 1
     } else {
         el.style.display = 'block'
+        global.focus = 0
     }
 }
 
@@ -16,9 +18,3 @@ function chg(el, idx) {
 
 // 初始化日历
 var cxCalendarApi, cxCalendarApi2;
-$("#element_id").cxCalendar({}, function(api){
-    cxCalendarApi = api;
-});
-$("#element_id2").cxCalendar({}, function(api){
-    cxCalendarApi2 = api;
-});

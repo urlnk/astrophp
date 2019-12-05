@@ -1,6 +1,8 @@
 // 全局变量
 global = {
-    uid: null
+    uid: null,
+    page: 1,
+    focus: 1,
 }
 
 XHR = []
@@ -22,8 +24,10 @@ document.getElementById('query').focus()
 interval = setInterval(keep, 500)
 
 function keep() {
-    document.getElementById('query').focus()
-    console.log(Date())
+    if (global.focus) {
+        document.getElementById('query').focus()
+        console.log(Date())
+    }
 }
 
 function detect(obj) {
@@ -85,6 +89,15 @@ function showAccount() {
     formData = {}
     formData['uid'] = global.uid
     _.api( uri, formData, 'post' )
+}
+
+function showLog() {
+    document.getElementsByTagName('section')[0].style.display = 'block'
+
+    uri = 'order'
+    formData = {}
+    formData['uid'] = global.uid
+    _.api( uri, formData )
 }
 
 function back(i, id) {
@@ -287,5 +300,102 @@ function api_account(arg) {
 
     document.getElementsByTagName('section')[0].style.display = 'none'
     show('home', 'account')
+    console.log(json)
+}
+
+function api_order(arg) {
+    position = 'beforeEnd'
+    load_msg = ''
+    json = RESP['order']
+    code = json.code
+    msg = json.msg
+    data = json.data
+    switch (code) {
+        case 0:
+            break
+        case 1:
+        case 2:
+            load_msg = msg
+            break
+        case 3:
+            alert(msg)
+            return
+        default:
+            alert(code + ': ' + msg)
+            return
+    }
+
+    // choice_user.style.display = 'block'
+    // start_screen.style.display = 'none'
+
+    time = document.getElementsByTagName('time')
+    el = document.getElementById('element_id')
+    el2 = document.getElementById('element_id2')
+    len = 2
+    i = 0
+    for (; i < len; i++) {
+        row = time[i]
+        row.innerHTML = '-'
+    }
+
+    time[0].innerHTML = el.value = data.start_date
+    time[1].innerHTML = el2.value = data.end_date
+    el.setAttribute('data-start-date', data.start_date)
+    el.setAttribute('data-end-date', data.end_date)
+    el2.setAttribute('data-start-date', data.start_date)
+    el2.setAttribute('data-end-date', data.end_date)
+
+    $("#element_id").cxCalendar({}, function(api){
+        cxCalendarApi = api;
+    });
+    $("#element_id2").cxCalendar({}, function(api){
+        cxCalendarApi2 = api;
+    });
+
+    uri = 'log'
+    formData = {}
+    formData['uid'] = global.uid
+    _.api( uri, formData )
+    console.log(json)
+}
+
+function api_log(arg) {
+    position = 'beforeEnd'
+    load_msg = ''
+    json = RESP['log']
+    code = json.code
+    msg = json.msg
+    data = json.data
+    switch (code) {
+        case 0:
+            break
+        case 1:
+        case 2:
+            load_msg = msg
+            break
+        case 3:
+            alert(msg)
+            return
+        default:
+            alert(code + ': ' + msg)
+            return
+    }
+
+    logs_lst = document.getElementById('logs_list')
+    if (global.page <= 1) {
+        logs_lst.innerHTML = ''
+    }
+    len = data.length
+    i = 0
+    for (; i < len; i++) {
+        row = data[i]
+
+        html = '<li><dfn>' + row.param_name + '</dfn><var>' + row.order_amount + '元</var><time>' + row.order_time + '</time></li>'
+
+        logs_lst.insertAdjacentHTML(position, html)
+    }
+
+    document.getElementsByTagName('section')[0].style.display = 'none'
+    show('home', 'log')
     console.log(json)
 }
