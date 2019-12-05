@@ -13,6 +13,7 @@
     <h2><?=$user ? $user->user_name : '-'?></h2>
     <p>
         <button type="button" onclick="window.location.href = '/card/logout';">退出</button>
+        <cite><?=$user ? $user->organ_name : '-'?></cite>
     </p>
 </div>
 

@@ -4,7 +4,7 @@ namespace App\Card\Controller;
 
 class _Controller extends \MagicCube\Controller
 {
-    public $static_version = '?v=7';
+    public $static_version = '?v=10';
 
     public function __construct($vars = [])
     {
@@ -79,7 +79,11 @@ class _Controller extends \MagicCube\Controller
                 $err = '请输入验证码';
 
             } else {
-                $sql = "SELECT user_id, user_name FROM $this->db.pl_user_t WHERE telephone = '$phone' AND operator_id = '$oid' LIMIT 1";
+                $sql = "SELECT user_id, user_name, organ_name 
+FROM $this->db.pl_user_t A 
+LEFT JOIN $this->db.pl_organization_t B ON B.organ_id = A.organ_id 
+WHERE telephone = '$phone' AND A.operator_id = '$oid' 
+LIMIT 1";
                 $statement = $SearchURL->query($sql);
                 $user = $statement->fetchObject();
                 if (!$user) {
@@ -434,6 +438,9 @@ SET user_name = '$user_name', sex = '$sex', birthday = '$date'
 WHERE user_id = '$uid' 
 LIMIT 1";
                 $count = $SearchURL->exec($sql);
+                if ($count) {
+                    $_SESSION['user']->user_name = $user_name;
+                }
 
                 header("Location: /card/info?tip");
                 exit;

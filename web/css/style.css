@@ -213,6 +213,19 @@ blockquote {
     color: #fff;
 }
 
+.home cite {
+    display: block;
+    text-align: left;
+    color: #fff;
+    font-style: normal;
+    font-size: 18px;
+    line-height: 48px;
+    padding: 0 20px 0 40px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
 .home p {
     height: 50px;
     padding: 20px 20px 20px 0;
@@ -335,21 +348,21 @@ blockquote {
 }
 
 .login ol {
-	border-bottom: none;
+    border-bottom: none;
 }
 
 .login dialog li {
-	text-align: right;
+    text-align: right;
 }
 
 .login label {
-	display: block;
-	padding: 0 20px;
+    display: block;
+    padding: 0 20px;
 }
 
 .login ol span {
-	display: block;
-	float: left;
+    display: block;
+    float: left;
 }
 
 .account li, .login dialog li {
