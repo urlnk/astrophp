@@ -100,7 +100,6 @@ LIMIT $offset, $limit";
         // 总条数
         $sql = "SELECT COUNT(1) AS total 
 FROM $this->db.pl_order_flow_t A 
-LEFT JOIN $this->db.pl_payment_flow_t B ON B.order_flow_no = A.order_flow_no 
 WHERE user_id = '$uid' AND order_type_code = 'CONSUME' AND refund_flag = 0 $filter ";
 
         $sth = $SearchURL->query($sql);

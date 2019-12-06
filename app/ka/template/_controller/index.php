@@ -48,14 +48,6 @@
         <dl><a href="javascript:">手机号登录</a></dl>
         <dl><a href="javascript:">绑定手机号</a></dl>
     </ol>
-    <ul>
-        <li><a href="javascript:">账户信息</a></li>
-        <li><a href="javascript:">账户充值</a></li>
-        <li><a href="javascript:">充值记录</a></li>
-        <li><a href="javascript:">消费记录</a></li>
-        <li><a href="javascript:">挂失解挂</a></li>
-        <li><a href="javascript:">完善信息</a></li>
-    </ul>
 </div>
 </article>
 
@@ -69,46 +61,6 @@
     </header>
     <h1>请选择用户：</h1>
     <ul id="users_list">
-        <li>
-            <a href="javascript:" onclick="choice(this)" data-uid="100">
-                <u>测试调试卡测试调试卡测试调试卡</u>
-                <p>1566555166015665551660</p>
-                <p>马鞍山慈湖高新区马鞍山慈湖高新区</p>
-                <p>默认机构默认机构默认机构默认机构</p>
-            </a>
-        </li>
-        <li>
-            <a href="javascript:">
-                <u>测试调试卡</u>
-                <p>15665551660</p>
-                <p>马鞍山慈湖高新区</p>
-                <p>默认机构</p>
-            </a>
-        </li>
-        <li>
-            <a href="javascript:">
-                <u>测试调试卡</u>
-                <p>15665551660</p>
-                <p>马鞍山慈湖高新区</p>
-                <p>默认机构</p>
-            </a>
-        </li>
-        <li>
-            <a href="javascript:">
-                <u>测试调试卡</u>
-                <p>15665551660</p>
-                <p>马鞍山慈湖高新区</p>
-                <p>默认机构</p>
-            </a>
-        </li>
-        <li>
-            <a href="javascript:">
-                <u>测试调试卡</u>
-                <p>15665551660</p>
-                <p>马鞍山慈湖高新区</p>
-                <p>默认机构</p>
-            </a>
-        </li>
     </ul>
 </div>
 </article>
@@ -126,7 +78,7 @@
         <li><a href="javascript:" onclick="showAccount()">账户信息</a></li>
         <li><a href="javascript:" onclick="show('home', 'recharge')">账户充值</a></li>
         <li><a href="javascript:" onclick="showLog()">充值记录</a></li>
-        <li><a href="javascript:" onclick="show('home', 'consume')">消费记录</a></li>
+        <li><a href="javascript:" onclick="showConsume()">消费记录</a></li>
         <li><a href="javascript:" onclick="show('home', 'loss')">挂失解挂</a></li>
         <li><a href="javascript:" onclick="show('home', 'info')">完善信息</a></li>
     </ul>
@@ -188,230 +140,26 @@
     </header>
     <main>
     <ul id="logs_list">
-        <li>
-            <dfn>现金</dfn>
-            <var>200.00元</var>
-            <time>2019-10-05 15:43:52</time>
-        </li>
-        <li>
-            <dfn>现金</dfn>
-            <var>200.00元</var>
-            <time>2019-10-05 15:43:52</time>
-        </li>
-        <li>
-            <dfn>现金</dfn>
-            <var>200.00元</var>
-            <time>2019-10-05 15:43:52</time>
-        </li>
-        <li>
-            <dfn>现金</dfn>
-            <var>200.00元</var>
-            <time>2019-10-05 15:43:52</time>
-        </li>
-        <li>
-            <dfn>现金</dfn>
-            <var>200.00元</var>
-            <time>2019-10-05 15:43:52</time>
-        </li>
-        <li>
-            <dfn>现金</dfn>
-            <var>200.00元</var>
-            <time>2019-10-05 15:43:52</time>
-        </li>
-        <li>
-            <dfn>现金</dfn>
-            <var>200.00元</var>
-            <time>2019-10-05 15:43:52</time>
-        </li>
-        <li>
-            <dfn>现金</dfn>
-            <var>200.00元</var>
-            <time>2019-10-05 15:43:52</time>
-        </li>
-        <li>
-            <dfn>现金</dfn>
-            <var>200.00元</var>
-            <time>2019-10-05 15:43:52</time>
-        </li>
-        <li>
-            <dfn>现金</dfn>
-            <var>200.00元</var>
-            <time>2019-10-05 15:43:52</time>
-        </li>
-        <li>
-            <dfn>现金</dfn>
-            <var>200.00元</var>
-            <time>2019-10-05 15:43:52</time>
-        </li>
-        <li>
-            <dfn>现金</dfn>
-            <var>200.00元</var>
-            <time>2019-10-05 15:43:52</time>
-        </li>
-        <li>
-            <dfn>现金</dfn>
-            <var>200.00元</var>
-            <time>2019-10-05 15:43:52</time>
-        </li>
-        <li>
-            <dfn>现金</dfn>
-            <var>200.00元</var>
-            <time>2019-10-05 15:43:52</time>
-        </li>
-        <li>
-            <dfn>现金</dfn>
-            <var>200.00元</var>
-            <time>2019-10-05 15:43:52</time>
-        </li>
-        <li>
-            <dfn>现金</dfn>
-            <var>200.00元</var>
-            <time>2019-10-05 15:43:52</time>
-        </li>
-        <li>
-            <dfn>现金</dfn>
-            <var>200.00元</var>
-            <time>2019-10-05 15:43:52</time>
-        </li>
-        <li>
-            <dfn>现金</dfn>
-            <var>200.00元</var>
-            <time>2019-10-05 15:43:52</time>
-        </li>
-        <li>
-            <dfn>现金</dfn>
-            <var>200.00元</var>
-            <time>2019-10-05 15:43:52</time>
-        </li>
-        <li>
-            <dfn>现金</dfn>
-            <var>200.00元</var>
-            <time>2019-10-05 15:43:52</time>
-        </li>
-        <li>
-            <dfn>现金</dfn>
-            <var>200.00元</var>
-            <time>2019-10-05 15:43:52</time>
-        </li>
-        <li>
-            <dfn>现金</dfn>
-            <var>200.00元</var>
-            <time>2019-10-05 15:43:52</time>
-        </li>
-        <li>
-            <dfn>现金</dfn>
-            <var>200.00元</var>
-            <time>2019-10-05 15:43:52</time>
-        </li>
-        <li>
-            <dfn>现金</dfn>
-            <var>200.00元</var>
-            <time>2019-10-05 15:43:52</time>
-        </li>
-        <li>
-            <dfn>现金</dfn>
-            <var>200.00元</var>
-            <time>2019-10-05 15:43:52</time>
-        </li>
-        <li>
-            <dfn>现金</dfn>
-            <var>200.00元</var>
-            <time>2019-10-05 15:43:52</time>
-        </li>
-        <li>
-            <dfn>现金</dfn>
-            <var>200.00元</var>
-            <time>2019-10-05 15:43:52</time>
-        </li>
-        <li>
-            <dfn>现金</dfn>
-            <var>200.00元</var>
-            <time>2019-10-05 15:43:52</time>
-        </li>
-        <li>
-            <dfn>现金</dfn>
-            <var>200.00元</var>
-            <time>2019-10-05 15:43:52</time>
-        </li>
-        <li>
-            <dfn>现金</dfn>
-            <var>200.00元</var>
-            <time>2019-10-05 15:43:52</time>
-        </li>
-        <li>
-            <dfn>现金</dfn>
-            <var>200.00元</var>
-            <time>2019-10-05 15:43:52</time>
-        </li>
-        <li>
-            <dfn>现金</dfn>
-            <var>200.00元</var>
-            <time>2019-10-05 15:43:52</time>
-        </li>
-        <li>
-            <dfn>现金</dfn>
-            <var>200.00元</var>
-            <time>2019-10-05 15:43:52</time>
-        </li>
-        <li>
-            <dfn>现金</dfn>
-            <var>200.00元</var>
-            <time>2019-10-05 15:43:52</time>
-        </li>
-        <li>
-            <dfn>现金</dfn>
-            <var>200.00元</var>
-            <time>2019-10-05 15:43:52</time>
-        </li>
-        <li>
-            <dfn>现金</dfn>
-            <var>200.00元</var>
-            <time>2019-10-05 15:43:52</time>
-        </li>
-        <li>
-            <dfn>现金</dfn>
-            <var>200.00元</var>
-            <time>2019-10-05 15:43:52</time>
-        </li>
-        <li>
-            <dfn>现金</dfn>
-            <var>200.00元</var>
-            <time>2019-10-05 15:43:52</time>
-        </li>
-        <li>
-            <dfn>现金</dfn>
-            <var>200.00元</var>
-            <time>2019-10-05 15:43:52</time>
-        </li>
-        <li>
-            <dfn>现金</dfn>
-            <var>200.00元</var>
-            <time>2019-10-05 15:43:52</time>
-        </li>
-        <li>
-            <dfn>现金</dfn>
-            <var>200.00元</var>
-            <time>2019-10-05 15:43:52</time>
-        </li>
-        <li>
-            <dfn>现金</dfn>
-            <var>200.00元</var>
-            <time>2019-10-05 15:43:52</time>
-        </li>
     </ul>
     <p>没有更多数据了</p>
     </main>
 </div>
 </article>
 
-<article class="account">
+<article class="consume">
 <div id="consume" style="display: none;">
     <header>
         <h2>
             <a href="javascript:" onclick="back('consume', 'home')">返回</a>
+            <a href="javascript:" onclick="flt()">筛选</a>
             <b>消费记录</b>
         </h2>
     </header>
+    <main>
+    <ul id="consumes_list">
+    </ul>
+    <p>没有更多数据了</p>
+    </main>
 </div>
 </article>
 
