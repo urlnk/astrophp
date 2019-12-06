@@ -403,6 +403,7 @@ LIMIT $offset, $limit";
         $previous = null;
         $i = 0;
         foreach ($variable as $value) {
+            $value->request_flow_no = strtotime($value->order_time);
             if ($previous) {
                 if ($value->request_flow_no == $previous->request_flow_no) {
                     $arr = array();
