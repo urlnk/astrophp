@@ -221,7 +221,8 @@ blockquote {
     width: 100%;*/
 }
 
-.log ul {
+.log main {
+    display: block;
     margin: 0 auto;
     height: 687px;
     width: 900px;
@@ -230,6 +231,14 @@ blockquote {
     font-size: 24px;
     line-height: 60px;
     text-align: left;
+}
+
+.log ul {
+
+}
+
+.log p {
+    text-align: center;
 }
 
 .log li {

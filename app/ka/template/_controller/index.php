@@ -16,7 +16,7 @@
 </section>
 
 <div id="filter" class="flt" style="display: none">
-    <form id="search_form">
+    <form id="search_form" data-type="0" onsubmit="return filterSubmit()">
         <ol>
             <li>
                 <b>从</b>
@@ -36,7 +36,7 @@
 
         <footer>
             <button type="button" onclick="flt()">取消</button>
-            <button type="button">确定</button>
+            <button type="submit">确定</button>
         </footer>
     </form>
 </div>
@@ -186,6 +186,7 @@
             <b>充值记录</b>
         </h2>
     </header>
+    <main>
     <ul id="logs_list">
         <li>
             <dfn>现金</dfn>
@@ -398,6 +399,8 @@
             <time>2019-10-05 15:43:52</time>
         </li>
     </ul>
+    <p>没有更多数据了</p>
+    </main>
 </div>
 </article>
 

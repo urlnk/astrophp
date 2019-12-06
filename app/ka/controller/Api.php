@@ -8,6 +8,7 @@ use AlibabaCloud\Client\Exception\ServerException;
 
 class Api extends _controller
 {
+    /* 刷卡 */
     public function swipe()
     {
         $no = isset($_POST['no']) ? trim($_POST['no']) : null;
@@ -17,6 +18,7 @@ class Api extends _controller
         $SearchURL = new \Model\SearchURL();
 
         if (is_numeric($no)) {
+            // 转换卡号
             $hex = base_convert($no, 10, 16);
             $len = strlen($hex);
             while ($len < 8) {
@@ -29,6 +31,7 @@ class Api extends _controller
             $decimal = base_convert($str, 16, 10);
             # $decimal = '507015516';
 
+            // 查找用户
             $sql = "SELECT A.user_id AS user_id, user_name, telephone, operator_name, organ_name 
 FROM $this->db.pl_card_t A 
 LEFT JOIN $this->db.pl_user_t B ON B.user_id = A.user_id 
@@ -38,9 +41,14 @@ WHERE A.card_code = '$decimal'
 LIMIT 50";
             $statement = $SearchURL->query($sql);
             $data = $statement->fetchAll(\PDO::FETCH_OBJ);
+            $len = count($data);
+            if (!$len) {
+                $code = 2;
+                $msg = '没有找到用户';
+            }
 
         } else {
-            $code = 3;
+            $code = 2;
             $msg = '不是有效的卡号';
         }
 
@@ -53,6 +61,7 @@ LIMIT 50";
         exit;
     }
 
+    /* 发短信 */
     public function sms()
     {
         $phone = isset($_GET['phone']) ? trim($_GET['phone']) : null;
@@ -125,6 +134,7 @@ LIMIT 50";
         exit;
     }
 
+    /* 短信记录 */
     public function smsLog($phone, $code, $oid)
     {
         $SearchURL = new \Model\SearchURL();
@@ -133,6 +143,7 @@ LIMIT 50";
         return $count = $SearchURL->exec($sql);
     }
 
+    /* 短信接口 */
     public function sendSms($phone, $code)
     {
         global $_CONFIG;
@@ -154,7 +165,7 @@ LIMIT 50";
                                                 'query' => [
                                                   'RegionId' => "cn-hangzhou",
                                                   'PhoneNumbers' => $phone,
-                                                  'SignName' => "易捷一卡通",
+                                                  'SignName' => "易卡通",
                                                   'TemplateCode' => "SMS_179075235",
                                                   'TemplateParam' => "{\"code\":\"$code\"}",
                                                 ],
@@ -175,6 +186,7 @@ LIMIT 50";
         return $res;
     }
 
+    /* 账户信息 */
     public function account()
     {
         $uid = isset($_POST['uid']) ? trim($_POST['uid']) : null;
@@ -227,6 +239,7 @@ LIMIT 50";
         exit;
     }
 
+    /* 充值/消费订单日期 */
     public function order()
     {
         $uid = isset($_GET['uid']) ? trim($_GET['uid']) : null;
@@ -261,6 +274,7 @@ LIMIT 50";
         exit;
     }
 
+    /* 充值记录 */
     public function log()
     {
         $uid = isset($_GET['uid']) ? trim($_GET['uid']) : null;

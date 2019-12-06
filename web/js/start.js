@@ -5,6 +5,17 @@ global = {
     focus: 1,
 }
 
+ele = {
+    searchForm: document.getElementById('search_form'),
+    startDate: document.getElementById('element_id'),
+    endDate: document.getElementById('element_id2'),
+    log: document.getElementById('log')
+}
+
+elt = {
+    logMsg: ele.log.getElementsByTagName('p')[0]
+}
+
 XHR = []
 AJAX = []
 RESP = []
@@ -66,11 +77,6 @@ function detect(obj) {
     obj.value = ''
 }
 
-function wtf() {
-    document.getElementsByTagName('section')[0].style.display = 'none'
-    back('start_screen', 'choice_user')
-}
-
 function choice(obj) {
     global.uid = obj.getAttribute('data-uid')
     choice_user.style.display = 'none'
@@ -93,11 +99,30 @@ function showAccount() {
 
 function showLog() {
     document.getElementsByTagName('section')[0].style.display = 'block'
+    global.page = 1
+    ele.searchForm.setAttribute('data-type', 0)
 
     uri = 'order'
     formData = {}
     formData['uid'] = global.uid
     _.api( uri, formData )
+}
+
+function filterSubmit() {
+    document.getElementsByTagName('section')[0].style.display = 'block'
+    flt()
+    global.page = 1
+    type = ele.searchForm.getAttribute('data-type')
+    uri = 'log'
+    if (0 < type) {
+        uri = 'consume'
+    }
+    formData = {}
+    formData['uid'] = global.uid
+    formData['start'] = ele.startDate.value
+    formData['end'] = ele.endDate.value
+    _.api( uri, formData )
+    return false
 }
 
 function back(i, id) {
@@ -240,9 +265,6 @@ function api_swipe(arg) {
             return
     }
 
-    // choice_user.style.display = 'block'
-    // start_screen.style.display = 'none'
-
     users_list.innerHTML = ''
     len = data.length
     i = 0
@@ -254,8 +276,12 @@ function api_swipe(arg) {
         users_list.insertAdjacentHTML(position, html)
     }
 
-    // document.getElementsByTagName('section')[0].style.display = 'none'
-    wtf()
+    if (len) {
+        back('start_screen', 'choice_user')
+    } else if(load_msg) {
+        alert(load_msg)
+    }
+    document.getElementsByTagName('section')[0].style.display = 'none'
     console.log(json)
 }
 
@@ -281,9 +307,6 @@ function api_account(arg) {
             return
     }
 
-    // choice_user.style.display = 'block'
-    // start_screen.style.display = 'none'
-
     dd = account.getElementsByTagName('dd')
     len = dd.length
     i = 0
@@ -304,6 +327,8 @@ function api_account(arg) {
 }
 
 function api_order(arg) {
+    arg = decodeURI(arg)
+    arg = JSON.parse(arg)
     position = 'beforeEnd'
     load_msg = ''
     json = RESP['order']
@@ -324,9 +349,6 @@ function api_order(arg) {
             alert(code + ': ' + msg)
             return
     }
-
-    // choice_user.style.display = 'block'
-    // start_screen.style.display = 'none'
 
     time = document.getElementsByTagName('time')
     el = document.getElementById('element_id')
@@ -352,11 +374,16 @@ function api_order(arg) {
         cxCalendarApi2 = api;
     });
 
+    type = ele.searchForm.getAttribute('data-type')
     uri = 'log'
+    if (0 < type) {
+        uri = 'consume'
+    }
     formData = {}
     formData['uid'] = global.uid
     _.api( uri, formData )
     console.log(json)
+    console.log(arg)
 }
 
 function api_log(arg) {
@@ -394,6 +421,8 @@ function api_log(arg) {
 
         logs_lst.insertAdjacentHTML(position, html)
     }
+    elt.logMsg.innerHTML = load_msg
+    global.page++
 
     document.getElementsByTagName('section')[0].style.display = 'none'
     show('home', 'log')
