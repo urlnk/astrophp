@@ -79,7 +79,7 @@
         <li><a href="javascript:" onclick="show('home', 'recharge')">账户充值</a></li>
         <li><a href="javascript:" onclick="showLog()">充值记录</a></li>
         <li><a href="javascript:" onclick="showConsume()">消费记录</a></li>
-        <li><a href="javascript:" onclick="show('home', 'loss')">挂失解挂</a></li>
+        <li><a href="javascript:" onclick="showLoss()">挂失解挂</a></li>
         <li><a href="javascript:" onclick="show('home', 'info')">完善信息</a></li>
     </ul>
 </div>
@@ -163,14 +163,27 @@
 </div>
 </article>
 
-<article class="account">
-<div id="loss" style="display: none;">
+<article class="loss">
+<div id="loss" style="display: none;" data-status="">
     <header>
         <h2>
             <a href="javascript:" onclick="back('loss', 'home')">返回</a>
             <b>挂失解挂</b>
         </h2>
     </header>
+    <ul>
+        <dl>
+            <dt>卡内码</dt>
+            <dd></dd>
+        </dl>
+        <dl>
+            <dt>卡状态</dt>
+            <dd></dd>
+        </dl>
+    </ul>
+    <ol>
+        <li><a href="javascript:" onclick="loss()">挂失</a></li>
+    </ol>
 </div>
 </article>
 

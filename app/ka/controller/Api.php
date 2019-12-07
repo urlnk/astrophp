@@ -459,4 +459,102 @@ LIMIT $offset, $limit";
         echo json_encode($arr);
         exit;
     }
+
+    /* 挂失解挂 */
+    public function loss()
+    {
+        $uid = isset($_GET['uid']) ? trim($_GET['uid']) : null;
+        $code = 0;
+        $msg = '';
+        $data = array();
+        $SearchURL = new \Model\SearchURL();
+
+        if ('POST' == $_SERVER['REQUEST_METHOD']) {
+            $uid = $_POST['uid'];
+            $card_status = $_POST['card_status'];
+            $status = $type = $text = $param_name = null;
+            switch ($card_status) {
+                case 'RELEASED':
+                    $status = 'LOST';
+                    $type = 'LOSS_REPORT';
+                    $text = '挂失成功';
+                    $param_name = '挂失';
+                    break;
+                case 'LOST':
+                    $status = 'RELEASED';
+                    $type = 'HANG_CARD';
+                    $text = '解挂成功';
+                    $param_name = '已发行';
+                    break;
+            }
+
+            // 读取卡信息
+            $sql = "SELECT param_name, card_code, card_status, card_id, operator_id 
+FROM $this->db.pl_card_t A 
+LEFT JOIN $this->db.pl_parameter_code_t B ON B.param_type='card_status' AND B.param_code = A.card_status 
+WHERE user_id = '$uid' 
+LIMIT 1";
+
+            $sth= $SearchURL->query($sql);
+            $card = $sth->fetchObject();
+
+            if ($card) {
+                $data = $card;
+                $data->card_status = $status;
+                $data->param_name = $param_name;
+
+            } else {
+                $code = 1;
+                $msg = '无卡用户';
+            }
+
+            // 卡信息更新状态
+            if ($card && $status) {
+                $sql = "UPDATE $this->db.pl_card_t 
+SET card_status = '$status' 
+WHERE `user_id` = '$uid' 
+LIMIT 1";
+                $count = $SearchURL->exec($sql);
+
+                // 插入卡操作记录
+                if ($count) {
+                    $flow_no = date('YmdHis') . substr(explode(' ', microtime())[0], 2, 7);
+                    $time = date('Y-m-d H:i:s');
+                    $sql = "INSERT INTO $this->db.pl_card_history_t 
+SET operate_flow_no = '$flow_no', user_id = '$uid', card_id = '$card->card_id', operate_type = '$type', operate_time = '$time', operator_id = '$card->operator_id'";
+                    $count = $SearchURL->exec($sql);
+                    if ($count) {
+                        $code = 1;
+                        $msg = $text;
+                    }
+                }
+            }
+
+        } else {
+            // 读取卡信息
+            $sql = "SELECT param_name, card_code, card_status 
+FROM $this->db.pl_card_t A 
+LEFT JOIN $this->db.pl_parameter_code_t B ON B.param_type='card_status' AND B.param_code = A.card_status 
+WHERE user_id = '$uid' 
+LIMIT 1";
+
+            $sth= $SearchURL->query($sql);
+            $card = $sth->fetchObject();
+            if ($card) {
+                $data = $card;
+
+            } else {
+                $code = 1;
+                $msg = '无卡用户';
+            }
+        }
+
+        $arr = array(
+            'code' => $code,
+            'msg' => $msg,
+            'data' => $data,
+        );
+        echo json_encode($arr);
+        exit;
+    }
 }

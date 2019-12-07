@@ -49,7 +49,7 @@ dialog {
     text-align: center;
 }
 
-.start div, .users div, .home div, .account div, .log div, .consume div {
+.start div, .users div, .home div, .account div, .log div, .consume div, .loss div {
     background-color: #6DBB27;
     z-index: 2;
     position: fixed;
@@ -111,12 +111,12 @@ blockquote {
 }
 
 /* 选择用户 */
-.users header, .home header, .account header, .log header, .consume header {
+.users header, .home header, .account header, .log header, .consume header, .loss header {
     background-color: #9CEE52;
     border-bottom: 1px solid #204201;
 }
 
-.users h2, .home h2, .account h2, .log h2, .consume h2 {
+.users h2, .home h2, .account h2, .log h2, .consume h2, .loss h2 {
     font-size: 32px;
     line-height: 80px;
     width: 900px;
@@ -124,14 +124,14 @@ blockquote {
     font-weight: normal;
 }
 
-.users h2 b, .home h2 b, .account h2 b, .log h2 b, .consume h2 b {
+.users h2 b, .home h2 b, .account h2 b, .log h2 b, .consume h2 b, .loss h2 b {
     display: block;
     font-weight: normal;
     width: 780px;
     padding-right: 120px;
 }
 
-.users h2 a, .home h2 a, .account h2 a, .log h2 a, .consume h2 a {
+.users h2 a, .home h2 a, .account h2 a, .log h2 a, .consume h2 a, .loss h2 a {
     display: block;
     float: left;
     width: 120px;
@@ -183,7 +183,7 @@ blockquote {
 }
 
 /* 账户信息 */
-.account ul {
+.account ul, .loss ul {
     margin: 80px auto 0 auto;
     border: 1px solid #204201;
     width: 500px;
@@ -193,20 +193,20 @@ blockquote {
     background-color: #ECFEC0;
 }
 
-.account dl {
+.account dl, .loss dl {
     padding: 0 20px 0 0;
     border-bottom: 1px solid #999;
 }
 
-.account dl:last-child {
+.account dl:last-child, .loss dl:last-child {
     border-bottom: none;
 }
 
-.account dt {
+.account dt, .loss dt {
     float: left;
 }
 
-.account dd {
+.account dd, .loss dd {
     text-align: right;
 }
 
@@ -293,6 +293,29 @@ blockquote {
     text-overflow: ellipsis;
 }
 
+/* 挂失解挂 */
+.loss {
+
+}
+
+.loss ol {
+    overflow: hidden;
+    font-size: 32px;
+    margin: 0 auto;
+    width: 522px;
+    padding: 80px 0 0 0;
+}
+
+.loss li {
+}
+
+.loss li a {
+    display: block;
+    line-height: 80px;
+    background-color: #FC8200;
+    color: #fff;
+}
+
 /* 筛选 */
 .flt {
     position: fixed;
@@ -372,4 +395,3 @@ blockquote {
     color: #1AAC19;
     border-left: 1px solid #e2e2e2;
 }
-

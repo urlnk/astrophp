@@ -13,6 +13,7 @@ ele = {
     endDate: document.getElementById('element_id2'),
     log: document.getElementById('log'),
     consume: document.getElementById('consume'),
+    loss: document.getElementById('loss'),
     section: document.getElementsByTagName('section')[0],
     consumeLst: document.getElementById('consumes_list'),
     logLst: document.getElementById('logs_list'),
@@ -22,7 +23,8 @@ elt = {
     logMsg: ele.log.getElementsByTagName('p')[0],
     consMsg: ele.consume.getElementsByTagName('p')[0],
     logMain: ele.log.getElementsByTagName('main')[0],
-    consMain: ele.consume.getElementsByTagName('main')[0]
+    consMain: ele.consume.getElementsByTagName('main')[0],
+    lossLinks: ele.loss.getElementsByTagName('a')
 }
 
 XHR = []
@@ -103,6 +105,25 @@ function showAccount() {
     uri = 'account'
     formData = {}
     formData['uid'] = global.uid
+    _.api( uri, formData, 'post' )
+}
+
+function showLoss() {
+    ele.section.style.display = 'block'
+
+    uri = 'loss'
+    formData = {}
+    formData['uid'] = global.uid
+    _.api( uri, formData )
+}
+
+function loss() {
+    ele.section.style.display = 'block'
+
+    uri = 'loss'
+    formData = {}
+    formData['uid'] = global.uid
+    formData['card_status'] = ele.loss.getAttribute('data-status')
     _.api( uri, formData, 'post' )
 }
 
@@ -429,6 +450,41 @@ function api_account(arg) {
 
     document.getElementsByTagName('section')[0].style.display = 'none'
     show('home', 'account')
+    console.log(json)
+}
+
+function api_loss(arg) {
+    load_msg = ''
+    json = RESP['loss']
+    code = json.code
+    msg = json.msg
+    data = json.data
+    switch (code) {
+        case 0:
+            break
+        case 1:
+        case 2:
+            load_msg = msg
+            break
+        case 3:
+            alert(msg)
+            return
+        default:
+            alert(code + ': ' + msg)
+            return
+    }
+
+    dd = ele.loss.getElementsByTagName('dd')
+    dd[0].innerHTML = data.card_code
+    dd[1].innerHTML = data.param_name
+    ele.loss.setAttribute('data-status', data.card_status)
+    elt.lossLinks[1].innerHTML = ('LOST' == data.card_status) ? '解挂' : '挂失'
+
+    ele.section.style.display = 'none'
+    show('home', 'loss')
+    if (load_msg) {
+        setTimeout("alert(load_msg)", 500)
+    }
     console.log(json)
 }
 
