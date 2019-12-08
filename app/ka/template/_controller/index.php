@@ -35,6 +35,31 @@
     </dialog>
 </section>
 
+<section class="tip prompt" onclick="hide(this)">
+    <dialog>
+        <p>
+            为了您的账户安全，请绑定手机号码！
+        </p>
+
+        <footer>
+            <button type="button" onclick="hide(ele.section[2])">取消</button>
+            <button type="submit" onclick="showPhone('home', '绑定')">立即绑定</button>
+        </footer>
+    </dialog>
+</section>
+
+<section class="tip" data-code="">
+    <dialog>
+        <p>
+            修改成功
+        </p>
+
+        <footer>
+            <button type="submit" onclick="hideTip()">确定</button>
+        </footer>
+    </dialog>
+</section>
+
 <div id="filter" class="flt" style="display: none">
     <form id="search_form" data-type="0" onsubmit="return filterSubmit()">
         <ol>
@@ -96,7 +121,7 @@
     </header>
     <ul>
         <li><a href="javascript:" onclick="showAccount()">账户信息</a></li>
-        <li><a href="javascript:" onclick="show('home', 'recharge')">账户充值</a></li>
+        <li><a href="javascript:" onclick="back('home', 'recharge')">账户充值</a></li>
         <li><a href="javascript:" onclick="showLog()">充值记录</a></li>
         <li><a href="javascript:" onclick="showConsume()">消费记录</a></li>
         <li><a href="javascript:" onclick="showLoss()">挂失解挂</a></li>
@@ -116,29 +141,32 @@
     <ul>
         <dl>
             <dt>卡内码</dt>
-            <dd>3009340722</dd>
+            <dd></dd>
         </dl>
         <dl>
             <dt>卡有效期</dt>
-            <dd>2022-01-15 00:59:26</dd>
+            <dd></dd>
         </dl>
         <dl>
             <dt>现金账户</dt>
-            <dd>100.00元</dd>
+            <dd></dd>
         </dl>
         <dl>
             <dt>补贴账户</dt>
-            <dd>200.00元</dd>
+            <dd></dd>
         </dl>
         <dl>
             <dt>手机号码</dt>
-            <dd>17621113580</dd>
+            <dd></dd>
         </dl>
     </ul>
+    <ol>
+        <li><a href="javascript:" onclick="showPhone('account')" id="bindPhone" data-title="绑定手机">绑定手机号</a></li>
+    </ol>
 </div>
 </article>
 
-<article class="account">
+<article class="loss">
 <div id="recharge" style="display: none;">
     <header>
         <h2>
@@ -146,6 +174,9 @@
             <b>账户充值</b>
         </h2>
     </header>
+    <ol>
+        <li><a class="disable" href="javascript:">暂未开通在线支付功能</a></li>
+    </ol>
 </div>
 </article>
 
@@ -239,6 +270,35 @@
     </ul>
     <ol>
         <li><a href="javascript:" onclick="info()">修改</a></li>
+    </ol>
+</div>
+</article>
+
+<article class="info phone">
+<div id="phone" style="display: none;">
+    <header>
+        <h2>
+            <a href="javascript:" onclick="hidePhone()">返回</a>
+            <b id="phoneTitle">绑定手机</b>
+        </h2>
+    </header>
+    <ul>
+        <dl>
+            <dt>手机号</dt>
+            <dd>
+                <input type="text" name="phone" value="" placeholder="请输入手机号" autocomplete="off" />
+            </dd>
+        </dl>
+        <dl>
+            <dt>验证码</dt>
+            <dd class="code">
+                <input type="text" name="code" placeholder="请输入验证码" autocomplete="off" />
+                <button type="button" onclick="sendsms(this)" id="btnSms">发送验证码</button>
+            </dd>
+        </dl>
+    </ul>
+    <ol>
+        <li><a href="javascript:" onclick="bind()">确定</a></li>
     </ol>
 </div>
 </article>

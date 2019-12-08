@@ -1,10 +1,17 @@
 // 全局变量
 global = {
     uid: null,
+    oid: null,
     page: 1,
     focus: 1,
     overflow: 0,
-    scroll: 0
+    scroll: 0,
+    from: 'home',
+    to: null,
+    total: 60,
+    timeinterval: null,
+    phoneChanged: 0,
+    userObj: null
 }
 
 ele = {
@@ -18,10 +25,17 @@ ele = {
     consume: document.getElementById('consume'),
     loss: document.getElementById('loss'),
     info: document.getElementById('info'),
+    phone: document.getElementById('phone'),
+    bindPhone: document.getElementById('bindPhone'),
+    phoneTitle: document.getElementById('phoneTitle'),
+    sms: document.getElementById('btnSms'),
     section: document.getElementsByTagName('section'),
     time: document.getElementsByTagName('time'),
     tt: document.getElementsByTagName('tt'),
+    p: document.getElementsByTagName('p'),
     sex: document.getElementsByName('sex'),
+    telephone: document.getElementsByName('phone')[0],
+    code: document.getElementsByName('code')[0],
     consumeLst: document.getElementById('consumes_list'),
     logLst: document.getElementById('logs_list')
 }
@@ -107,14 +121,29 @@ function detect(obj) {
 }
 
 function choice(obj) {
+    global.userObj = obj
     global.uid = obj.getAttribute('data-uid')
+    global.oid = obj.getAttribute('data-oid')
+    p = obj.getElementsByTagName('p')[0].innerHTML
+    if (!p) {
+        ele.section[2].style.display = 'block'
+    }
     choice_user.style.display = 'none'
     home.style.display = 'block'
     home.getElementsByTagName('b')[0].innerHTML = obj.getElementsByTagName('u')[0].innerHTML
 }
 
-function show(i, id, cx) {
-    back(i, id, cx)
+function show(obj, d) {
+    d = d || 'block'
+    if (obj) {
+       obj.style.display = d
+    }
+}
+
+function hide(obj) {
+    if (obj) {
+       obj.style.display = 'none'
+    }
 }
 
 function sex() {
@@ -169,6 +198,88 @@ function loss() {
     formData['uid'] = global.uid
     formData['card_status'] = ele.loss.getAttribute('data-status')
     _.api( uri, formData, 'post' )
+}
+
+function bind() {
+    uri = 'phone'
+    formData = {}
+    formData['uid'] = global.uid
+    formData['phone'] = ele.telephone.value
+    formData['code'] = ele.code.value
+    _.api( uri, formData, 'post' )
+}
+
+function showPhone(id, text) {
+    global.from = id
+    global.focus = 0
+    if (text) {
+        ele.bindPhone.innerHTML = text + '手机号'
+        ele.bindPhone.setAttribute('data-title', text + '手机')
+    }
+    ele.phoneTitle.innerHTML = ele.bindPhone.getAttribute('data-title')
+    hide(ele.section[2])
+    show(ele.phone)
+}
+
+function hidePhone() {
+    global.focus = 1
+    if ('account' == global.from && global.phoneChanged) {
+        global.to = 'phone'
+        global.phoneChanged = 0
+        showAccount()
+    } else {
+        back('phone', global.from)
+    }
+}
+
+function hideTip() {
+    code = ele.section[3].getAttribute('data-code')
+    hide(ele.section[3])
+    if (code) {
+        eval(code)
+    }
+}
+
+function tip(info, code) {
+    ele.p[1].innerHTML = info
+    ele.section[3].setAttribute('data-code', code)
+    show(ele.section[3])
+}
+
+/* 发送短信验证码 */
+function sendsms(obj) {
+    console.log(Date())
+    uri = 'sms'
+    no = ele.telephone.value
+    oid = global.oid
+    console.log({no:no})
+    if (!isPhone(no)) {
+        alert('请输入正确的手机号码')
+        return false
+    }
+
+    global.total = 60
+    global.timeinterval = setInterval(countdown, 1000)
+    ele.sms.setAttribute('disabled', 'disabled')
+
+    formData = {phone:no, oid:oid, find:1}
+    _.api( uri, formData )
+}
+
+function isPhone(str) {
+    return str.match(/^1\d{10}$/)
+}
+
+function countdown() {
+    global.total--
+    ele.sms.innerHTML = global.total + 's'
+    console.log(global.total)
+    if (global.total < 1) {
+        clearInterval(global.timeinterval)
+        ele.sms.innerHTML = '发送验证码'
+        ele.sms.removeAttribute('disabled')
+        console.log(Date())
+    }
 }
 
 function showLog() {
@@ -473,7 +584,7 @@ function api_swipe(arg) {
         operatorName = row.operator_name || ''
         organName = row.organ_name || ''
 
-        html = '<li><a href="javascript:" onclick="choice(this)" data-uid="' + row.user_id + '"><u>' + userName + '</u><p>' + telephone + '</p><p>' + operatorName + '</p><p>' + organName + '</p></a></li>'
+        html = '<li><a href="javascript:" onclick="choice(this)" data-uid="' + row.user_id + '" data-oid="' + row.operator_id + '"><u>' + userName + '</u><p>' + telephone + '</p><p>' + operatorName + '</p><p>' + organName + '</p></a></li>'
 
         users_list.insertAdjacentHTML(position, html)
     }
@@ -523,9 +634,17 @@ function api_account(arg) {
     dd[2].innerHTML = data.cash
     dd[3].innerHTML = data.subsidy
     dd[4].innerHTML = data.telephone || '无'
+    if (data.telephone) {
+        ele.bindPhone.innerHTML = '换绑手机号'
+        ele.bindPhone.setAttribute('data-title', '换绑手机')
+    } else {
+        ele.bindPhone.innerHTML = '绑定手机号'
+        ele.bindPhone.setAttribute('data-title', '绑定手机')
+    }
 
     document.getElementsByTagName('section')[0].style.display = 'none'
-    show('home', 'account')
+    back(global.to || 'home', 'account')
+    global.to = null
     // console.log(json)
 }
 
@@ -557,11 +676,67 @@ function api_loss(arg) {
     elt.lossLinks[1].innerHTML = ('LOST' == data.card_status) ? '解挂' : '挂失'
 
     ele.section[0].style.display = 'none'
-    show('home', 'loss')
+    back('home', 'loss')
     if (load_msg) {
         setTimeout("alert(load_msg)", 500)
     }
     // console.log(json)
+}
+
+function api_phone(arg) {
+    text = ''
+    json = RESP['phone']
+    code = json.code
+    msg = json.msg
+    data = json.data
+    switch (code) {
+        case 0:
+            text = "hidePhone()"
+            global.userObj.getElementsByTagName('p')[0].innerHTML = ele.telephone.value
+            ele.telephone.value = ele.code.value = ''
+            global.phoneChanged = 1
+            break
+        case 1:
+            text = "ele.telephone.focus()"
+            break
+        case 2:
+            text = "ele.code.focus()"
+            break
+        case 3:
+            alert(msg)
+            return
+        default:
+            alert(code + ': ' + msg)
+            return
+    }
+
+    if (msg) {
+        tip(msg, text)
+    }
+}
+
+function api_sms(arg) {
+    load_msg = ''
+    json = RESP['sms']
+    code = json.code
+    msg = json.msg
+    data = json.data
+    switch (code) {
+        case 0:
+            break
+        case 1:
+        case 2:
+            load_msg = msg
+            break
+        case 3:
+            alert(msg)
+            return
+        default:
+            alert(code + ': ' + msg)
+            return
+    }
+
+    console.log(json)
 }
 
 function api_info(arg) {
@@ -572,6 +747,7 @@ function api_info(arg) {
     data = json.data
     switch (code) {
         case 0:
+            home.getElementsByTagName('b')[0].innerHTML = global.userObj.getElementsByTagName('u')[0].innerHTML = data.user_name
             break
         case 1:
         case 2:
@@ -606,13 +782,13 @@ function api_info(arg) {
     ele.birthday.setAttribute('data-start-date', data.year - 100)
 
     ele.section[0].style.display = 'none'
-    show('home', 'info')
+    back('home', 'info')
     global.focus = 0
     $("#element_id3").cxCalendar({}, function(api){
         cxCalendarApi3 = api;
     });
-    if (load_msg) {
-        setTimeout("alert(load_msg)", 500)
+    if (msg) {
+        setTimeout("alert(msg)", 500)
     }
     // console.log(json)
 }
@@ -728,7 +904,7 @@ function api_log(arg) {
     }
 
     document.getElementsByTagName('section')[0].style.display = 'none'
-    show('home', 'log', 1)
+    back('home', 'log', 1)
     // console.log(json)
 }
 
@@ -782,7 +958,7 @@ function api_consume(arg) {
     }
 
     ele.section[0].style.display = 'none'
-    show('home', 'consume', 1)
+    back('home', 'consume', 1)
     // console.log(json)
 }
 

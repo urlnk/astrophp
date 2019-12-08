@@ -28,14 +28,14 @@ echo $option;
         <dl>
             <dt>手机号</dt>
             <dd>
-                <input type="text" name="phone" placeholder="请输入手机号" value="<?=$phone?>" />
+                <input type="text" name="phone" placeholder="请输入手机号" value="<?=$phone?>" autocomplete="off" />
                 <button type="button" onclick="sendsms(this)" id="btnSms">验证码</button>
             </dd>
         </dl>
         <dl>
             <dt>验证码</dt>
             <dd>
-                <input type="text" name="code" placeholder="请输入验证码" />
+                <input type="text" name="code" placeholder="请输入验证码" autocomplete="off" />
             </dd>
         </dl>
     </div>

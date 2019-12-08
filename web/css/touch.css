@@ -13,6 +13,11 @@ ol, ul, dl, dd, dialog, p {
     list-style: none;
 }
 
+dialog {
+    display: block;
+    overflow: hidden;
+}
+
 a {
     text-decoration: none;
 }
@@ -50,7 +55,6 @@ section {
 }
 
 .dlg dialog {
-    display: block;
     margin: 0 auto;
     background-color: rgba(255,255,255,0.9);
     font-size: 32px;
@@ -60,17 +64,21 @@ section {
     text-align: center;
 }
 
-.info dialog {
+.info dialog, .tip dialog {
     position: relative;
-    display: block;
     border: 1px #ddd solid;
     margin: 0 auto 0 auto;
-    padding: 0;
     border-radius: 8px;
     background-color: #fff;
     width: 300px;
     font-size: 28px;
     line-height: 48px;
+}
+
+.tip dialog {
+    width: fit-content;
+    max-width: 600px;
+    min-width: 300px;
 }
 
 .info dialog ol {
@@ -96,6 +104,46 @@ section {
 .info ol span {
     display: block;
     float: left;
+}
+
+.tip dialog p {
+    border-bottom: 1px solid #e2e2e2;
+    text-align: center;
+    padding: 20px;
+    white-space: nowrap;
+}
+
+.prompt dialog p {
+    padding: 30px;
+}
+
+.tip dialog footer {
+    overflow: hidden;
+    /*width: 280px;*/
+    margin: 0 auto;
+}
+
+.tip dialog button {
+    font-size: 28px;
+    line-height: 60px;
+    background-color: #fff;
+    display: block;
+    float: left;
+    width: 100%;
+    color: #666;
+}
+
+.tip button[type=submit] {
+    color: #1AAC19;
+}
+
+.tip button:nth-child(2) {
+    border-left: 1px solid #e2e2e2;
+}
+
+.prompt dialog button {
+    width: 50%;
+    box-sizing: border-box;
 }
 
 .start div, .users div, .home div, .account div, .log div, .consume div, .loss div, .info div  {
@@ -239,7 +287,7 @@ blockquote {
     font-size: 28px;
     line-height: 56px;
     padding: 0 0 0 20px;
-    background-color: #ECFEC0;
+    background-color: rgba(255,255,255,1);
 }
 
 .account dl, .loss dl, .info dl {
@@ -348,7 +396,7 @@ blockquote {
 
 }
 
-.loss ol, .info div ol {
+.loss ol, .info div ol, .account ol {
     overflow: hidden;
     font-size: 32px;
     margin: 0 auto;
@@ -359,11 +407,17 @@ blockquote {
 .loss li {
 }
 
-.loss li a, .info li a {
+.loss li a, .info li a, .account li a {
     display: block;
     line-height: 80px;
     background-color: #FC8200;
     color: #fff;
+}
+
+.loss li a.disable {
+    background-color: #F7F7F7;
+    color: #A7A7A7;
+    border: 1px solid #C4C4C4;
 }
 
 /* 完善信息 */
@@ -381,6 +435,10 @@ a.sex {
     background-position: center;
     background-size: 21px 32px;
     overflow: hidden;
+}
+
+.phone dl {
+    padding: 0;
 }
 
 .info dt {
@@ -405,6 +463,21 @@ a.sex {
     float: left;
     width: 65%;
     background-color: transparent;
+}
+
+.info dd button {
+    background-color: transparent;
+    color: #3DC620;
+    line-height: 56px;
+    font-size: 26px;
+    height: 56px;
+    outline: 0;
+    float: right;
+    width: 35%;
+}
+
+.code input[type=text], dd.code button {
+    width: 50%;
 }
 
 /* 筛选 */

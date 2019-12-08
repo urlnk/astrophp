@@ -24,7 +24,7 @@ class Api extends _controller
             # $decimal = '507015516';
 
             // 查找用户
-            $sql = "SELECT A.user_id AS user_id, user_name, telephone, operator_name, organ_name 
+            $sql = "SELECT A.user_id AS user_id, user_name, telephone, operator_name, organ_name, A.operator_id 
 FROM $this->db.pl_card_t A 
 LEFT JOIN $this->db.pl_user_t B ON B.user_id = A.user_id 
 LEFT JOIN $this->db.pl_operator_info_t C ON C.operator_id = A.operator_id 
@@ -58,6 +58,7 @@ LIMIT 50";
     {
         $phone = isset($_GET['phone']) ? trim($_GET['phone']) : null;
         $oid = isset($_GET['oid']) ? trim($_GET['oid']) : null;
+        $find= isset($_GET['find']) ? trim($_GET['find']) : null;
         $code = 0;
         $msg = '';
         $data = array();
@@ -73,9 +74,13 @@ LIMIT 50";
 
         if (!$msg) {
             // 查找用户
-            $sql = "SELECT user_id, user_name FROM $this->db.pl_user_t WHERE telephone = '$phone' AND operator_id = '$oid' LIMIT 1";
-            $statement = $SearchURL->query($sql);
-            $user = $statement->fetchObject();
+            $user = true;
+            if (!$find) {
+                $sql = "SELECT user_id, user_name FROM $this->db.pl_user_t WHERE telephone = '$phone' AND operator_id = '$oid' LIMIT 1";
+                $statement = $SearchURL->query($sql);
+                $user = $statement->fetchObject();
+            }
+
             if (!$user) {
                 $msg = '在该商户没有找到这个手机号';
 
@@ -583,7 +588,6 @@ WHERE user_id = '$uid'
 LIMIT 1";
                 $count = $SearchURL->exec($sql);
                 if ($count) {
-                    $code = 1;
                     $msg = '修改成功';
                 }
 
@@ -608,5 +612,63 @@ LIMIT 1";
         );
         echo json_encode($arr);
         exit;
+    }
+
+    /* 绑定手机号 */
+    public function phone()
+    {
+        $uid = isset($_POST['uid']) ? trim($_POST['uid']) : null;
+        $phone = isset($_POST['phone']) ? trim($_POST['phone']) : null;
+        $verify = isset($_POST['code']) ? trim($_POST['code']) : null;
+        $code = 0;
+        $msg = '绑定成功';
+        $data = array();
+        $SearchURL = new \Model\SearchURL();
+
+        if (!preg_match('/^1\d{10}$/', $phone)) {
+            $msg = '请输入正确的手机号码';
+            $code = 1;
+        } else {
+            $err = $this->captcha($phone, $verify);
+            if ($err) {
+                $code = 2;
+                $msg = $err;
+            } else {
+                $sql = "UPDATE $this->db.pl_user_t 
+SET telephone = '$phone' 
+WHERE user_id = '$uid' 
+LIMIT 1";
+                $count = $SearchURL->exec($sql);
+            }
+        }
+
+        $arr = array(
+            'code' => $code,
+            'msg' => $msg,
+            'data' => $data,
+        );
+        echo json_encode($arr);
+        exit;
+    }
+
+    public function captcha($phone, $code)
+    {
+        $msg = null;
+        $SearchURL = new \Model\SearchURL();
+        $sql = "SELECT send_time FROM $this->db.pl_sms_code_t WHERE mobile_no = '$phone' AND send_content = '$code' ORDER BY `sms_id` DESC LIMIT 1";
+        $sth = $SearchURL->query($sql);
+        $sms = $sth->fetchObject();
+        if ($sms) {
+            $oldTime = strtotime($sms->send_time);
+            $nowTime = time();
+            # $nowTime = 1575285282;
+            $stepTime = $nowTime - $oldTime;
+            if ($stepTime > 600) {
+                $msg = '验证码已经过期，请重新发送验证码！';
+            }
+        } else {
+            $msg = '验证码不正确';
+        }
+        return $msg;
     }
 }
