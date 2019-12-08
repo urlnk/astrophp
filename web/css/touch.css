@@ -3,6 +3,10 @@ body, blockquote, h1, h2 {
     font-family: 'Microsoft Yahei', sans-serif;
 }
 
+tt, pre {
+    font-family: 'Microsoft Yahei', sans-serif;
+}
+
 ol, ul, dl, dd, dialog, p {
     margin: 0;
     padding: 0;
@@ -38,7 +42,7 @@ section {
     padding-top: 240px;
 }
 
-dialog {
+.dlg dialog {
     display: block;
     margin: 0 auto;
     background-color: rgba(255,255,255,0.9);
@@ -49,7 +53,45 @@ dialog {
     text-align: center;
 }
 
-.start div, .users div, .home div, .account div, .log div, .consume div, .loss div {
+.info dialog {
+    position: relative;
+    display: block;
+    border: 1px #ddd solid;
+    margin: 0 auto 0 auto;
+    padding: 0;
+    border-radius: 8px;
+    background-color: #fff;
+    width: 300px;
+    font-size: 28px;
+    line-height: 48px;
+}
+
+.info dialog ol {
+    padding-left: 20px;
+}
+
+.info dialog li {
+    overflow: hidden;
+    border-bottom: 1px solid #e7e7e7;
+    padding: 5px 8px 5px 0;
+    text-align: right;
+}
+
+.info dialog li:last-child {
+    border-bottom: none;
+}
+
+.info label {
+    display: block;
+    padding: 0 20px;
+}
+
+.info ol span {
+    display: block;
+    float: left;
+}
+
+.start div, .users div, .home div, .account div, .log div, .consume div, .loss div, .info div  {
     background-color: #6DBB27;
     z-index: 2;
     position: fixed;
@@ -111,12 +153,12 @@ blockquote {
 }
 
 /* 选择用户 */
-.users header, .home header, .account header, .log header, .consume header, .loss header {
+.users header, .home header, .account header, .log header, .consume header, .loss header, .info header {
     background-color: #9CEE52;
     border-bottom: 1px solid #204201;
 }
 
-.users h2, .home h2, .account h2, .log h2, .consume h2, .loss h2 {
+.users h2, .home h2, .account h2, .log h2, .consume h2, .loss h2, .info h2 {
     font-size: 32px;
     line-height: 80px;
     width: 900px;
@@ -124,14 +166,14 @@ blockquote {
     font-weight: normal;
 }
 
-.users h2 b, .home h2 b, .account h2 b, .log h2 b, .consume h2 b, .loss h2 b {
+.users h2 b, .home h2 b, .account h2 b, .log h2 b, .consume h2 b, .loss h2 b, .info h2 b {
     display: block;
     font-weight: normal;
     width: 780px;
     padding-right: 120px;
 }
 
-.users h2 a, .home h2 a, .account h2 a, .log h2 a, .consume h2 a, .loss h2 a {
+.users h2 a, .home h2 a, .account h2 a, .log h2 a, .consume h2 a, .loss h2 a, .info h2 a {
     display: block;
     float: left;
     width: 120px;
@@ -183,7 +225,7 @@ blockquote {
 }
 
 /* 账户信息 */
-.account ul, .loss ul {
+.account ul, .loss ul, .info ul {
     margin: 80px auto 0 auto;
     border: 1px solid #204201;
     width: 500px;
@@ -193,16 +235,17 @@ blockquote {
     background-color: #ECFEC0;
 }
 
-.account dl, .loss dl {
+.account dl, .loss dl, .info dl {
     padding: 0 20px 0 0;
     border-bottom: 1px solid #999;
+    overflow: hidden;
 }
 
-.account dl:last-child, .loss dl:last-child {
+.account dl:last-child, .loss dl:last-child, .info dl:last-child {
     border-bottom: none;
 }
 
-.account dt, .loss dt {
+.account dt, .loss dt, .info dt {
     float: left;
 }
 
@@ -298,7 +341,7 @@ blockquote {
 
 }
 
-.loss ol {
+.loss ol, .info div ol {
     overflow: hidden;
     font-size: 32px;
     margin: 0 auto;
@@ -309,11 +352,52 @@ blockquote {
 .loss li {
 }
 
-.loss li a {
+.loss li a, .info li a {
     display: block;
     line-height: 80px;
     background-color: #FC8200;
     color: #fff;
+}
+
+/* 完善信息 */
+.info {
+
+}
+
+a.sex {
+    display: block;
+    float: right;
+    width: 60px;
+    height: 56px;
+    background-image: url(../img/gt.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 21px 32px;
+    overflow: hidden;
+}
+
+.info dt {
+    width: 30%;
+    text-align: left;
+}
+
+.info dd {
+    float: left;
+    width: 70%;
+    text-align: left;
+}
+
+.info input[type=text] {
+    display: block;
+    line-height: 56px;
+    font-size: 28px;
+    height: 56px;
+    border: none;
+    padding: 0;
+    outline: 0;
+    float: left;
+    width: 65%;
+    background-color: transparent;
 }
 
 /* 筛选 */

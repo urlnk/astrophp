@@ -11,12 +11,18 @@ ele = {
     searchForm: document.getElementById('search_form'),
     startDate: document.getElementById('element_id'),
     endDate: document.getElementById('element_id2'),
+    birthday: document.getElementById('element_id3'),
+    query: document.getElementById('query'),
     log: document.getElementById('log'),
     consume: document.getElementById('consume'),
     loss: document.getElementById('loss'),
-    section: document.getElementsByTagName('section')[0],
+    info: document.getElementById('info'),
+    section: document.getElementsByTagName('section'),
+    time: document.getElementsByTagName('time'),
+    tt: document.getElementsByTagName('tt'),
+    sex: document.getElementsByName('sex'),
     consumeLst: document.getElementById('consumes_list'),
-    logLst: document.getElementById('logs_list'),
+    logLst: document.getElementById('logs_list')
 }
 
 elt = {
@@ -24,7 +30,8 @@ elt = {
     consMsg: ele.consume.getElementsByTagName('p')[0],
     logMain: ele.log.getElementsByTagName('main')[0],
     consMain: ele.consume.getElementsByTagName('main')[0],
-    lossLinks: ele.loss.getElementsByTagName('a')
+    lossLinks: ele.loss.getElementsByTagName('a'),
+    infoNpt: ele.info.getElementsByTagName('input')
 }
 
 XHR = []
@@ -43,18 +50,22 @@ config = {
 }
 
 document.getElementById('query').focus()
-interval = setInterval(keep, 500)
+interval = setInterval(keep, server.interval)
 
 function keep() {
     if (global.focus) {
         document.getElementById('query').focus()
-        console.log(Date())
+        // console.log(Date())
+        if (server.hta && ele.query.value) {
+            global.focus = 0
+            detect(ele.query)
+        }
     }
 }
 
 function detect(obj) {
     global.uid = null
-    console.log(obj.value)
+    // console.log(obj.value)
     document.getElementsByTagName('section')[0].style.display = 'block'
     article = document.getElementsByTagName('article')
     leng = article.length
@@ -95,8 +106,12 @@ function choice(obj) {
     home.getElementsByTagName('b')[0].innerHTML = obj.getElementsByTagName('u')[0].innerHTML
 }
 
-function show(i, id) {
-    back(i, id)
+function show(i, id, cx) {
+    back(i, id, cx)
+}
+
+function sex() {
+    ele.section[1].style.display = 'block'
 }
 
 function showAccount() {
@@ -108,8 +123,29 @@ function showAccount() {
     _.api( uri, formData, 'post' )
 }
 
+function showInfo() {
+    ele.section[0].style.display = 'block'
+
+    uri = 'info'
+    formData = {}
+    formData['uid'] = global.uid
+    _.api( uri, formData )
+}
+
+function info() {
+    ele.section[0].style.display = 'block'
+
+    uri = 'info'
+    formData = {}
+    formData['uid'] = global.uid
+    formData['sex'] = ele.info.getAttribute('data-sex')
+    formData['user_name'] = elt.infoNpt[0].value
+    formData['birthday'] = elt.infoNpt[1].value
+    _.api( uri, formData, 'post' )
+}
+
 function showLoss() {
-    ele.section.style.display = 'block'
+    ele.section[0].style.display = 'block'
 
     uri = 'loss'
     formData = {}
@@ -118,7 +154,7 @@ function showLoss() {
 }
 
 function loss() {
-    ele.section.style.display = 'block'
+    ele.section[0].style.display = 'block'
 
     uri = 'loss'
     formData = {}
@@ -133,7 +169,8 @@ function showLog() {
     ele.searchForm.setAttribute('data-type', 0)
     AJAX = []
     global.scroll = 1
-    elt.logMain.scrollTo(0, 0)
+    // elt.logMain.scrollTo(0, 0)
+    ele.logLst.innerHTML = elt.logMsg.innerHTML = ''
     setTimeout("setScroll()", 1000)
     global.overflow = 0
 
@@ -144,12 +181,13 @@ function showLog() {
 }
 
 function showConsume() {
-    ele.section.style.display = 'block'
+    ele.section[0].style.display = 'block'
     global.page = 1
     ele.searchForm.setAttribute('data-type', 1)
     AJAX = []
     global.scroll = 1
-    elt.consMain.scrollTo(0, 0)
+    // elt.consMain.scrollTo(0, 0)
+    ele.consumeLst.innerHTML = elt.consMsg.innerHTML = ''
     setTimeout("setScroll()", 1000)
     global.overflow = 0
 
@@ -165,14 +203,17 @@ function filterSubmit() {
     flt()
     global.page = 1
     global.overflow = 0
-    global.scroll = 1
+    // global.scroll = 1
+    AJAX = []
     type = ele.searchForm.getAttribute('data-type')
     uri = 'log'
     if (0 < type) {
         uri = 'consume'
-        elt.consMain.scrollTo(0, 0)
+        // elt.consMain.scrollTo(0, 0)
+        ele.consumeLst.innerHTML = elt.consMsg.innerHTML = ''
     } else {
-        elt.logMain.scrollTo(0, 0)
+        // elt.logMain.scrollTo(0, 0)
+        ele.logLst.innerHTML = elt.logMsg.innerHTML = ''
     }
 
     setTimeout("setScroll()", 1000)
@@ -184,11 +225,25 @@ function filterSubmit() {
     return false
 }
 
-function back(i, id) {
+function back(i, id, cx) {
     o = document.getElementById(i)
     obj = document.getElementById(id)
     o.style.display = 'none'
     obj.style.display = 'block'
+    global.focus = 1
+
+    // 移除多余日历
+    div = document.getElementsByTagName('div')
+    len = div.length -1
+    for (i = len; i > 0; i--) {
+        el = div[i]
+        cls = el.className
+        if ('cxcalendar' == cls || 'cxcalendar_lock' == cls) {
+            if (!server.hta && !cx) {
+                el.remove()
+            }
+        }
+    }
 }
 
 function exit() {
@@ -205,7 +260,7 @@ function fix() {
     h = v.height
     m = h - 81
     elt.consMain.style.height = elt.logMain.style.height = m + 'px'
-    console.log({h:h, m:m})
+    // console.log({h:h, m:m})
 }
 
 // 滚动条事件
@@ -218,7 +273,7 @@ function scroll(e) {
     scrollTop = el.scrollTop
     clientHeight = el.clientHeight
     height = el.scrollHeight - 144
-    console.log({scrollTop:scrollTop, clientHeight:clientHeight, scrollHeight:el.scrollHeight, height:height, h:clientHeight + scrollTop})
+    // console.log({scrollTop:scrollTop, clientHeight:clientHeight, scrollHeight:el.scrollHeight, height:height, h:clientHeight + scrollTop})
     if (height <= clientHeight + scrollTop) {
         load()
     }
@@ -232,6 +287,7 @@ function load() {
         uri = 'consume'
         loadInfo = elt.consMsg
     }
+    // console.log({scroll:global.scroll})
     if (!global.scroll) {
         loadData(uri, null, loadInfo)
     }
@@ -241,8 +297,7 @@ function loadData(uri, formData, loadInfo) {
     formData = formData || {}
     formData['uid'] = global.uid
     key = uri + ':' + global.page + ':' + ele.startDate.value + ':' + ele.endDate.value
-    console.log(key)
-    console.log(AJAX)
+    // console.log({key:key, ajax:AJAX, k:AJAX[ key ], overflow:global.overflow})
     if ( ! global.overflow && ! AJAX[ key ] ) {
         AJAX[ key ] = 1
         loadInfo.innerHTML = '玩命加载中……'
@@ -261,7 +316,7 @@ function loadData(uri, formData, loadInfo) {
         }
         _.api( uri, formData )
     }
-    console.log(AJAX)
+    // console.log(AJAX)
 }
 
 /*---- polyfill ------*/
@@ -314,14 +369,22 @@ _.viewport = function () {
 _.api = function ( uri, formData, method, queryString, arg ) {
     method = method || 'get'
     method = method.toUpperCase()
+    queryString = queryString || ''
     arg = arg || {}
+    d = new Date()
+    time = d.getTime()
 
     if ( 'GET' == method && ! queryString && formData ) {
+        formData['_'] = time
         params = new URLSearchParams
         for ( pair in formData ) {
            params.append( pair, formData[ pair ] )
         }
         queryString = params.toString()
+    }
+
+    if ( 'POST' == method ) {
+        queryString += '&_=' + time
     }
 
     url = config.api_host + 'ka/api/' + uri
@@ -409,7 +472,8 @@ function api_swipe(arg) {
         alert(load_msg)
     }
     document.getElementsByTagName('section')[0].style.display = 'none'
-    console.log(json)
+    // console.log(json)
+    global.focus = 1
 }
 
 function api_account(arg) {
@@ -450,7 +514,7 @@ function api_account(arg) {
 
     document.getElementsByTagName('section')[0].style.display = 'none'
     show('home', 'account')
-    console.log(json)
+    // console.log(json)
 }
 
 function api_loss(arg) {
@@ -480,12 +544,62 @@ function api_loss(arg) {
     ele.loss.setAttribute('data-status', data.card_status)
     elt.lossLinks[1].innerHTML = ('LOST' == data.card_status) ? '解挂' : '挂失'
 
-    ele.section.style.display = 'none'
+    ele.section[0].style.display = 'none'
     show('home', 'loss')
     if (load_msg) {
         setTimeout("alert(load_msg)", 500)
     }
-    console.log(json)
+    // console.log(json)
+}
+
+function api_info(arg) {
+    load_msg = ''
+    json = RESP['info']
+    code = json.code
+    msg = json.msg
+    data = json.data
+    switch (code) {
+        case 0:
+            break
+        case 1:
+        case 2:
+            load_msg = msg
+            break
+        case 3:
+            alert(msg)
+            return
+        default:
+            alert(code + ': ' + msg)
+            return
+    }
+
+    elt.infoNpt[0].value = data.user_name
+    ele.tt[0].innerHTML = data.sex
+    ele.time[2].innerHTML = elt.infoNpt[1].value = data.birthday
+    ele.info.setAttribute('data-sex', data.sex)
+
+    // 性别选中
+    npt = ele.sex
+    for (i = 0; i < 2; i++) {
+        if (data.sex == npt[i].value) {
+            npt[i].setAttribute('checked', 'checked')
+            break
+        }
+    }
+
+    ele.birthday.setAttribute('data-end-date', data.year)
+    ele.birthday.setAttribute('data-start-date', data.year - 100)
+
+    ele.section[0].style.display = 'none'
+    show('home', 'info')
+    global.focus = 0
+    $("#element_id3").cxCalendar({}, function(api){
+        cxCalendarApi3 = api;
+    });
+    if (load_msg) {
+        setTimeout("alert(load_msg)", 500)
+    }
+    // console.log(json)
 }
 
 function api_order(arg) {
@@ -545,8 +659,8 @@ function api_order(arg) {
     formData = {}
     formData['uid'] = global.uid
     _.api( uri, formData )
-    console.log(json)
-    console.log(arg)
+    // console.log(json)
+    // console.log(arg)
 }
 
 function api_log(arg) {
@@ -592,14 +706,15 @@ function api_log(arg) {
         h3 = h1 + h2
         h4 = elt.logMain.clientHeight
         if (h3 <= h4) {
+            global.scroll = 0
             load()
         }
-        console.log({h1:h1, h2:h2, h3:h3, h4:h4})
+        // console.log({h1:h1, h2:h2, h3:h3, h4:h4})
     }
 
     document.getElementsByTagName('section')[0].style.display = 'none'
-    show('home', 'log')
-    console.log(json)
+    show('home', 'log', 1)
+    // console.log(json)
 }
 
 function api_consume(arg) {
@@ -645,14 +760,15 @@ function api_consume(arg) {
         h3 = h1 + h2
         h4 = elt.consMain.clientHeight
         if (h3 <= h4) {
+            global.scroll = 0
             load()
         }
-        console.log({h1:h1, h2:h2, h3:h3, h4:h4})
+        // console.log({h1:h1, h2:h2, h3:h3, h4:h4})
     }
 
-    ele.section.style.display = 'none'
-    show('home', 'consume')
-    console.log(json)
+    ele.section[0].style.display = 'none'
+    show('home', 'consume', 1)
+    // console.log(json)
 }
 
 // 高度修正

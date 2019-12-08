@@ -44,7 +44,7 @@ LIMIT 50";
             $len = count($data);
             if (!$len) {
                 $code = 2;
-                $msg = '没有找到用户';
+                $msg = '没有找到用户，请重刷！';
             }
 
         } else {
@@ -548,6 +548,64 @@ LIMIT 1";
                 $msg = '无卡用户';
             }
         }
+
+        $arr = array(
+            'code' => $code,
+            'msg' => $msg,
+            'data' => $data,
+        );
+        echo json_encode($arr);
+        exit;
+    }
+
+    /* 完善信息 */
+    public function info()
+    {
+        $uid = isset($_GET['uid']) ? trim($_GET['uid']) : null;
+        $code = 0;
+        $msg = $err = '';
+        $data = array();
+        $SearchURL = new \Model\SearchURL();
+
+        if ('POST' == $_SERVER['REQUEST_METHOD']) {
+            extract($_POST);
+            $user_name = trim($user_name);
+            $time = strtotime($birthday);
+
+            // 异常检测
+            if (!$user_name) {
+                $err = '请输入姓名';
+            }
+
+            if (false === $time) {
+                $err = '请正确输入生日';
+            } else {
+                $date = date('Y-m-d H:i:s', $time);
+            }
+
+            // 更新数据
+            if (!$err) {
+                $sql = "UPDATE $this->db.pl_user_t 
+SET user_name = '$user_name', sex = '$sex', birthday = '$date' 
+WHERE user_id = '$uid' 
+LIMIT 1";
+                $count = $SearchURL->exec($sql);
+                if ($count) {
+                    $code = 1;
+                    $msg = '修改成功';
+                }
+
+            } else {
+                $code = 1;
+                $msg = $err;
+            }
+
+            $data = (object) $_POST;
+
+        } else {
+            $data = $SearchURL->getInfo($uid);
+        }
+        $data->year = date('Y');
 
         $arr = array(
             'code' => $code,
