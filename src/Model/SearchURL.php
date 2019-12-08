@@ -22,7 +22,7 @@ WHERE user_id = '$uid'
 LIMIT 1";
 
         $user = $this->get($sql);
-        if ($user) {
+        if ($user && $user->birthday) {
             $time = strtotime($user->birthday);
             $user->birthday = date('Y/m/d', $time);
         }

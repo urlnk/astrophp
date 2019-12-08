@@ -12,6 +12,7 @@ ele = {
     startDate: document.getElementById('element_id'),
     endDate: document.getElementById('element_id2'),
     birthday: document.getElementById('element_id3'),
+    birthdays: document.getElementById('birthdays'),
     query: document.getElementById('query'),
     log: document.getElementById('log'),
     consume: document.getElementById('consume'),
@@ -52,6 +53,7 @@ config = {
 document.getElementById('query').focus()
 interval = setInterval(keep, server.interval)
 
+// 保持聚焦，便于刷卡
 function keep() {
     if (global.focus) {
         document.getElementById('query').focus()
@@ -67,6 +69,8 @@ function detect(obj) {
     global.uid = null
     // console.log(obj.value)
     document.getElementsByTagName('section')[0].style.display = 'block'
+
+    // 隐藏所有分区
     article = document.getElementsByTagName('article')
     leng = article.length
     for (j = 0; j < leng; j++) {
@@ -77,6 +81,7 @@ function detect(obj) {
         }
     }
 
+    // 隐藏日历
     cx = document.getElementsByClassName('cxcalendar')
     len = cx.length
     for (k = 0; k < len; k++) {
@@ -89,12 +94,14 @@ function detect(obj) {
         cx[k].style.display = 'none'
     }
 
+    // 隐藏筛选日期，返回主屏幕
     filter.style.display = 'none'
     start_screen.style.display = 'block'
 
     uri = 'swipe'
     formData = {}
     formData['no'] = obj.value
+    formData['test'] = server.test
     _.api( uri, formData, 'post' )
     obj.value = ''
 }
@@ -141,6 +148,7 @@ function info() {
     formData['sex'] = ele.info.getAttribute('data-sex')
     formData['user_name'] = elt.infoNpt[0].value
     formData['birthday'] = elt.infoNpt[1].value
+    // console.log(formData)
     _.api( uri, formData, 'post' )
 }
 
@@ -460,8 +468,12 @@ function api_swipe(arg) {
     i = 0
     for (; i < len; i++) {
         row = data[i]
+        userName = row.user_name || ''
+        telephone = row.telephone || ''
+        operatorName = row.operator_name || ''
+        organName = row.organ_name || ''
 
-        html = '<li><a href="javascript:" onclick="choice(this)" data-uid="' + row.user_id + '"><u>' + row.user_name + '</u><p>' + row.telephone + '</p><p>' + row.operator_name + '</p><p>' + row.organ_name + '</p></a></li>'
+        html = '<li><a href="javascript:" onclick="choice(this)" data-uid="' + row.user_id + '"><u>' + userName + '</u><p>' + telephone + '</p><p>' + operatorName + '</p><p>' + organName + '</p></a></li>'
 
         users_list.insertAdjacentHTML(position, html)
     }
@@ -574,9 +586,12 @@ function api_info(arg) {
     }
 
     elt.infoNpt[0].value = data.user_name
-    ele.tt[0].innerHTML = data.sex
-    ele.time[2].innerHTML = elt.infoNpt[1].value = data.birthday
-    ele.info.setAttribute('data-sex', data.sex)
+    elt.infoNpt[1].value = data.birthday
+    ele.birthdays.innerHTML = data.birthday || '点击选择'
+    if (data.sex) {
+        ele.tt[0].innerHTML = data.sex
+        ele.info.setAttribute('data-sex', data.sex)
+    }
 
     // 性别选中
     npt = ele.sex
@@ -587,7 +602,7 @@ function api_info(arg) {
         }
     }
 
-    ele.birthday.setAttribute('data-end-date', data.year)
+    ele.birthday.setAttribute('data-end-date', data.today)
     ele.birthday.setAttribute('data-start-date', data.year - 100)
 
     ele.section[0].style.display = 'none'

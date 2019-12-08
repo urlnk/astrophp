@@ -5,6 +5,7 @@ namespace App\Ka\Controller;
 use AlibabaCloud\Client\AlibabaCloud;
 use AlibabaCloud\Client\Exception\ClientException;
 use AlibabaCloud\Client\Exception\ServerException;
+use App\Func;
 
 class Api extends _controller
 {
@@ -12,23 +13,14 @@ class Api extends _controller
     public function swipe()
     {
         $no = isset($_POST['no']) ? trim($_POST['no']) : null;
+        $test = isset($_POST['test']) ? trim($_POST['test']) : null;
         $code = 0;
         $msg = '';
         $data = array();
         $SearchURL = new \Model\SearchURL();
 
-        if (is_numeric($no)) {
-            // 转换卡号
-            $hex = base_convert($no, 10, 16);
-            $len = strlen($hex);
-            while ($len < 8) {
-                $hex = '0' . $hex;
-                $len++;
-            }
-            $front = substr($hex, 0, 4);
-            $back = substr($hex, 4, 4);
-            $str = $back . $front;
-            $decimal = base_convert($str, 16, 10);
+        if (is_numeric($no) || $test) {
+            $decimal = $test ? : Func::hexConvert($no);
             # $decimal = '507015516';
 
             // 查找用户
@@ -575,9 +567,9 @@ LIMIT 1";
             // 异常检测
             if (!$user_name) {
                 $err = '请输入姓名';
-            }
-
-            if (false === $time) {
+            } elseif (!$sex) {
+                $err = '请选择性别';
+            } elseif (false === $time) {
                 $err = '请正确输入生日';
             } else {
                 $date = date('Y-m-d H:i:s', $time);
@@ -601,11 +593,13 @@ LIMIT 1";
             }
 
             $data = (object) $_POST;
+            # print_r($_POST);exit;
 
         } else {
             $data = $SearchURL->getInfo($uid);
         }
         $data->year = date('Y');
+        $data->today = date('Y/m/d');
 
         $arr = array(
             'code' => $code,

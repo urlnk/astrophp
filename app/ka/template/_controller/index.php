@@ -16,7 +16,7 @@
     </dialog>
 </section>
 
-<section class="info">
+<section class="info" onclick="this.style.display = 'none'">
     <dialog>
         <ol>
             <li>
@@ -225,14 +225,14 @@
         <dl>
             <dt>性别</dt>
             <dd>
-                <tt></tt>
+                <tt onclick="sex()"></tt>
                 <a href="javascript:" class="sex" onclick="sex()"></a>
             </dd>
         </dl>
         <dl>
             <dt>生日</dt>
             <dd>
-                <time onclick="cxCalendarApi3.show();"></time>
+                <time onclick="cxCalendarApi3.show();" id="birthdays"></time>
                 <input id="element_id3" type="hidden" name="birthday" value="" data-format="YYYY/MM/DD" data-start-date="" data-end-date="" onchange="chg(this, 2)">
             </dd>
         </dl>
@@ -250,7 +250,8 @@
 <script>
 server = {
     interval: <?=$interval?>,
-    hta: <?=$hta?>
+    hta: <?=$hta?>,
+    test: '<?=$testCardCode?>'
 }
 </script>
 <script src="/js/jquery.min.js"></script>

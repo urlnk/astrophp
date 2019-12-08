@@ -8,6 +8,7 @@ class Index extends _controller
     {
         global $_CONFIG;
         $hta = isset($_GET['hta']) ? 1 : 0;
+        $test = isset($_GET['test']) ? $_GET['test'] : null;
         $interval = $_CONFIG['js']['interval'];
         if ($hta) {
             $h = $_GET['hta'];
@@ -20,6 +21,7 @@ class Index extends _controller
             'static_version' => $this->static_version,
             'interval' => $interval,
             'hta' => $hta,
+            'testCardCode' => $test,
         );
     }
 }
