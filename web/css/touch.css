@@ -26,6 +26,13 @@ button {
     border: none;
 }
 
+html, body, iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    overflow: hidden;
+}
+
 /* 开始屏幕 */
 .start {
     background-color: #ccc;

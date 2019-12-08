@@ -1,0 +1,12 @@
+1. 谷歌浏览器
+编辑快捷方式，修改目标如下：
+"C:\Users\Administrator\AppData\Local\Google\Chrome SxS\Application\chrome.exe" --kiosk "http://127.0.0.1:5002/ka"
+
+2. IE 浏览器
+编写 .bat 文件，内容如下：
+@echo  off
+start iexplore -k http://127.0.0.1:5002/ka
+
+3. 使用 .hta 文件
+
+4. 下载触摸屏专用浏览器，例如：Toucher
