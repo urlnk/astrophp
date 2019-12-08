@@ -40,4 +40,12 @@ return array(
     'home' => array(
         'target' => '_blank', // _search _blank
     ),
+    'smsApi' => array(
+        'accessKeyId' => '',
+        'accessSecret' => '',
+    ),
+    'cookie_lifetime' => 86400 * 30,
+    'js' => array(
+        'interval' => 500, // 一般设置为 500 毫秒
+    ),
 );
