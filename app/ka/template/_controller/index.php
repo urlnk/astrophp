@@ -66,15 +66,15 @@
             <li>
                 <b>从</b>
                 <span>
-                    <time onclick="cxCalendarApi.show();"></time>
-                    <input id="element_id" type="hidden" name="start" value="" data-format="YYYY/MM/DD" data-start-date="" data-end-date="" onchange="chg(this)">
+                    <time onclick="cxCalendarApi.show();" id="startDate"></time>
+                    <input id="element_id" type="hidden" name="start" value="" data-format="YYYY/MM/DD" onchange="chg(this, 'startDate')">
                 </span>
             </li>
             <li>
                 <b>至</b>
                 <span>
-                    <time onclick="cxCalendarApi2.show();"></time>
-                    <input id="element_id2" type="hidden" name="end" value="" data-format="YYYY/MM/DD" data-start-date="" data-end-date="" onchange="chg(this, 1)">
+                    <time onclick="cxCalendarApi2.show();" id="endDate"></time>
+                    <input id="element_id2" type="hidden" name="end" value="" data-format="YYYY/MM/DD" onchange="chg(this, 'endDate')">
                 </span>
             </li>
         </ol>
@@ -87,12 +87,28 @@
 </div>
 
 <article class="start">
-<div id="start_screen" style="display0: none">
-    <h1>易捷一卡通查询系统</h1>
+<div id="start_screen">
+    <h1>
+        <img src="img/logo.png">
+        <b>消费信息查询系统</b>
+        <span></span>
+        <p>咨询电话：0555-2222114</p>
+    </h1>
+    <ul>
+        <li><a class="btn-acc" href="javascript:">账户信息</a></li>
+        <li><a class="btn-rec" href="javascript:">账户充值</a></li>
+        <li><a class="btn-log" href="javascript:">充值记录</a></li>
+        <li><a class="btn-con" href="javascript:">消费记录</a></li>
+        <li><a class="btn-los" href="javascript:">挂失解挂</a></li>
+        <li><a class="btn-inf" href="javascript:">完善信息</a></li>
+    </ul>
     <ol>
-        <dl><a href="javascript:">手机号登录</a></dl>
-        <dl><a href="javascript:">绑定手机号</a></dl>
+        <dl><a href="javascript:"></a></dl>
     </ol>
+    <dir>
+        <dt><a class="btn-pho" href="javascript:">手机号登录</a></dt>
+        <dd><a class="btn-car" href="javascript:">刷卡登录</a></dd>
+    </dir>
 </div>
 </article>
 
@@ -115,17 +131,17 @@
     <header>
         <h2>
             <a href="javascript:" onclick="back('home', 'choice_user')">返回</a>
-            <a href="javascript:" onclick="exit()">退出</a>
+            <a class="lnk-exit" href="javascript:" onclick="exit()">退出</a>
             <b>周晓明</b>
         </h2>
     </header>
     <ul>
-        <li><a href="javascript:" onclick="showAccount()">账户信息</a></li>
-        <li><a href="javascript:" onclick="back('home', 'recharge')">账户充值</a></li>
-        <li><a href="javascript:" onclick="showLog()">充值记录</a></li>
-        <li><a href="javascript:" onclick="showConsume()">消费记录</a></li>
-        <li><a href="javascript:" onclick="showLoss()">挂失解挂</a></li>
-        <li><a href="javascript:" onclick="showInfo()">完善信息</a></li>
+        <li><a class="btn-acc" href="javascript:" onclick="showAccount()">账户信息</a></li>
+        <li><a class="btn-rec" href="javascript:" onclick="back('home', 'recharge')">账户充值</a></li>
+        <li><a class="btn-log" href="javascript:" onclick="showLog()">充值记录</a></li>
+        <li><a class="btn-con" href="javascript:" onclick="showConsume()">消费记录</a></li>
+        <li><a class="btn-los" href="javascript:" onclick="showLoss()">挂失解挂</a></li>
+        <li><a class="btn-inf" href="javascript:" onclick="showInfo()">完善信息</a></li>
     </ul>
 </div>
 </article>
@@ -161,7 +177,7 @@
         </dl>
     </ul>
     <ol>
-        <li><a href="javascript:" onclick="showPhone('account')" id="bindPhone" data-title="绑定手机">绑定手机号</a></li>
+        <li><a class="btn-acc" href="javascript:" onclick="showPhone('account')" id="bindPhone" data-title="绑定手机">绑定手机号</a></li>
     </ol>
 </div>
 </article>
@@ -175,7 +191,7 @@
         </h2>
     </header>
     <ol>
-        <li><a class="disable" href="javascript:">暂未开通在线支付功能</a></li>
+        <li><a class="btn-rec" href="javascript:">暂未开通在线支付功能</a></li>
     </ol>
 </div>
 </article>
@@ -185,7 +201,7 @@
     <header>
         <h2>
             <a href="javascript:" onclick="back('log', 'home')">返回</a>
-            <a href="javascript:" onclick="flt()">筛选</a>
+            <a class="lnk-log" href="javascript:" onclick="flt()">筛选</a>
             <b>充值记录</b>
         </h2>
     </header>
@@ -202,7 +218,7 @@
     <header>
         <h2>
             <a href="javascript:" onclick="back('consume', 'home')">返回</a>
-            <a href="javascript:" onclick="flt()">筛选</a>
+            <a class="lnk-cons" href="javascript:" onclick="flt()">筛选</a>
             <b>消费记录</b>
         </h2>
     </header>
@@ -233,7 +249,7 @@
         </dl>
     </ul>
     <ol>
-        <li><a href="javascript:" onclick="loss()">挂失</a></li>
+        <li><a class="btn-los" href="javascript:" onclick="loss()">挂失</a></li>
     </ol>
 </div>
 </article>
@@ -264,12 +280,12 @@
             <dt>生日</dt>
             <dd>
                 <time onclick="cxCalendarApi3.show();" id="birthdays"></time>
-                <input id="element_id3" type="hidden" name="birthday" value="" data-format="YYYY/MM/DD" data-start-date="" data-end-date="" onchange="chg(this, 2)">
+                <input id="element_id3" type="hidden" name="birthday" value="" data-format="YYYY/MM/DD" data-start-date="" data-end-date="" onchange="chg(this, 'birthdays')">
             </dd>
         </dl>
     </ul>
     <ol>
-        <li><a href="javascript:" onclick="info()">修改</a></li>
+        <li><a class="btn-inf" href="javascript:" onclick="info()">修改</a></li>
     </ol>
 </div>
 </article>
@@ -298,7 +314,7 @@
         </dl>
     </ul>
     <ol>
-        <li><a href="javascript:" onclick="bind()">确定</a></li>
+        <li><a class="btn-pho" href="javascript:" onclick="bind()">确定</a></li>
     </ol>
 </div>
 </article>

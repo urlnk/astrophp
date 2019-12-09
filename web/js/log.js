@@ -18,11 +18,6 @@ function clk(el) {
 }
 
 // 同步日期
-function chg(el, idx) {
-    idx = idx === undefined ? 0 : idx;
-    document.getElementsByTagName('time')[idx].innerHTML = el.value
-    // console.log({idx:idx, val:el.value})
+function chg(el, id) {
+    document.getElementById(id).innerHTML = el.value
 }
-
-// 初始化日历
-var cxCalendarApi, cxCalendarApi2, cxCalendarApi3;

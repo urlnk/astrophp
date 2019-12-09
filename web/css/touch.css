@@ -1,6 +1,13 @@
-body, blockquote, h1, h2 {
+body, p, h1, ol, ul, dir, dl, dd {
     margin: 0;
+    padding: 0;
+    overflow: hidden;
     font-family: 'Microsoft Yahei', sans-serif;
+    list-style: none;
+}
+
+h1, b {
+    font-weight: normal;
 }
 
 tt, pre {
@@ -38,11 +45,62 @@ html, body, iframe {
     overflow: hidden;
 }
 
-/* 开始屏幕 */
-.start {
-    background-color: #ccc;
+body {
+    background-image: linear-gradient(to bottom right, #077CEC, #0970D5);
+    background-image: url(../img/bgi.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
 }
 
+/* 点击按钮配色 */
+.btn-acc {
+    background-image: linear-gradient(to bottom right, #00E9E6, #267BEF);
+}
+
+.btn-rec {
+    background-image: linear-gradient(to bottom right, #FD9B44, #FA5496);
+}
+
+.btn-log {
+    background-image: linear-gradient(to bottom right, #7DE4B5, #33CC64);
+}
+
+.btn-con {
+    background-image: linear-gradient(to bottom right, #CD4EDD, #644DDB);
+}
+
+.btn-los {
+    background-image: linear-gradient(to bottom right, #F8CD5D, #E78601);
+}
+
+.btn-inf {
+    background-image: linear-gradient(to bottom right, #FC8E8D, #F837A2);
+}
+
+.btn-pho {
+    background-image: linear-gradient(to bottom right, #32B3EC, #0D64CB);
+}
+
+.btn-car {
+    background-image: linear-gradient(to bottom right, #F79474, #E32D3C);
+}
+
+.home h2 a.lnk-exit {
+    color: rgba(255,0,0,0.9);
+}
+
+.log h2 a.lnk-log {
+    color: #33CC64;
+}
+
+.consume h2 a.lnk-cons {
+    color: #644DDB;
+}
+
+
+
+/* 遮罩 */
 section {
     display: none;
     overflow: hidden;
@@ -54,6 +112,7 @@ section {
     padding-top: 240px;
 }
 
+/* 对话框 */
 .dlg dialog {
     margin: 0 auto;
     background-color: rgba(255,255,255,0.9);
@@ -146,8 +205,10 @@ section {
     box-sizing: border-box;
 }
 
-.start div, .users div, .home div, .account div, .log div, .consume div, .loss div, .info div  {
-    background-color: #6DBB27;
+/* 通用 */
+.users div, .home div, .account div, .log div, .consume div, .loss div, .info div  {
+    /*background-color: #6DBB27;
+    background-image: linear-gradient(to bottom right, #077CEC, #0970D5);*/
     z-index: 2;
     position: fixed;
     width: 100%;
@@ -160,94 +221,223 @@ section {
 blockquote {
 }
 
-.start h1, .users h1 {
-    font-size: 48px;
-    line-height: 160px;
+/* 开始屏幕 */
+.start {
+    position: fixed;
+    background-color: #F0EFF4;
+    background-image: linear-gradient(to bottom right, #077CEC, #0970D5);
+    width: 100%;
+    height: 100%;
+    background-image: url(../img/bgi.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+}
+
+.start a {
+    color: #fff;
+    box-sizing: border-box;
+    border: 5px solid rgba(255,255,255,0.5);
+}
+
+/* 主分区 */
+.start div {
+    overflow: hidden;
+    /*background-color: #fff;*/
+    margin: 0 auto;
+    max-width: 1920px;
+}
+
+.start h1 {
+    padding: 0 20px 0 10px;
+}
+
+.start ul {
+    float: right;
+    width: 40%;
+    padding: 10px 10px 10px 0;
+    box-sizing: border-box;
 }
 
 .start ol {
-    overflow: hidden;
-    font-size: 32px;
-    margin: 0 auto;
-    width: 900px;
+    float: left;
+    width: 60%;
+    padding: 10px 0 10px 10px;
+    box-sizing: border-box;
 }
 
-.start dl {
+.start dir {
+    clear: left;
+    float: left;
+    width: 60%;
+    padding: 0 10px 0 20px;
+    box-sizing: border-box;
+}
+
+/* 头部 */
+.start h1 img {
+    display: block;
+    float: left;
+}
+
+.start h1 b {
+    display: block;
+    float: left;
+    font-size: 48px;
+    line-height: 130px;
+    /*text-shadow: 0 0 0.2em #fff, -0 -0 0.2em #fff;*/
+}
+
+.start h1 span {
+    display: block;
+    float: right;
+    height: 130px;
+    width: 130px;
+    background-image: url(../img/qrcode.png);
+    background-size: 130px 130px;
+}
+
+.start h1 p {
+    float: right;
+    font-size: 32px;
+    line-height: 130px;
+    padding: 0 30px 0 0;
+    /*text-shadow: 0 0 0.2em #fff, -0 -0 0.2em #fff;*/
+}
+
+/* 右侧 */
+.start li {
     float: left;
     width: 50%;
-    padding: 20px 0;
+    height: 300px;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.start li a {
+    display: block;
+    line-height: 270px;
+    height: 280px;
+    text-align: center;
+    font-size: 48px;
+}
+
+.start li a:nth-child(odd) {
+    clear: left;
+}
+
+/* 广告 */
+.start dl {
+    padding: 10px;
+    box-sizing: border-box;
 }
 
 .start dl a {
     display: block;
-    line-height: 100px;
-    background-color: #FC8200;
-    color: #fff;
-    margin: 0 10px;
+    height: 100%;
+    min-height: 580px;
+    background-image: url(../img/ad.jpeg);
+    background-size: 100% auto;
+    background-position: center;
 }
 
-.start ul, .users ul, .home ul {
-    overflow: hidden;
-    font-size: 36px;
-    margin: 0 auto;
-    width: 900px;
+/* 底部 */
+.start dt {
+    padding: 0 10px 0 0;
 }
 
-.start li, .users li, .home li {
+.start dd {
+    padding: 0 0 0 10px;
+}
+
+.start dt, .start dd {
     float: left;
-    width: 300px;
-    padding: 10px 0;
+    width: 50%;
+    box-sizing: border-box;
 }
 
-.start li a, .home li a {
+.start dt a, .start dd a {
     display: block;
-    line-height: 200px;
-    background-color: #007DFC;
-    color: #fff;
-    margin: 0 10px;
+    line-height: 270px;
+    height: 280px;
+    text-align: center;
+    font-size: 48px;
 }
 
 /* 选择用户 */
 .users header, .home header, .account header, .log header, .consume header, .loss header, .info header {
-    background-color: #9CEE52;
+    /*background-color: #9CEE52;*/
+    background-color: rgba(255,255,255,0.3);
     border-bottom: 1px solid #204201;
 }
 
+.users h1 {
+    font-size: 48px;
+    line-height: 160px;
+}
+
 .users h2, .home h2, .account h2, .log h2, .consume h2, .loss h2, .info h2 {
-    font-size: 32px;
-    line-height: 80px;
-    width: 900px;
+    padding: 10px 20px;
+    overflow: hidden;
+    width: 1140px;
     margin: 0 auto;
     font-weight: normal;
+    box-sizing: border-box;
+    font-size: 28px;
 }
 
 .users h2 b, .home h2 b, .account h2 b, .log h2 b, .consume h2 b, .loss h2 b, .info h2 b {
     display: block;
     font-weight: normal;
-    width: 780px;
+    /*width: 780px;*/
     padding-right: 120px;
+    line-height: 60px;
+    font-size: 32px;
 }
 
 .users h2 a, .home h2 a, .account h2 a, .log h2 a, .consume h2 a, .loss h2 a, .info h2 a {
     display: block;
     float: left;
     width: 120px;
+    background-color: rgba(255,255,255,0.5);
+    color: #022dfd;
+    border-radius: 6px;
+    line-height: 56px;
+    /*padding: 0 30px;*/
+    border: 2px solid rgba(255,255,255,0.6);
+    box-sizing: border-box;
+}
+
+.users ul, .home ul {
+    overflow: hidden;
+    font-size: 48px;
+    margin: 0 auto;
+    width: 1140px;
+}
+
+.users li, .home li {
+    float: left;
+    width: 380px;
+    padding: 10px;
+    box-sizing: border-box;
 }
 
 .users li a {
     display: block;
-    height: 172px;
-    background-color: #007DFC;
+    height: 260px;
+    /*background-color: #007DFC;*/
     color: #fff;
-    margin: 0 10px;
+    margin: 10px;
     text-align: left;
     padding: 20px;
+    box-sizing: border-box;
+    border: 5px solid rgba(255,255,255,0.5);
 }
 
 .users li u {
     display: block;
     text-decoration: none;
-    line-height: 52px;
+    line-height: 80px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -263,8 +453,9 @@ blockquote {
 
 /* 主页 */
 .home h2 b {
-    padding: 0 120px;
-    width: 660px;
+    /*padding: 0 120px;
+    width: 660px;*/
+    font-size: 32px;
 }
 
 .home h2 a {
@@ -279,6 +470,18 @@ blockquote {
     padding: 80px 0 0 0;
 }
 
+.home li a {
+    display: block;
+    line-height: 210px;
+    height: 260px;
+    /*background-color: #007DFC;*/
+    color: #fff;
+    margin: 10px;
+    padding: 20px;
+    box-sizing: border-box;
+    border: 5px solid rgba(255,255,255,0.5);
+}
+
 /* 账户信息 */
 .account ul, .loss ul, .info ul {
     margin: 80px auto 0 auto;
@@ -287,7 +490,7 @@ blockquote {
     font-size: 28px;
     line-height: 56px;
     padding: 0 0 0 20px;
-    background-color: rgba(255,255,255,1);
+    background-color: rgba(255,255,255,0.9);
 }
 
 .account dl, .loss dl, .info dl {
@@ -306,6 +509,7 @@ blockquote {
 
 .account dd, .loss dd {
     text-align: right;
+    color: rgba(0,0,0,0.7);
 }
 
 /* 充值记录 */
@@ -323,9 +527,9 @@ blockquote {
     display: block;
     margin: 0 auto;
     height: 687px;
-    width: 900px;
+    width: 1100px;
     overflow-y: scroll;
-    background-color: rgba(255, 255, 255, 0.5);
+    background-color: rgba(255, 255, 255, 0.6);
     font-size: 24px;
     line-height: 60px;
     text-align: left;
@@ -345,7 +549,7 @@ blockquote {
 }
 
 .log li:nth-child(even), .consume li:nth-child(even) {
-    background-color: rgba(255, 255, 255, 0.7);
+    background-color: rgba(255, 255, 255, 0.9);
 }
 
 .log li dfn, .consume li dfn {
@@ -361,6 +565,7 @@ blockquote {
 .log li time, .consume li time {
     float: right;
     width: 240px;
+    color: rgba(0,0,0,0.7);
 }
 
 /* 消费记录 */
@@ -373,16 +578,16 @@ blockquote {
 }
 
 .consume li dfn {
-    width: 140px;
+    width: 160px;
 }
 
 .consume li var {
-    width: 140px;
+    width: 160px;
 }
 
 .consume li address {
     float: left;
-    width: 310px;
+    width: 400px;
 }
 
 .consume dfn, .consume var, .consume address, .consume time {
@@ -412,6 +617,8 @@ blockquote {
     line-height: 80px;
     background-color: #FC8200;
     color: #fff;
+    box-sizing: border-box;
+    border: 2px solid rgba(255,255,255,0.5);
 }
 
 .loss li a.disable {

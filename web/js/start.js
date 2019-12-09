@@ -14,6 +14,9 @@ global = {
     userObj: null
 }
 
+// 初始化日历
+var cxCalendarApi, cxCalendarApi2, cxCalendarApi3;
+
 ele = {
     searchForm: document.getElementById('search_form'),
     startDate: document.getElementById('element_id'),
@@ -26,6 +29,7 @@ ele = {
     loss: document.getElementById('loss'),
     info: document.getElementById('info'),
     phone: document.getElementById('phone'),
+    account: document.getElementById('account'),
     bindPhone: document.getElementById('bindPhone'),
     phoneTitle: document.getElementById('phoneTitle'),
     sms: document.getElementById('btnSms'),
@@ -57,6 +61,7 @@ DATA = {
         '': {'': '子类'}
     }
 }
+BTN = ['acc', 'rec', 'log', 'con', 'los', 'inf', 'pho', 'car']
 
 // 配置
 config = {
@@ -218,6 +223,7 @@ function showPhone(id, text) {
     }
     ele.phoneTitle.innerHTML = ele.bindPhone.getAttribute('data-title')
     hide(ele.section[2])
+    hide(document.getElementById(id))
     show(ele.phone)
 }
 
@@ -579,12 +585,13 @@ function api_swipe(arg) {
     i = 0
     for (; i < len; i++) {
         row = data[i]
+        btn = BTN[i]
         userName = row.user_name || ''
         telephone = row.telephone || ''
         operatorName = row.operator_name || ''
         organName = row.organ_name || ''
 
-        html = '<li><a href="javascript:" onclick="choice(this)" data-uid="' + row.user_id + '" data-oid="' + row.operator_id + '"><u>' + userName + '</u><p>' + telephone + '</p><p>' + operatorName + '</p><p>' + organName + '</p></a></li>'
+        html = '<li><a class="btn-' + btn + '" href="javascript:" onclick="choice(this)" data-uid="' + row.user_id + '" data-oid="' + row.operator_id + '"><u>' + userName + '</u><p>' + telephone + '</p><p>' + operatorName + '</p><p>' + organName + '</p></a></li>'
 
         users_list.insertAdjacentHTML(position, html)
     }
@@ -674,6 +681,7 @@ function api_loss(arg) {
     dd[1].innerHTML = data.param_name
     ele.loss.setAttribute('data-status', data.card_status)
     elt.lossLinks[1].innerHTML = ('LOST' == data.card_status) ? '解挂' : '挂失'
+    elt.lossLinks[1].className = ('LOST' == data.card_status) ? 'btn-log' : 'btn-los'
 
     ele.section[0].style.display = 'none'
     back('home', 'loss')
@@ -784,6 +792,7 @@ function api_info(arg) {
     ele.section[0].style.display = 'none'
     back('home', 'info')
     global.focus = 0
+    cxCalendarApi3 = null
     $("#element_id3").cxCalendar({}, function(api){
         cxCalendarApi3 = api;
     });
@@ -829,15 +838,27 @@ function api_order(arg) {
 
     time[0].innerHTML = el.value = data.start_date
     time[1].innerHTML = el2.value = data.end_date
+    /*
     el.setAttribute('data-start-date', data.start_date)
     el.setAttribute('data-end-date', data.end_date)
     el2.setAttribute('data-start-date', data.start_date)
     el2.setAttribute('data-end-date', data.end_date)
+    */
 
-    $("#element_id").cxCalendar({}, function(api){
+    cxCalendarApi = null
+    cxCalendarApi2 = null
+
+    $("#element_id").cxCalendar({
+        startDate: data.start_date,
+        endDate: data.end_date
+    }, function(api){
         cxCalendarApi = api;
     });
-    $("#element_id2").cxCalendar({}, function(api){
+
+    $("#element_id2").cxCalendar({
+        startDate: data.start_date,
+        endDate: data.end_date
+    }, function(api){
         cxCalendarApi2 = api;
     });
 
