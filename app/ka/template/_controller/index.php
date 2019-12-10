@@ -106,7 +106,7 @@
         <dl><a href="javascript:"></a></dl>
     </ol>
     <dir>
-        <dt><a class="btn-pho" href="javascript:">手机号登录</a></dt>
+        <dt><a class="btn-pho" href="javascript:" onclick="showLogin()">手机号登录</a></dt>
         <dd><a class="btn-car" href="javascript:">刷卡登录</a></dd>
     </dir>
 </div>
@@ -116,7 +116,7 @@
 <div id="choice_user" style="display: none">
     <header>
         <h2>
-            <a href="javascript:" onclick="back('choice_user', 'start_screen')">返回</a>
+            <a href="javascript:" onclick="previous()">返回</a>
             <b>&nbsp;</b>
         </h2>
     </header>
@@ -132,7 +132,7 @@
         <h2>
             <a href="javascript:" onclick="back('home', 'choice_user')">返回</a>
             <a class="lnk-exit" href="javascript:" onclick="exit()">退出</a>
-            <b>周晓明</b>
+            <b></b>
         </h2>
     </header>
     <ul>
@@ -309,13 +309,43 @@
             <dt>验证码</dt>
             <dd class="code">
                 <input type="text" name="code" placeholder="请输入验证码" autocomplete="off" />
-                <button type="button" onclick="sendsms(this)" id="btnSms">发送验证码</button>
+                <button type="button" name="verify" onclick="sendsms(this)" id="btnSms">发送验证码</button>
             </dd>
         </dl>
     </ul>
     <ol>
         <li><a class="btn-pho" href="javascript:" onclick="bind()">确定</a></li>
     </ol>
+</div>
+</article>
+
+<article class="info phone">
+<div id="login" style="display: none;">
+    <header>
+        <h2>
+            <a href="javascript:" onclick="hideLogin()">返回</a>
+            <b>手机号登录</b>
+        </h2>
+    </header>
+    <ul>
+        <dl>
+            <dt>手机号</dt>
+            <dd>
+                <input type="text" name="phone" value="" placeholder="请输入手机号" autocomplete="off" />
+            </dd>
+        </dl>
+        <dl>
+            <dt>验证码</dt>
+            <dd class="code">
+                <input type="text" name="code" placeholder="请输入验证码" autocomplete="off" />
+                <button type="button" name="verify" onclick="sendsms(this)" id="verify">发送验证码</button>
+            </dd>
+        </dl>
+    </ul>
+    <ol>
+        <li><a class="btn-pho" href="javascript:" onclick="login()">登录</a></li>
+    </ol>
+    <!--p>温馨提示：如果您需要刷卡登录，请返回主屏幕再刷卡</p-->
 </div>
 </article>
 
@@ -327,7 +357,8 @@
 server = {
     interval: <?=$interval?>,
     hta: <?=$hta?>,
-    test: '<?=$testCardCode?>'
+    test: '<?=$testCardCode?>',
+    captcha: '<?=$captcha?>'
 }
 </script>
 <script src="/js/jquery.min.js"></script>

@@ -59,6 +59,7 @@ LIMIT 50";
         $phone = isset($_GET['phone']) ? trim($_GET['phone']) : null;
         $oid = isset($_GET['oid']) ? trim($_GET['oid']) : null;
         $find= isset($_GET['find']) ? trim($_GET['find']) : null;
+        $captcha= isset($_GET['captcha']) ? trim($_GET['captcha']) : null;
         $code = 0;
         $msg = '';
         $data = array();
@@ -68,7 +69,7 @@ LIMIT 50";
         if (!preg_match('/^1\d{10}$/', $phone)) {
             $msg = '请输入正确的手机号码';
 
-        } elseif (!($oid > 99999 && $oid < 100100)) {
+        } elseif ($oid && !($oid > 99999 && $oid < 100100)) {
             $msg = '商户号不正确';
         }
 
@@ -112,13 +113,14 @@ LIMIT 50";
 
         $code = 3;
         if (!$msg) {
-            $result = $this->sendSms($phone, $rand);
+            $result = $this->sendSms($phone, $rand, $captcha);
             if (isset($result['result']['Code']) && 'OK' == $result['result']['Code']) {
                 $msg = '发送成功，请注意查收！';
                 $this->smsLog($phone, $rand, $oid);
 
             } else {
                 $msg = '短信服务异常，请稍后重试！';
+                $data = $result;
             }
         }
 
@@ -141,7 +143,7 @@ LIMIT 50";
     }
 
     /* 短信接口 */
-    public function sendSms($phone, $code)
+    public function sendSms($phone, $code, $captcha)
     {
         global $_CONFIG;
         AlibabaCloud::accessKeyClient($_CONFIG['smsApi']['accessKeyId'], $_CONFIG['smsApi']['accessSecret'])
@@ -149,6 +151,11 @@ LIMIT 50";
                         ->asDefaultClient();
 
         $res = array('result' => array(), 'errNo' => 0, 'errMsg' => '');
+
+        if ($captcha) {
+            $res['result']['Code'] = 'OK';
+            return $res;
+        }
 
         try {
             $result = AlibabaCloud::rpc()
@@ -620,6 +627,7 @@ LIMIT 1";
         $uid = isset($_POST['uid']) ? trim($_POST['uid']) : null;
         $phone = isset($_POST['phone']) ? trim($_POST['phone']) : null;
         $verify = isset($_POST['code']) ? trim($_POST['code']) : null;
+        $captcha = isset($_POST['captcha']) ? trim($_POST['captcha']) : null;
         $code = 0;
         $msg = '绑定成功';
         $data = array();
@@ -629,7 +637,11 @@ LIMIT 1";
             $msg = '请输入正确的手机号码';
             $code = 1;
         } else {
-            $err = $this->captcha($phone, $verify);
+            $err = null;
+            if (!$captcha) {
+                $err = $this->captcha($phone, $verify);
+            }
+
             if ($err) {
                 $code = 2;
                 $msg = $err;
@@ -639,6 +651,57 @@ SET telephone = '$phone'
 WHERE user_id = '$uid' 
 LIMIT 1";
                 $count = $SearchURL->exec($sql);
+            }
+        }
+
+        $arr = array(
+            'code' => $code,
+            'msg' => $msg,
+            'data' => $data,
+        );
+        echo json_encode($arr);
+        exit;
+    }
+
+    /* 手机号登录 */
+    public function login()
+    {
+        $phone = isset($_POST['phone']) ? trim($_POST['phone']) : null;
+        $verify = isset($_POST['code']) ? trim($_POST['code']) : null;
+        $captcha = isset($_POST['captcha']) ? trim($_POST['captcha']) : null;
+        $code = 0;
+        $msg = '';
+        $data = array();
+        $SearchURL = new \Model\SearchURL();
+
+        if (!preg_match('/^1\d{10}$/', $phone)) {
+            $msg = '请输入正确的手机号码';
+            $code = 1;
+        } else {
+            $err = null;
+            if (!$captcha) {
+                $err = $this->captcha($phone, $verify);
+            }
+
+            if ($err) {
+                $code = 2;
+                $msg = $err;
+            } else {
+                // 查找用户
+                $sql = "SELECT A.user_id AS user_id, user_name, telephone, operator_name, organ_name, A.operator_id, card_status 
+FROM $this->db.pl_card_t A 
+LEFT JOIN $this->db.pl_user_t B ON B.user_id = A.user_id 
+LEFT JOIN $this->db.pl_operator_info_t C ON C.operator_id = A.operator_id 
+LEFT JOIN $this->db.pl_organization_t D ON D.organ_id = B.organ_id 
+WHERE B.telephone = '$phone' AND A.card_status != 'UNRELEASE' 
+LIMIT 50";
+                $statement = $SearchURL->query($sql);
+                $data = $statement->fetchAll(\PDO::FETCH_OBJ);
+                $len = count($data);
+                if (!$len) {
+                    $code = 3;
+                    $msg = '没有找到绑定这个手机号的用户';
+                }
             }
         }
 

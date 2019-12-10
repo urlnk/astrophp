@@ -7,6 +7,7 @@ class Index extends _controller
     public function index()
     {
         global $_CONFIG;
+        $captcha = isset($_GET['captcha']) ? 1 : 0;
         $hta = isset($_GET['hta']) ? 1 : 0;
         $test = isset($_GET['test']) ? $_GET['test'] : null;
         $interval = $_CONFIG['js']['interval'];
@@ -22,6 +23,7 @@ class Index extends _controller
             'interval' => $interval,
             'hta' => $hta,
             'testCardCode' => $test,
+            'captcha' => $captcha,
         );
     }
 }

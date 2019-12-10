@@ -1,7 +1,7 @@
 // 全局变量
 global = {
     uid: null,
-    oid: null,
+    oid: 0,
     page: 1,
     focus: 1,
     overflow: 0,
@@ -9,7 +9,10 @@ global = {
     from: 'home',
     to: null,
     total: 60,
+    totals: [60,60],
     timeinterval: null,
+    interval: [null, null],
+    sms: 0,
     phoneChanged: 0,
     userObj: null
 }
@@ -33,13 +36,18 @@ ele = {
     bindPhone: document.getElementById('bindPhone'),
     phoneTitle: document.getElementById('phoneTitle'),
     sms: document.getElementById('btnSms'),
+    verify: document.getElementById('verify'),
+
     section: document.getElementsByTagName('section'),
     time: document.getElementsByTagName('time'),
     tt: document.getElementsByTagName('tt'),
     p: document.getElementsByTagName('p'),
+
     sex: document.getElementsByName('sex'),
-    telephone: document.getElementsByName('phone')[0],
-    code: document.getElementsByName('code')[0],
+    telephone: document.getElementsByName('phone'),
+    code: document.getElementsByName('code'),
+    verifies: document.getElementsByName('verify'),
+
     consumeLst: document.getElementById('consumes_list'),
     logLst: document.getElementById('logs_list')
 }
@@ -85,7 +93,7 @@ function keep() {
 }
 
 function detect(obj) {
-    global.uid = null
+    global.uid = global.oid = 0
     // console.log(obj.value)
     document.getElementsByTagName('section')[0].style.display = 'block'
 
@@ -157,6 +165,7 @@ function sex() {
 
 function showAccount() {
     document.getElementsByTagName('section')[0].style.display = 'block'
+    ele.telephone[0].value = ele.code[0].value = ''
 
     uri = 'account'
     formData = {}
@@ -205,21 +214,58 @@ function loss() {
     _.api( uri, formData, 'post' )
 }
 
+function showLogin() {
+    ele.telephone[1].value = ele.code[1].value = ''
+    back('start_screen', 'login')
+    global.focus = 0
+    global.sms = 1
+    ele.telephone[1].focus()
+}
+
+function hideLogin() {
+    back('login', 'start_screen')
+}
+
+function login() {
+    no = ele.telephone[1].value
+    console.log({no:no})
+    if (!isPhone(no)) {
+        alert('请输入正确的手机号码')
+        return false
+    }
+
+    uri = 'login'
+    formData = {}
+    formData['phone'] = ele.telephone[1].value
+    formData['code'] = ele.code[1].value
+    formData['captcha'] = server.captcha
+    _.api( uri, formData, 'post' )
+}
+
 function bind() {
+    no = ele.telephone[0].value
+    console.log({no:no})
+    if (!isPhone(no)) {
+        alert('请输入正确的手机号码')
+        return false
+    }
+
     uri = 'phone'
     formData = {}
     formData['uid'] = global.uid
-    formData['phone'] = ele.telephone.value
-    formData['code'] = ele.code.value
+    formData['phone'] = ele.telephone[0].value
+    formData['code'] = ele.code[0].value
+    formData['captcha'] = server.captcha
     _.api( uri, formData, 'post' )
 }
 
 function showPhone(id, text) {
     global.from = id
-    global.focus = 0
+    global.focus = global.sms = 0
     if (text) {
         ele.bindPhone.innerHTML = text + '手机号'
         ele.bindPhone.setAttribute('data-title', text + '手机')
+        ele.telephone[0].value = ele.code[0].value = ''
     }
     ele.phoneTitle.innerHTML = ele.bindPhone.getAttribute('data-title')
     hide(ele.section[2])
@@ -255,8 +301,9 @@ function tip(info, code) {
 /* 发送短信验证码 */
 function sendsms(obj) {
     console.log(Date())
+    idx = global.sms
     uri = 'sms'
-    no = ele.telephone.value
+    no = ele.telephone[idx].value
     oid = global.oid
     console.log({no:no})
     if (!isPhone(no)) {
@@ -264,11 +311,12 @@ function sendsms(obj) {
         return false
     }
 
-    global.total = 60
-    global.timeinterval = setInterval(countdown, 1000)
-    ele.sms.setAttribute('disabled', 'disabled')
+    global.totals[idx] = 60
+    global.interval[idx] = setInterval(countdown, 1000)
+    ele.verifies[idx].setAttribute('disabled', 'disabled')
 
     formData = {phone:no, oid:oid, find:1}
+    formData['captcha'] = server.captcha
     _.api( uri, formData )
 }
 
@@ -277,13 +325,14 @@ function isPhone(str) {
 }
 
 function countdown() {
-    global.total--
-    ele.sms.innerHTML = global.total + 's'
-    console.log(global.total)
-    if (global.total < 1) {
-        clearInterval(global.timeinterval)
-        ele.sms.innerHTML = '发送验证码'
-        ele.sms.removeAttribute('disabled')
+    idx = global.sms
+    global.totals[idx]--
+    ele.verifies[idx].innerHTML = global.totals[idx] + 's'
+    console.log(global.totals[idx])
+    if (global.totals[idx] < 1) {
+        clearInterval(global.interval[idx])
+        ele.verifies[idx].innerHTML = '发送验证码'
+        ele.verifies[idx].removeAttribute('disabled')
         console.log(Date())
     }
 }
@@ -350,6 +399,14 @@ function filterSubmit() {
     return false
 }
 
+function previous() {
+    to = global.sms ? 'login' : 'start_screen'
+    back('choice_user', to)
+    if (global.sms) {
+        global.focus = 0
+    }
+}
+
 function back(i, id, cx) {
     o = document.getElementById(i)
     obj = document.getElementById(id)
@@ -372,7 +429,7 @@ function back(i, id, cx) {
 }
 
 function exit() {
-    global.uid = null
+    global.uid = global.oid = 0
     back('home', 'start_screen')
 }
 
@@ -597,6 +654,7 @@ function api_swipe(arg) {
     }
 
     if (len) {
+        global.sms = 0
         back('start_screen', 'choice_user')
     } else if(load_msg) {
         alert(load_msg)
@@ -700,15 +758,15 @@ function api_phone(arg) {
     switch (code) {
         case 0:
             text = "hidePhone()"
-            global.userObj.getElementsByTagName('p')[0].innerHTML = ele.telephone.value
-            ele.telephone.value = ele.code.value = ''
+            global.userObj.getElementsByTagName('p')[0].innerHTML = ele.telephone[0].value
+            ele.telephone[0].value = ele.code[0].value = ''
             global.phoneChanged = 1
             break
         case 1:
-            text = "ele.telephone.focus()"
+            text = "ele.telephone[0].focus()"
             break
         case 2:
-            text = "ele.code.focus()"
+            text = "ele.code[0].focus()"
             break
         case 3:
             alert(msg)
@@ -721,6 +779,84 @@ function api_phone(arg) {
     if (msg) {
         tip(msg, text)
     }
+}
+
+function api_login(arg) {
+    text = ''
+    json = RESP['login']
+    code = json.code
+    msg = json.msg
+    data = json.data
+    switch (code) {
+        case 0:
+            swipe()
+            ele.telephone[1].value = ele.code[1].value = ''
+            break
+        case 1:
+            text = "ele.telephone[1].focus()"
+            break
+        case 2:
+            text = "ele.code[1].focus()"
+            break
+        case 3:
+            alert(msg)
+            return
+        default:
+            alert(code + ': ' + msg)
+            return
+    }
+
+    if (msg) {
+        tip(msg, text)
+    }
+}
+
+function swipe(arg) {
+    position = 'beforeEnd'
+    load_msg = ''
+    json = RESP['login']
+    code = json.code
+    msg = json.msg
+    data = json.data
+    switch (code) {
+        case 0:
+            break
+        case 1:
+        case 2:
+            load_msg = msg
+            break
+        case 3:
+            alert(msg)
+            return
+        default:
+            alert(code + ': ' + msg)
+            return
+    }
+
+    users_list.innerHTML = ''
+    len = data.length
+    i = 0
+    for (; i < len; i++) {
+        row = data[i]
+        btn = BTN[i]
+        userName = row.user_name || ''
+        telephone = row.telephone || ''
+        operatorName = row.operator_name || ''
+        organName = row.organ_name || ''
+
+        html = '<li><a class="btn-' + btn + '" href="javascript:" onclick="choice(this)" data-uid="' + row.user_id + '" data-oid="' + row.operator_id + '"><u>' + userName + '</u><p>' + telephone + '</p><p>' + operatorName + '</p><p>' + organName + '</p></a></li>'
+
+        users_list.insertAdjacentHTML(position, html)
+    }
+
+    if (len) {
+        back('login', 'choice_user')
+    } else if(load_msg) {
+        alert(load_msg)
+    }
+    ele.section[0].style.display = 'none'
+    // console.log(json)
+    global.focus = 1
 }
 
 function api_sms(arg) {
