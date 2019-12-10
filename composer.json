@@ -13,7 +13,7 @@
         "wuding/equiv-route": "^1.1",
         "wuding/magic-cube": "^1.1",
         "wuding/new-ui": "^1.0",
-        "wuding/topdb": "^1.0",
+        "wuding/topdb": "^1.0.1",
         "wuding/php-ext": "^1.1",
         "alibabacloud/client": "^1.5"
     }
