@@ -45,6 +45,7 @@ html, body, iframe {
     overflow: hidden;
 }
 
+/*
 body {
     background-image: linear-gradient(to bottom right, #077CEC, #0970D5);
     background-image: url(../img/bgi.png);
@@ -52,6 +53,7 @@ body {
     background-repeat: no-repeat;
     background-size: 100% 100%;
 }
+*/
 
 /* 点击按钮配色 */
 .btn-acc {
@@ -221,13 +223,19 @@ section {
 blockquote {
 }
 
+blockquote input {
+    cursor: none;
+    color: transparent;
+    text-shadow: 0 0 0 #000;
+}
+
 /* 开始屏幕 */
 .start {
     position: fixed;
     background-color: #F0EFF4;
-    background-image: linear-gradient(to bottom right, #077CEC, #0970D5);
     width: 100%;
     height: 100%;
+    background-image: linear-gradient(to bottom right, #077CEC, #0970D5);
     background-image: url(../img/bgi.png);
     background-position: center;
     background-repeat: no-repeat;
@@ -685,6 +693,12 @@ a.sex {
 
 .code input[type=text], dd.code button {
     width: 50%;
+}
+
+.info p {
+    padding: 80px 0;
+    font-size: 20px;
+    line-height: 20px;
 }
 
 /* 筛选 */
