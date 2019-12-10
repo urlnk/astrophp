@@ -50,7 +50,8 @@ ele = {
     verifies: document.getElementsByName('verify'),
 
     consumeLst: document.getElementById('consumes_list'),
-    logLst: document.getElementById('logs_list')
+    logLst: document.getElementById('logs_list'),
+    usrLst: document.getElementById('users_list')
 }
 
 elt = {
@@ -700,6 +701,11 @@ function api_swipe(arg) {
     if (len) {
         global.sms = 0
         back('start_screen', 'choice_user')
+        links = ele.usrLst.getElementsByTagName('a')
+        if (1 == data.length) {
+            links[0].click()
+        }
+        console.log([data.length, links])
     } else if(load_msg) {
         alert(load_msg)
     }
@@ -895,6 +901,11 @@ function swipe(arg) {
 
     if (len) {
         back('login', 'choice_user')
+        links = ele.usrLst.getElementsByTagName('a')
+        if (1 == data.length) {
+            links[0].click()
+        }
+        console.log([data.length, links])
     } else if(load_msg) {
         alert(load_msg)
     }
