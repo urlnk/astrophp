@@ -64,7 +64,7 @@ class _Controller extends \MagicCube\Controller
 
     public function login()
     {
-        $oid = isset($_POST['oid']) ? $_POST['oid'] : null;
+        $oid = isset($_GET['oid']) ? $_GET['oid'] : null;
         $phone = isset($_POST['phone']) ? trim($_POST['phone']) : null;
         $code = isset($_POST['code']) ? trim($_POST['code']) : null;
 
@@ -72,6 +72,8 @@ class _Controller extends \MagicCube\Controller
         $SearchURL = new \Model\SearchURL();
 
         if ('POST' == $_SERVER['REQUEST_METHOD']) {
+            $oid = isset($_POST['oid']) ? $_POST['oid'] : null;
+
             if (!$phone) {
                 $err = '请输入手机号';
 
@@ -111,6 +113,15 @@ LIMIT 1";
             }
         }
 
+        // 记住商户号
+        if ($oid) {
+            setcookie('oid', $oid, 4729600202);
+
+        } elseif (isset($_COOKIE['oid']) && is_numeric($_COOKIE['oid'])) {
+            $oid = $_COOKIE['oid'];
+        }
+
+        // 列出商户号
         $sql = "SELECT operator_id, operator_name
 FROM $this->db.pl_operator_info_t
 WHERE operator_type = '2'
