@@ -158,7 +158,23 @@
     </header>
     <ul>
         <dl>
+            <dt>商户</dt>
+            <dd></dd>
+        </dl>
+        <dl>
+            <dt>组织</dt>
+            <dd></dd>
+        </dl>
+        <dl>
+            <dt>用户号</dt>
+            <dd></dd>
+        </dl>
+        <dl>
             <dt>卡内码</dt>
+            <dd></dd>
+        </dl>
+        <dl>
+            <dt>开卡时间</dt>
             <dd></dd>
         </dl>
         <dl>
@@ -283,6 +299,24 @@
             <dd>
                 <time onclick="cxCalendarApi3.show();" id="birthdays"></time>
                 <input id="element_id3" type="hidden" name="birthday" value="" data-format="YYYY/MM/DD" data-start-date="" data-end-date="" onchange="chg(this, 'birthdays')">
+            </dd>
+        </dl>
+        <dl>
+            <dt>身份证号</dt>
+            <dd>
+                <input type="text" name="identity_card" value="" placeholder="请输入身份证号" autocomplete="off" />
+            </dd>
+        </dl>
+        <dl>
+            <dt>联系地址</dt>
+            <dd>
+                <input type="text" name="address" value="" placeholder="请输入联系地址" autocomplete="off" />
+            </dd>
+        </dl>
+        <dl>
+            <dt>车牌号</dt>
+            <dd>
+                <input type="text" name="license_plate_no" value="" placeholder="请输入车牌号" autocomplete="off" />
             </dd>
         </dl>
     </ul>

@@ -16,7 +16,7 @@ class SearchURL extends \Topdb\Table
 
     public function getInfo($uid)
     {
-        $sql = "SELECT user_name, sex, birthday, user_id 
+        $sql = "SELECT user_name, sex, birthday, user_id, identity_card, address, license_plate_no 
 FROM $this->db_name.pl_user_t 
 WHERE user_id = '$uid' 
 LIMIT 1";

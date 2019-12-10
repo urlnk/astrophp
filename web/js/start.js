@@ -190,6 +190,9 @@ function info() {
     formData['sex'] = ele.info.getAttribute('data-sex')
     formData['user_name'] = elt.infoNpt[0].value
     formData['birthday'] = elt.infoNpt[1].value
+    formData['identity_card'] = elt.infoNpt[2].value
+    formData['address'] = elt.infoNpt[3].value
+    formData['license_plate_no'] = elt.infoNpt[4].value
     // console.log(formData)
     _.api( uri, formData, 'post' )
 }
@@ -748,11 +751,16 @@ function api_account(arg) {
         row.innerHTML = '-'
     }
 
-    dd[0].innerHTML = data.card_code
-    dd[1].innerHTML = data.effective_time
-    dd[2].innerHTML = data.cash
-    dd[3].innerHTML = data.subsidy
-    dd[4].innerHTML = data.telephone || '无'
+    dd[0].innerHTML = data.operator_name
+    dd[1].innerHTML = data.organ_name
+    dd[2].innerHTML = data.user_no
+    dd[3].innerHTML = data.card_code
+    dd[4].innerHTML = data.create_time
+    dd[5].innerHTML = data.effective_time
+    dd[6].innerHTML = data.cash
+    dd[7].innerHTML = data.subsidy
+    dd[8].innerHTML = data.telephone || '无'
+
     if (data.telephone) {
         ele.bindPhone.innerHTML = '换绑手机号'
         ele.bindPhone.setAttribute('data-title', '换绑手机')
@@ -966,6 +974,9 @@ function api_info(arg) {
 
     elt.infoNpt[0].value = data.user_name
     elt.infoNpt[1].value = data.birthday
+    elt.infoNpt[2].value = data.identity_card
+    elt.infoNpt[3].value = data.address
+    elt.infoNpt[4].value = data.license_plate_no
     ele.birthdays.innerHTML = data.birthday || '点击选择'
     if (data.sex) {
         ele.tt[0].innerHTML = data.sex

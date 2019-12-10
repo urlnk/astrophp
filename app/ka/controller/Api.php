@@ -207,6 +207,7 @@ LIMIT 50";
                 0,
             );
 
+            // 账户余额
             $sql = "SELECT acct_type, balance FROM $this->db.pl_acct_balance_t WHERE user_id = '$uid' LIMIT 2";
             $SearchURL = new \Model\SearchURL();
             $sth = $SearchURL->query($sql);
@@ -215,19 +216,18 @@ LIMIT 50";
                 $arr[$balance->acct_type] = $balance->balance;
             }
 
-            $sql = "SELECT card_code, effective_time FROM $this->db.pl_card_t WHERE user_id = '$uid' LIMIT 1";
+            // 账户信息
+            $sql = "SELECT operator_name, organ_name, user_no, card_code, create_time, effective_time, telephone 
+FROM $this->db.pl_card_t A 
+LEFT JOIN $this->db.pl_user_t B ON B.user_id = A.user_id 
+LEFT JOIN $this->db.pl_operator_info_t C ON C.operator_id = A.operator_id 
+LEFT JOIN $this->db.pl_organization_t D ON D.organ_id = B.organ_id 
+WHERE A.user_id = '$uid' 
+LIMIT 1";
             $sth = $SearchURL->query($sql);
-            $card = $sth->fetchObject();
-
-            $sql = "SELECT telephone FROM $this->db.pl_user_t WHERE user_id = '$uid' LIMIT 1";
-            $sth = $SearchURL->query($sql);
-            $user = $sth->fetchObject();
-
-            $data['cash'] = $arr[1];
-            $data['subsidy'] = $arr[3];
-            $data['card_code'] = $card->card_code;
-            $data['effective_time'] = $card->effective_time;
-            $data['telephone'] = $user->telephone;
+            $data = $sth->fetchObject();
+            $data->cash = $arr[1];
+            $data->subsidy = $arr[3];
 
         } else {
             $code = 3;
@@ -590,7 +590,7 @@ LIMIT 1";
             // 更新数据
             if (!$err) {
                 $sql = "UPDATE $this->db.pl_user_t 
-SET user_name = '$user_name', sex = '$sex', birthday = '$date' 
+SET user_name = '$user_name', sex = '$sex', birthday = '$date', identity_card = '$identity_card', address = '$address', license_plate_no = '$license_plate_no' 
 WHERE user_id = '$uid' 
 LIMIT 1";
                 $count = $SearchURL->exec($sql);

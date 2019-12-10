@@ -387,7 +387,8 @@ blockquote input {
 .users h2, .home h2, .account h2, .log h2, .consume h2, .loss h2, .info h2 {
     padding: 10px 20px;
     overflow: hidden;
-    width: 1140px;
+    width: 100%;
+    max-width: 1140px;
     margin: 0 auto;
     font-weight: normal;
     box-sizing: border-box;
@@ -420,7 +421,8 @@ blockquote input {
     overflow: hidden;
     font-size: 48px;
     margin: 0 auto;
-    width: 1140px;
+    width: 100%;
+    max-width: 1140px;
 }
 
 .users li, .home li {
@@ -676,7 +678,7 @@ a.sex {
     padding: 0;
     outline: 0;
     float: left;
-    width: 65%;
+    width: 100%;
     background-color: transparent;
 }
 
