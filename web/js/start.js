@@ -250,10 +250,14 @@ function hideDiv(id) {
 }
 
 function showSwipe() {
+    global.sign = global.from = null
     tip('请将您的卡片放在读卡位置')
 }
 
-function showLogin() {
+function showLogin(tip) {
+    if (!tip) {
+        global.sign = global.from = null
+    }
     ele.telephone[1].value = ele.code[1].value = ''
     back('start_screen', 'login')
     global.focus = 0

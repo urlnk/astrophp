@@ -57,7 +57,7 @@
         <p>请直接刷卡，或者用手机号登录</p>
         <footer>
             <button type="button" onclick="hide(ele.section[4])">取消</button>
-            <button type="submit" onclick="showLogin()">手机号登录</button>
+            <button type="submit" onclick="showLogin(1)">手机号登录</button>
         </footer>
     </dialog>
 </section>
