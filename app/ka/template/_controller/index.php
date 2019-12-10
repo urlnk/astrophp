@@ -11,9 +11,7 @@
 
 <body>
 <section class="dlg">
-    <dialog>
-        请稍后，正在查询卡信息……
-    </dialog>
+    <dialog>请稍后，正在查询卡信息……</dialog>
 </section>
 
 <section class="info" onclick="this.style.display = 'none'">
@@ -37,25 +35,29 @@
 
 <section class="tip prompt" onclick="hide(this)">
     <dialog>
-        <p>
-            为了您的账户安全，请绑定手机号码！
-        </p>
-
+        <p>为了您的账户安全，请绑定手机号码！</p>
         <footer>
-            <button type="button" onclick="hide(ele.section[2])">取消</button>
+            <button type="button" onclick="hidePhoneTip()">取消</button>
             <button type="submit" onclick="showPhone('home', '绑定')">立即绑定</button>
         </footer>
     </dialog>
 </section>
 
-<section class="tip" data-code="">
+<section class="tip" data-code="" onclick="hide(this)">
     <dialog>
-        <p>
-            修改成功
-        </p>
-
+        <p>修改成功</p>
         <footer>
             <button type="submit" onclick="hideTip()">确定</button>
+        </footer>
+    </dialog>
+</section>
+
+<section class="tip prompt" onclick="hide(this)">
+    <dialog>
+        <p>请直接刷卡，或者用手机号登录</p>
+        <footer>
+            <button type="button" onclick="hide(ele.section[4])">取消</button>
+            <button type="submit" onclick="showLogin()">手机号登录</button>
         </footer>
     </dialog>
 </section>
@@ -95,19 +97,19 @@
         <p>咨询电话：0555-2222114</p>
     </h1>
     <ul>
-        <li><a class="btn-acc" href="javascript:">账户信息</a></li>
-        <li><a class="btn-rec" href="javascript:">账户充值</a></li>
-        <li><a class="btn-log" href="javascript:">充值记录</a></li>
-        <li><a class="btn-con" href="javascript:">消费记录</a></li>
-        <li><a class="btn-los" href="javascript:">挂失解挂</a></li>
-        <li><a class="btn-inf" href="javascript:">完善信息</a></li>
+        <li><a class="btn-acc" href="javascript:" onclick="showSignTip(2)">账户信息</a></li>
+        <li><a class="btn-rec" href="javascript:" onclick="showSignTip(3)">账户充值</a></li>
+        <li><a class="btn-log" href="javascript:" onclick="showSignTip(4)">充值记录</a></li>
+        <li><a class="btn-con" href="javascript:" onclick="showSignTip(5)">消费记录</a></li>
+        <li><a class="btn-los" href="javascript:" onclick="showSignTip(6)">挂失解挂</a></li>
+        <li><a class="btn-inf" href="javascript:" onclick="showSignTip(7)">完善信息</a></li>
     </ul>
     <ol>
         <dl><a href="javascript:"></a></dl>
     </ol>
     <dir>
         <dt><a class="btn-pho" href="javascript:" onclick="showLogin()">手机号登录</a></dt>
-        <dd><a class="btn-car" href="javascript:">刷卡登录</a></dd>
+        <dd><a class="btn-car" href="javascript:" onclick="showSwipe()">刷卡登录</a></dd>
     </dir>
 </div>
 </article>
@@ -136,12 +138,12 @@
         </h2>
     </header>
     <ul>
-        <li><a class="btn-acc" href="javascript:" onclick="showAccount()">账户信息</a></li>
-        <li><a class="btn-rec" href="javascript:" onclick="back('home', 'recharge')">账户充值</a></li>
-        <li><a class="btn-log" href="javascript:" onclick="showLog()">充值记录</a></li>
-        <li><a class="btn-con" href="javascript:" onclick="showConsume()">消费记录</a></li>
-        <li><a class="btn-los" href="javascript:" onclick="showLoss()">挂失解挂</a></li>
-        <li><a class="btn-inf" href="javascript:" onclick="showInfo()">完善信息</a></li>
+        <li><a class="btn-acc" href="javascript:" onclick="showAccount()" data-id="account">账户信息</a></li>
+        <li><a class="btn-rec" href="javascript:" onclick="back('home', 'recharge')" data-id="recharge">账户充值</a></li>
+        <li><a class="btn-log" href="javascript:" onclick="showLog()" data-id="log">充值记录</a></li>
+        <li><a class="btn-con" href="javascript:" onclick="showConsume()" data-id="consume">消费记录</a></li>
+        <li><a class="btn-los" href="javascript:" onclick="showLoss()" data-id="loss">挂失解挂</a></li>
+        <li><a class="btn-inf" href="javascript:" onclick="showInfo()" data-id="info">完善信息</a></li>
     </ul>
 </div>
 </article>

@@ -6,8 +6,9 @@ global = {
     focus: 1,
     overflow: 0,
     scroll: 0,
-    from: 'home',
+    from: null,
     to: null,
+    sign: null,
     total: 60,
     totals: [60,60],
     timeinterval: null,
@@ -35,7 +36,7 @@ ele = {
     account: document.getElementById('account'),
     bindPhone: document.getElementById('bindPhone'),
     phoneTitle: document.getElementById('phoneTitle'),
-    sms: document.getElementById('btnSms'),
+    home: document.getElementById('home'),
     verify: document.getElementById('verify'),
 
     section: document.getElementsByTagName('section'),
@@ -58,6 +59,7 @@ elt = {
     logMain: ele.log.getElementsByTagName('main')[0],
     consMain: ele.consume.getElementsByTagName('main')[0],
     lossLinks: ele.loss.getElementsByTagName('a'),
+    homeLinks: ele.home.getElementsByTagName('a'),
     infoNpt: ele.info.getElementsByTagName('input')
 }
 
@@ -94,19 +96,11 @@ function keep() {
 
 function detect(obj) {
     global.uid = global.oid = 0
+    hideSection()
     // console.log(obj.value)
     document.getElementsByTagName('section')[0].style.display = 'block'
 
-    // 隐藏所有分区
-    article = document.getElementsByTagName('article')
-    leng = article.length
-    for (j = 0; j < leng; j++) {
-        div = article[j].getElementsByTagName('div')
-        len = div.length
-        for (i = 0; i < len; i++) {
-            div[i].style.display = 'none'
-        }
-    }
+    hideDiv()
 
     // 隐藏日历
     cx = document.getElementsByClassName('cxcalendar')
@@ -142,7 +136,11 @@ function choice(obj) {
         ele.section[2].style.display = 'block'
     }
     choice_user.style.display = 'none'
-    home.style.display = 'block'
+    if (global.sign) {
+        showSign()
+    } else {
+        home.style.display = 'block'
+    }
     home.getElementsByTagName('b')[0].innerHTML = obj.getElementsByTagName('u')[0].innerHTML
 }
 
@@ -214,6 +212,46 @@ function loss() {
     _.api( uri, formData, 'post' )
 }
 
+function showSignTip(id) {
+    global.sign = id
+    global.from = elt.homeLinks[id].getAttribute('data-id')
+    ele.section[4].style.display = 'block'
+}
+
+function showSign() {
+    elt.homeLinks[global.sign].click()
+    global.sign = null
+}
+
+function hideSection() {
+    len = ele.section.length
+    for (i = 0; i < len; i++) {
+        ele.section[i].style.display = 'none'
+    }
+}
+
+// 隐藏所有分区
+function hideDiv(id) {
+    article = document.getElementsByTagName('article')
+    leng = article.length
+    for (j = 0; j < leng; j++) {
+        div = article[j].getElementsByTagName('div')
+        len = div.length
+        for (i = 0; i < len; i++) {
+            ids = div[i].id
+            if (id && ids == id) {
+                div[i].style.display = 'block'
+            } else{
+                div[i].style.display = 'none'
+            }
+        }
+    }
+}
+
+function showSwipe() {
+    tip('请将您的卡片放在读卡位置')
+}
+
 function showLogin() {
     ele.telephone[1].value = ele.code[1].value = ''
     back('start_screen', 'login')
@@ -260,7 +298,9 @@ function bind() {
 }
 
 function showPhone(id, text) {
-    global.from = id
+    if (!global.from) {
+        global.from = id
+    }
     global.focus = global.sms = 0
     if (text) {
         ele.bindPhone.innerHTML = text + '手机号'
@@ -269,8 +309,7 @@ function showPhone(id, text) {
     }
     ele.phoneTitle.innerHTML = ele.bindPhone.getAttribute('data-title')
     hide(ele.section[2])
-    hide(document.getElementById(id))
-    show(ele.phone)
+    hideDiv('phone')
 }
 
 function hidePhone() {
@@ -282,6 +321,13 @@ function hidePhone() {
     } else {
         back('phone', global.from)
     }
+    global.from = null
+    console.log(global)
+}
+
+function hidePhoneTip() {
+    global.from = null
+    hide(ele.section[2])
 }
 
 function hideTip() {
@@ -408,10 +454,8 @@ function previous() {
 }
 
 function back(i, id, cx) {
-    o = document.getElementById(i)
-    obj = document.getElementById(id)
-    o.style.display = 'none'
-    obj.style.display = 'block'
+    console.log([i, id, cx])
+    hideDiv(id)
     global.focus = 1
 
     // 移除多余日历
