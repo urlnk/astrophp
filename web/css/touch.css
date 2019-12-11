@@ -10,6 +10,10 @@ h1, b {
     font-weight: normal;
 }
 
+nav {
+    overflow: hidden;
+}
+
 tt, pre {
     font-family: 'Microsoft Yahei', sans-serif;
 }
@@ -286,6 +290,7 @@ blockquote input {
 .start h1 img {
     display: block;
     float: left;
+    height: 130px;
 }
 
 .start h1 b {
@@ -296,13 +301,13 @@ blockquote input {
     /*text-shadow: 0 0 0.2em #fff, -0 -0 0.2em #fff;*/
 }
 
+.start h1 nav {
+    float: left;
+}
+
 .start h1 span {
     display: block;
     float: right;
-    height: 130px;
-    width: 130px;
-    background-image: url(../img/qrcode.png);
-    background-size: 130px 130px;
 }
 
 .start h1 p {

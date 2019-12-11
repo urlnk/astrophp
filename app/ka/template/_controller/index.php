@@ -91,9 +91,9 @@
 <article class="start">
 <div id="start_screen">
     <h1>
-        <img src="img/logo.png">
+        <nav><img src="img/logo.png<?=$static_version?>"></nav>
         <b>消费信息查询系统</b>
-        <span></span>
+        <span><img src="img/qrcode.png<?=$static_version?>"></span>
         <p>咨询电话：0555-2222114</p>
     </h1>
     <ul>
