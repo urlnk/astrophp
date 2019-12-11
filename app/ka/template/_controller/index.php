@@ -62,6 +62,12 @@
     </dialog>
 </section>
 
+<section class="ad" onclick="ad.hide()">
+    <dialog>
+        <a href="javascript:"><img src="img/ad.jpeg"></a>
+    </dialog>
+</section>
+
 <div id="filter" class="flt" style="display: none">
     <form id="search_form" data-type="0" onsubmit="return filterSubmit()">
         <ol>
@@ -105,7 +111,7 @@
         <li><a class="btn-inf" href="javascript:" onclick="showSignTip(7)">完善信息</a></li>
     </ul>
     <ol>
-        <dl><a href="javascript:"></a></dl>
+        <dl><a id="adLink" href="javascript:" onclick="ad.show()"></a></dl>
     </ol>
     <dir>
         <dt><a class="btn-pho" href="javascript:" onclick="showLogin()">手机号登录</a></dt>
@@ -394,7 +400,12 @@ server = {
     interval: <?=$interval?>,
     hta: <?=$hta?>,
     test: '<?=$testCardCode?>',
-    captcha: '<?=$captcha?>'
+    captcha: '<?=$captcha?>',
+    ads: <?=$ads?>,
+    bg: <?=$bg?>,
+    bgChange: <?=$bgChange?>,
+    adChange: <?=$adChange?>,
+    adHide: <?=$adHide?>
 }
 </script>
 <script src="/js/jquery.min.js"></script>

@@ -38,6 +38,7 @@ ele = {
     phoneTitle: document.getElementById('phoneTitle'),
     home: document.getElementById('home'),
     verify: document.getElementById('verify'),
+    adLnk: document.getElementById('adLink'),
 
     section: document.getElementsByTagName('section'),
     time: document.getElementsByTagName('time'),

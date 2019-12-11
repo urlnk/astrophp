@@ -24,6 +24,11 @@ class Index extends _controller
             'hta' => $hta,
             'testCardCode' => $test,
             'captcha' => $captcha,
+            'ads' => json_encode($_CONFIG['ads']),
+            'bg' => json_encode($_CONFIG['bg']),
+            'bgChange' => $_CONFIG['bgChange'],
+            'adChange' => $_CONFIG['adChange'],
+            'adHide' => $_CONFIG['adHide'],
         );
     }
 }

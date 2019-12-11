@@ -1,3 +1,4 @@
+/* reset */
 body, p, h1, ol, ul, dir, dl, dd {
     margin: 0;
     padding: 0;
@@ -104,8 +105,6 @@ body {
     color: #644DDB;
 }
 
-
-
 /* 遮罩 */
 section {
     display: none;
@@ -116,6 +115,10 @@ section {
     height: 100%;
     background-color: rgba(0,0,0,0.6);
     padding-top: 240px;
+}
+
+.ad {
+    padding-top: 0;
 }
 
 /* 对话框 */
@@ -132,7 +135,7 @@ section {
 .info dialog, .tip dialog {
     position: relative;
     border: 1px #ddd solid;
-    margin: 0 auto 0 auto;
+    margin: 0 auto;
     border-radius: 8px;
     background-color: #fff;
     width: 300px;
@@ -140,12 +143,23 @@ section {
     line-height: 48px;
 }
 
-.tip dialog {
+.ad dialog {
     width: fit-content;
-    max-width: 600px;
-    min-width: 300px;
+    margin: 0 auto;
+    border: none;
 }
 
+/* 广告 */
+.ad {
+    background-color: rgba(0,0,0,0.9);
+}
+
+.ad img {
+    display: block;
+    max-width: 100%;
+}
+
+/* 性别选择 */
 .info dialog ol {
     padding-left: 20px;
 }
@@ -171,15 +185,18 @@ section {
     float: left;
 }
 
+/* 提示 */
+.tip dialog {
+    width: fit-content;
+    max-width: 600px;
+    min-width: 300px;
+}
+
 .tip dialog p {
     border-bottom: 1px solid #e2e2e2;
     text-align: center;
     padding: 20px;
     white-space: nowrap;
-}
-
-.prompt dialog p {
-    padding: 30px;
 }
 
 .tip dialog footer {
@@ -204,6 +221,11 @@ section {
 
 .tip button:nth-child(2) {
     border-left: 1px solid #e2e2e2;
+}
+
+/* 选择提示 */
+.prompt dialog p {
+    padding: 30px;
 }
 
 .prompt dialog button {
@@ -348,7 +370,7 @@ blockquote input {
 .start dl a {
     display: block;
     height: 100%;
-    min-height: 580px;
+    min-height: 631px;
     background-image: url(../img/ad.jpeg);
     background-size: 100% auto;
     background-position: center;
@@ -371,8 +393,8 @@ blockquote input {
 
 .start dt a, .start dd a {
     display: block;
-    line-height: 270px;
-    height: 280px;
+    line-height: 219px;
+    height: 229px;
     text-align: center;
     font-size: 48px;
 }
