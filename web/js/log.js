@@ -46,7 +46,12 @@ bg.init = function () {
 
 bg.change = function () {
     url = server.bg[bg.index]
-    document.getElementsByTagName('article')[0].style.backgroundImage = 'url(' + url + ')'
+    if (url.match(/\//)) {
+        url = 'url(' + url + ')'
+    } else if(!url) {
+        url = 'linear-gradient(to bottom right, #077CEC, #0970D5)'
+    }
+    document.getElementsByTagName('article')[0].style.backgroundImage = url
     bg.index++
     if (bg.index >= bg.len) {
         bg.index = 0
