@@ -32,11 +32,16 @@ LEFT JOIN $this->db.pl_organization_t D ON D.organ_id = B.organ_id
 WHERE A.card_code = '$decimal' AND A.card_status != 'UNRELEASE' 
 LIMIT 50";
             $statement = $SearchURL->query($sql);
-            $data = $statement->fetchAll(\PDO::FETCH_OBJ);
-            $len = count($data);
+            $all = $statement->fetchAll(\PDO::FETCH_OBJ);
+            $len = count($all);
             if (!$len) {
                 $code = 2;
                 $msg = '没有找到用户，请重刷！';
+            } else {
+                foreach ($all as $value) {
+                    $value->user_id = Func::encrypt($value->user_id);
+                    $data[] = $value;
+                }
             }
 
         } else {
@@ -194,6 +199,7 @@ LIMIT 50";
     public function account()
     {
         $uid = isset($_POST['uid']) ? trim($_POST['uid']) : null;
+        $uid = Func::decrypt($uid);
         $code = 0;
         $msg = '';
         $data = array();
@@ -248,6 +254,7 @@ LIMIT 1";
     {
         $uid = isset($_GET['uid']) ? trim($_GET['uid']) : null;
         $type = isset($_GET['type']) ? trim($_GET['type']) : null;
+        $uid = Func::decrypt($uid);
         $SearchURL = new \Model\SearchURL();
         $code = 0;
         $msg = '';
@@ -285,6 +292,7 @@ LIMIT 1";
         $start = isset($_GET['start']) ? $_GET['start'] : null;
         $end = isset($_GET['end']) ? $_GET['end'] : null;
         $page = isset($_GET['page']) ? $_GET['page'] : 1;
+        $uid = Func::decrypt($uid);
         $SearchURL = new \Model\SearchURL();
         $limit = 20;
         $offset = $limit * $page - $limit;
@@ -355,6 +363,7 @@ LIMIT $offset, $limit";
         $start = isset($_GET['start']) ? $_GET['start'] : null;
         $end = isset($_GET['end']) ? $_GET['end'] : null;
         $page = isset($_GET['page']) ? $_GET['page'] : 1;
+        $uid = Func::decrypt($uid);
         $SearchURL = new \Model\SearchURL();
         $limit = 20;
         $offset = $limit * $page - $limit;
@@ -468,6 +477,7 @@ LIMIT $offset, $limit";
     public function loss()
     {
         $uid = isset($_GET['uid']) ? trim($_GET['uid']) : null;
+        $uid = Func::decrypt($uid);
         $code = 0;
         $msg = '';
         $data = array();
@@ -475,6 +485,7 @@ LIMIT $offset, $limit";
 
         if ('POST' == $_SERVER['REQUEST_METHOD']) {
             $uid = $_POST['uid'];
+            $uid = Func::decrypt($uid);
             $card_status = $_POST['card_status'];
             $status = $type = $text = $param_name = null;
             switch ($card_status) {
@@ -503,9 +514,10 @@ LIMIT 1";
             $card = $sth->fetchObject();
 
             if ($card) {
-                $data = $card;
-                $data->card_status = $status;
-                $data->param_name = $param_name;
+                $data = (array) $card;
+                $data['card_status'] = $status;
+                $data['param_name'] = $param_name;
+                unset($data['card_id'], $data['operator_id']);
 
             } else {
                 $code = 1;
@@ -566,6 +578,7 @@ LIMIT 1";
     public function info()
     {
         $uid = isset($_GET['uid']) ? trim($_GET['uid']) : null;
+        $uid = Func::decrypt($uid);
         $code = 0;
         $msg = $err = '';
         $data = array();
@@ -573,6 +586,7 @@ LIMIT 1";
 
         if ('POST' == $_SERVER['REQUEST_METHOD']) {
             extract($_POST);
+            $uid = Func::decrypt($uid);
             $user_name = trim($user_name);
             $time = strtotime($birthday);
 
@@ -628,6 +642,7 @@ LIMIT 1";
         $phone = isset($_POST['phone']) ? trim($_POST['phone']) : null;
         $verify = isset($_POST['code']) ? trim($_POST['code']) : null;
         $captcha = isset($_POST['captcha']) ? trim($_POST['captcha']) : null;
+        $uid = Func::decrypt($uid);
         $code = 0;
         $msg = '绑定成功';
         $data = array();
@@ -696,11 +711,16 @@ LEFT JOIN $this->db.pl_organization_t D ON D.organ_id = B.organ_id
 WHERE B.telephone = '$phone' AND A.card_status != 'UNRELEASE' 
 LIMIT 50";
                 $statement = $SearchURL->query($sql);
-                $data = $statement->fetchAll(\PDO::FETCH_OBJ);
-                $len = count($data);
+                $all = $statement->fetchAll(\PDO::FETCH_OBJ);
+                $len = count($all);
                 if (!$len) {
                     $code = 3;
                     $msg = '没有找到绑定这个手机号的用户';
+                } else {
+                    foreach ($all as $value) {
+                        $value->user_id = Func::encrypt($value->user_id);
+                        $data[] = $value;
+                    }
                 }
             }
         }
