@@ -48,4 +48,13 @@ return array(
     'js' => array(
         'interval' => 500, // 一般设置为 500 毫秒
     ),
+    'ads' => array(
+        'img/ad.jpeg', 'ad/bee.jpg', 'ad/star.jpg', 'ad/jumanji.jpg'
+    ),
+    'bg' => array(
+        'img/bgi.png', 'bg/bg1.jpg', 'bg/bg2.jpg', 'bg/bg3.jpg', 'bg/bg4.jpeg', 'bg/bg5.jpg'
+    ),
+    'bgChange' => 10000,
+    'adChange' => 3000,
+    'adHide' => 30000,
 );
