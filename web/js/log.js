@@ -44,6 +44,7 @@ ad.len = bg.len = 0
 ad.index = bg.index = 0
 ad.img = ele.section[5].getElementsByTagName('img')[0]
 ad.dl = ele.start.getElementsByTagName('dl')
+ad.isFullscreen = 0
 
 bg.init = function () {
     bg.len = server.bg.length
@@ -66,7 +67,14 @@ bg.change = function () {
     }
 }
 
+ad.fullscreen = function () {
+    if ('auto' != _.getStyle(ele.video, 'top')) {
+        ad.hide()
+    }
+}
+
 ad.show = function () {
+    ad.isFullscreen = 1
     ele.section[5].style.display = 'block'
     ad.top()
     ad.timeout = setTimeout(ad.hide, server.adHide)
@@ -74,6 +82,8 @@ ad.show = function () {
 }
 
 ad.hide = function () {
+    ad.isFullscreen = 0
+    ele.video.className = ''
     ele.section[5].style.display = 'none'
     clearTimeout(ad.timeout)
 }
@@ -94,7 +104,17 @@ ad.change = function () {
         ele.video.src = url
         ad.dl[0].style.display = 'none'
         ad.dl[1].style.display = 'block'
+        ele.section[5].style.display = 'none'
+        // 通过样式全屏
+        if ('auto' == _.getStyle(ele.video, 'top') && ad.isFullscreen) {
+            ele.video.className = 'fullscreen'
+        }
+
     } else {
+        // 全屏显示
+        if (ad.isFullscreen || 'auto' != _.getStyle(ele.video, 'top')) {
+            ele.section[5].style.display = 'block'
+        }
         ele.video.pause()
         ele.adLnk.style.backgroundImage = 'url(' + url + ')'
         ad.img.src = url

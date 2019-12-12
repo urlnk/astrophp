@@ -603,6 +603,33 @@ _.viewport = function () {
     }
 }
 
+/**
+ * 获取元素样式
+ * @param {object} el - 元素对象
+ * @param {string} [prop] - 属性名称
+ * @returns {object} 样式对象
+ */
+_.getStyle = function ( el, prop ) {
+    var style = false;
+    if ( el.currentStyle ) {
+        style = el.currentStyle;
+    } else if ( window.getComputedStyle ) {
+        style = document.defaultView.getComputedStyle( el, null ); //IE获取不了样式表定义
+        /*style = {};
+        for ( var i = 0; i < cs.length; i++ ) {
+            style[ cs[ i ] ] = cs.getPropertyValue( cs[ i ] );
+        }
+        if ( prop ) {
+            //return style.getPropertyValue( prop );
+        }*/
+    }
+    if ( prop ) {
+        return style[ prop ];
+    }
+    //alert( JSON.stringify( style));
+    return style;
+};
+
 _.api = function ( uri, formData, method, queryString, arg ) {
     method = method || 'get'
     method = method.toUpperCase()

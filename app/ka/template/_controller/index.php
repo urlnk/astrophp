@@ -113,7 +113,7 @@
     <ol>
         <dl><a id="adLink" href="javascript:" onclick="ad.show()"></a></dl>
         <dl style="display: none">
-            <video id="video" controls muted autoplay src=""></video>
+            <video id="video" controls muted autoplay loop src="" ondblclick="ad.fullscreen()"></video>
         </dl>
     </ol>
     <dir>
