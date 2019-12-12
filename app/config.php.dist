@@ -48,13 +48,16 @@ return array(
     'js' => array(
         'interval' => 500, // 一般设置为 500 毫秒
     ),
+    'logo' => 'img/logo.png?_=0',
+    'qrcode' => 'img/qrcode.png?_=0',
+    'video_type' => 'mp4|mpeg|avi',
     'ads' => array(
-        'img/ad.jpeg', 'ad/bee.jpg', 'ad/star.jpg', 'ad/jumanji.jpg'
+        'https://www.w3schools.com/html/movie.mp4', 'https://www.runoob.com/try/demo_source/mov_bbb.mp4', 'img/ad.jpeg', 'ad/bee.jpg', 'ad/star.jpg', 'ad/jumanji.jpg'
     ),
     'bg' => array(
-        'img/bgi.png', 'bg/bg1.jpg', 'bg/bg2.jpg', 'bg/bg3.jpg', 'bg/bg4.jpeg', 'bg/bg5.jpg'
+        '', 'img/bgi.png', 'bg/bg1.jpg', 'bg/bg2.jpg', 'bg/bg3.jpg', 'bg/bg4.jpeg', 'bg/bg5.jpg'
     ),
-    'bgChange' => 10000,
-    'adChange' => 3000,
+    'bgChange' => 60000,
+    'adChange' => 12000,
     'adHide' => 30000,
 );
