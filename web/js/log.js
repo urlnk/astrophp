@@ -69,8 +69,8 @@ bg.change = function () {
 
 ad.fullscreen = function () {
     s = 0
-    if ('auto' != _.getStyle(ele.video, 'top')) {
-        ad.hide()
+    if ('auto' != _.getStyle(ele.video, 'top') || document.fullscreenElement) {
+        setTimeout('ad.hide()', 2000)
         s = 1
     } else {
         ad.show()
