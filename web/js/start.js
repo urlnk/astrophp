@@ -615,18 +615,10 @@ _.getStyle = function ( el, prop ) {
         style = el.currentStyle;
     } else if ( window.getComputedStyle ) {
         style = document.defaultView.getComputedStyle( el, null ); //IE获取不了样式表定义
-        /*style = {};
-        for ( var i = 0; i < cs.length; i++ ) {
-            style[ cs[ i ] ] = cs.getPropertyValue( cs[ i ] );
-        }
-        if ( prop ) {
-            //return style.getPropertyValue( prop );
-        }*/
     }
     if ( prop ) {
         return style[ prop ];
     }
-    //alert( JSON.stringify( style));
     return style;
 };
 

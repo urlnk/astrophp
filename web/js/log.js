@@ -68,9 +68,15 @@ bg.change = function () {
 }
 
 ad.fullscreen = function () {
+    s = 0
     if ('auto' != _.getStyle(ele.video, 'top')) {
         ad.hide()
+        s = 1
+    } else {
+        ad.show()
+        ele.section[5].style.display = 'none'
     }
+    console.log({s:s})
 }
 
 ad.show = function () {
@@ -78,14 +84,19 @@ ad.show = function () {
     ele.section[5].style.display = 'block'
     ad.top()
     ad.timeout = setTimeout(ad.hide, server.adHide)
-    console.log({h1:h1, h2:h2, h3:h3, t:t})
+    console.log({show:'show', h1:h1, h2:h2, h3:h3, t:t})
 }
 
 ad.hide = function () {
     ad.isFullscreen = 0
     ele.video.className = ''
     ele.section[5].style.display = 'none'
+    // document.webkitCancelFullScreen()
+    if (document.fullscreenElement) {
+        document.exitFullscreen()
+    }
     clearTimeout(ad.timeout)
+    console.log('hide')
 }
 
 ad.init = function () {
@@ -105,22 +116,25 @@ ad.change = function () {
         ad.dl[0].style.display = 'none'
         ad.dl[1].style.display = 'block'
         ele.section[5].style.display = 'none'
-        // 通过样式全屏
-        if ('auto' == _.getStyle(ele.video, 'top') && ad.isFullscreen) {
-            ele.video.className = 'fullscreen'
+        if (ad.isFullscreen) {
+            if ('auto' == _.getStyle(ele.video, 'top')) { // 通过样式全屏
+                ele.video.className = 'fullscreen'
+            }
+        } else if ('auto' != _.getStyle(ele.video, 'top')) { // 视频全屏功能
+            ad.isFullscreen = 1
         }
 
     } else {
+        ad.img.src = url
+        ele.adLnk.style.backgroundImage = 'url(' + url + ')'
         // 全屏显示
-        if (ad.isFullscreen || 'auto' != _.getStyle(ele.video, 'top')) {
+        if (ad.isFullscreen) {
             ele.section[5].style.display = 'block'
         }
-        ele.video.pause()
-        ele.adLnk.style.backgroundImage = 'url(' + url + ')'
-        ad.img.src = url
-        ad.top()
         ad.dl[0].style.display = 'block'
         ad.dl[1].style.display = 'none'
+        ad.top()
+        ele.video.pause()
     }
 
     ad.index++
