@@ -24,7 +24,9 @@ function chg(el, id) {
 
 // 视频静音
 function allClk() {
-    ele.video.muted = false
+    if ('none' != ele.start.style.display) {
+        ele.video.muted = false
+    }
 }
 
 
@@ -86,6 +88,9 @@ ad.init = function () {
 ad.change = function () {
     url = server.ads[ad.index]
     if (eval('url.match(/\.(' + server.videoType + ')$/i)')) {
+        if ('none' == ele.start.style.display) {
+            ele.video.muted = true
+        }
         ele.video.src = url
         ad.dl[0].style.display = 'none'
         ad.dl[1].style.display = 'block'
