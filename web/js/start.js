@@ -39,6 +39,8 @@ ele = {
     home: document.getElementById('home'),
     verify: document.getElementById('verify'),
     adLnk: document.getElementById('adLink'),
+    start: document.getElementById('start_screen'),
+    video: document.getElementById('video'),
 
     section: document.getElementsByTagName('section'),
     time: document.getElementsByTagName('time'),

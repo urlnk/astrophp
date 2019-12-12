@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="/css/jquery.cxcalendar.css<?=$static_version?>">
 </head>
 
-<body>
+<body onclick="allClk()">
 <section class="dlg">
     <dialog>请稍后，正在查询卡信息……</dialog>
 </section>
@@ -112,6 +112,9 @@
     </ul>
     <ol>
         <dl><a id="adLink" href="javascript:" onclick="ad.show()"></a></dl>
+        <dl style="display: none">
+            <video id="video" controls muted autoplay src=""></video>
+        </dl>
     </ol>
     <dir>
         <dt><a class="btn-pho" href="javascript:" onclick="showLogin()">手机号登录</a></dt>
@@ -405,7 +408,8 @@ server = {
     bg: <?=$bg?>,
     bgChange: <?=$bgChange?>,
     adChange: <?=$adChange?>,
-    adHide: <?=$adHide?>
+    adHide: <?=$adHide?>,
+    videoType: '<?=$videoType?>'
 }
 </script>
 <script src="/js/jquery.min.js"></script>

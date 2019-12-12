@@ -29,6 +29,7 @@ class Index extends _controller
             'bgChange' => $_CONFIG['bgChange'],
             'adChange' => $_CONFIG['adChange'],
             'adHide' => $_CONFIG['adHide'],
+            'videoType' => $_CONFIG['video_type'],
         );
     }
 }

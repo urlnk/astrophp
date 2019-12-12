@@ -22,6 +22,11 @@ function chg(el, id) {
     document.getElementById(id).innerHTML = el.value
 }
 
+// 视频静音
+function allClk() {
+    ele.video.muted = false
+}
+
 
 /* 广告 */
 var ad = function () {
@@ -36,6 +41,7 @@ ad.timeout = ad.interval = bg.interval = null
 ad.len = bg.len = 0
 ad.index = bg.index = 0
 ad.img = ele.section[5].getElementsByTagName('img')[0]
+ad.dl = ele.start.getElementsByTagName('dl')
 
 bg.init = function () {
     bg.len = server.bg.length
@@ -79,9 +85,19 @@ ad.init = function () {
 
 ad.change = function () {
     url = server.ads[ad.index]
-    ele.adLnk.style.backgroundImage = 'url(' + url + ')'
-    ad.img.src = url
-    ad.top()
+    if (eval('url.match(/\.(' + server.videoType + ')$/i)')) {
+        ele.video.src = url
+        ad.dl[0].style.display = 'none'
+        ad.dl[1].style.display = 'block'
+    } else {
+        ele.video.pause()
+        ele.adLnk.style.backgroundImage = 'url(' + url + ')'
+        ad.img.src = url
+        ad.top()
+        ad.dl[0].style.display = 'block'
+        ad.dl[1].style.display = 'none'
+    }
+
     ad.index++
     if (ad.index >= ad.len) {
         ad.index = 0
