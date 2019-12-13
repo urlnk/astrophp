@@ -3,11 +3,18 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
-    <title>用户登录</title>
+    <title>易卡通查询系统</title>
     <link rel="stylesheet" type="text/css" href="/css/style.css<?=$static_version?>">
 </head>
 
 <body class="login">
+<header>
+    <div>
+        <img src="/img/px.png">
+        <b>查询系统</b>
+    </div>
+</header>
+
 <form method="post" action="" name="loginForm">
     <div>
         <dl>

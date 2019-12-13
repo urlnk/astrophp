@@ -89,6 +89,39 @@ blockquote {
     background-color: #F0EFF4;
 }
 
+.login header {
+    background-image: url(../img/banner.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: auto 100%;
+    height: 100px;
+    padding: 50px 0;
+}
+
+.login header div {
+    height: 100px;
+    width: 250px;
+    margin: 0 auto;
+}
+
+.login header img {
+    display: block;
+    float: left;
+    background-image: url(../img/mlogo.png);
+    background-repeat: no-repeat;
+    background-position: left;
+    height: 100px;
+    width: 110px;
+}
+
+.login header b {
+    display: block;
+    line-height: 90px;
+    font-size: 32px;
+    color: #fff;
+    font-weight: normal;
+}
+
 .login form {
     padding: 5px;
 }
