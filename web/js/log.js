@@ -80,12 +80,12 @@ ad.fullscreen = function () {
         s = 1
     } else {
         ad.show()
-        ele.section[5].style.display = 'none'
     }
     console.log({s:s})
 }
 
 ad.show = function () {
+    hideSection()
     url = ad.url
     ad.isFullscreen = 1
     if (eval('url.match(/\.(' + server.videoType + ')$/i)')) {
@@ -221,7 +221,6 @@ ad.exit = function () {
     ad.save()
     hideDiv('start_screen')
     hideWidget()
-    hideSection()
     ad.show()
 }
 

@@ -14,7 +14,7 @@ class Api extends _controller
     {
         $no = isset($_POST['no']) ? trim($_POST['no']) : null;
         $test = isset($_POST['test']) ? trim($_POST['test']) : null;
-        $code = 0;
+        $code = $decimal = 0;
         $msg = '';
         $data = array();
         $SearchURL = new \Model\SearchURL();
@@ -42,10 +42,11 @@ LIMIT 50";
                     $value->user_id = Func::encrypt($value->user_id);
                     $data[] = $value;
                 }
+                # $msg = $decimal;
             }
 
         } else {
-            $code = 2;
+            $code = 1;
             $msg = '不是有效的卡号';
         }
 
@@ -65,7 +66,7 @@ LIMIT 50";
         $oid = isset($_GET['oid']) ? trim($_GET['oid']) : null;
         $find= isset($_GET['find']) ? trim($_GET['find']) : null;
         $captcha= isset($_GET['captcha']) ? trim($_GET['captcha']) : null;
-        $code = 0;
+        $code = 1;
         $msg = '';
         $data = array();
         $SearchURL = new \Model\SearchURL();
@@ -116,10 +117,10 @@ LIMIT 50";
             $len++;
         }
 
-        $code = 3;
         if (!$msg) {
             $result = $this->sendSms($phone, $rand, $captcha);
             if (isset($result['result']['Code']) && 'OK' == $result['result']['Code']) {
+                $code = 2;
                 $msg = '发送成功，请注意查收！';
                 $this->smsLog($phone, $rand, $oid);
 
@@ -236,7 +237,7 @@ LIMIT 1";
             $data->subsidy = $arr[3];
 
         } else {
-            $code = 3;
+            $code = 1;
             $msg = '不是有效的用户ID';
         }
 
@@ -540,7 +541,7 @@ LIMIT 1";
 SET operate_flow_no = '$flow_no', user_id = '$uid', card_id = '$card->card_id', operate_type = '$type', operate_time = '$time', operator_id = '$card->operator_id'";
                     $count = $SearchURL->exec($sql);
                     if ($count) {
-                        $code = 1;
+                        $code = 2;
                         $msg = $text;
                     }
                 }
@@ -593,10 +594,13 @@ LIMIT 1";
             // 异常检测
             if (!$user_name) {
                 $err = '请输入姓名';
+                $code = 1;
             } elseif (!$sex) {
                 $err = '请选择性别';
+                $code = 2;
             } elseif (false === $time) {
                 $err = '请正确输入生日';
+                $code = 3;
             } else {
                 $date = date('Y-m-d H:i:s', $time);
             }
@@ -613,7 +617,6 @@ LIMIT 1";
                 }
 
             } else {
-                $code = 1;
                 $msg = $err;
             }
 
@@ -714,7 +717,7 @@ LIMIT 50";
                 $all = $statement->fetchAll(\PDO::FETCH_OBJ);
                 $len = count($all);
                 if (!$len) {
-                    $code = 3;
+                    $code = 1;
                     $msg = '没有找到绑定这个手机号的用户';
                 } else {
                     foreach ($all as $value) {

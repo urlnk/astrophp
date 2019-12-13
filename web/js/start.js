@@ -103,11 +103,9 @@ function detect(obj) {
     // console.log(obj.value)
     // document.getElementsByTagName('section')[0].style.display = 'block'
     hideSection(0)
-    hideDiv()
-    hideWidget()
-
     // 返回主屏幕
-    start_screen.style.display = 'block'
+    hideDiv('start_screen')
+    hideWidget()
 
     uri = 'swipe'
     formData = {}
@@ -299,33 +297,41 @@ function hideLogin() {
 
 function login() {
     no = ele.telephone[1].value
-    console.log({no:no})
+    code = ele.code[1].value.trim()
+    console.log({no:no, code:code})
     if (!isPhone(no)) {
-        alert('请输入正确的手机号码')
+        tip('请输入正确的手机号码', 'ele.telephone[1].focus()')
+        return false
+    } else if (4 != code.length) {
+        tip('请正确输入验证码', 'ele.code[1].focus()')
         return false
     }
 
     uri = 'login'
     formData = {}
-    formData['phone'] = ele.telephone[1].value
-    formData['code'] = ele.code[1].value
+    formData['phone'] = no
+    formData['code'] = code
     formData['captcha'] = server.captcha
     _.api( uri, formData, 'post' )
 }
 
 function bind() {
     no = ele.telephone[0].value
-    console.log({no:no})
+    code = ele.code[0].value.trim()
+    console.log({no:no, code:code})
     if (!isPhone(no)) {
-        alert('请输入正确的手机号码')
+        tip('请输入正确的手机号码', 'ele.telephone[0].focus()')
+        return false
+    } else if (4 != code.length) {
+        tip('请正确输入验证码', 'ele.code[0].focus()')
         return false
     }
 
     uri = 'phone'
     formData = {}
     formData['uid'] = global.uid
-    formData['phone'] = ele.telephone[0].value
-    formData['code'] = ele.code[0].value
+    formData['phone'] = no
+    formData['code'] = code
     formData['captcha'] = server.captcha
     _.api( uri, formData, 'post' )
 }
@@ -347,6 +353,7 @@ function showPhone(id, text) {
 
 function hidePhone() {
     global.focus = 1
+    global.from = global.from || 'account'
     if ('account' == global.from && global.phoneChanged) {
         global.to = 'phone'
         global.phoneChanged = 0
@@ -386,7 +393,7 @@ function sendsms(obj) {
     oid = global.oid
     console.log({no:no})
     if (!isPhone(no)) {
-        alert('请输入正确的手机号码')
+        tip('请输入正确的手机号码', 'ele.telephone[' + idx + '].focus()')
         return false
     }
 
@@ -746,7 +753,7 @@ function api_swipe(arg) {
         }
         console.log([data.length, links])
     } else if(load_msg) {
-        alert(load_msg)
+        tip(load_msg)
     }
     document.getElementsByTagName('section')[0].style.display = 'none'
     // console.log(json)
@@ -781,6 +788,11 @@ function api_account(arg) {
     for (; i < len; i++) {
         row = dd[i]
         row.innerHTML = '-'
+    }
+
+    if(load_msg) {
+        tip(load_msg)
+        return false
     }
 
     dd[0].innerHTML = data.operator_name
@@ -838,7 +850,7 @@ function api_loss(arg) {
     ele.section[0].style.display = 'none'
     back('home', 'loss')
     if (load_msg) {
-        setTimeout("alert(load_msg)", 500)
+        setTimeout("tip(load_msg)", 500)
     }
     // console.log(json)
 }
@@ -951,7 +963,7 @@ function swipe(arg) {
         }
         console.log([data.length, links])
     } else if(load_msg) {
-        alert(load_msg)
+        tip(load_msg, text)
     }
     ele.section[0].style.display = 'none'
     // console.log(json)
@@ -959,7 +971,7 @@ function swipe(arg) {
 }
 
 function api_sms(arg) {
-    load_msg = ''
+    load_msg = text = ''
     json = RESP['sms']
     code = json.code
     msg = json.msg
@@ -968,8 +980,12 @@ function api_sms(arg) {
         case 0:
             break
         case 1:
+            load_msg = msg
+            text = "ele.telephone[global.sms].focus()"
+            break
         case 2:
             load_msg = msg
+            text = "ele.code[global.sms].focus()"
             break
         case 3:
             alert(msg)
@@ -979,11 +995,14 @@ function api_sms(arg) {
             return
     }
 
+    if(load_msg) {
+        tip(load_msg, text)
+    }
     console.log(json)
 }
 
 function api_info(arg) {
-    load_msg = ''
+    load_msg = text = ''
     json = RESP['info']
     code = json.code
     msg = json.msg
@@ -993,12 +1012,14 @@ function api_info(arg) {
             home.getElementsByTagName('b')[0].innerHTML = global.userObj.getElementsByTagName('u')[0].innerHTML = data.user_name
             break
         case 1:
+            text = 'elt.infoNpt[0].focus()'
+            break
         case 2:
-            load_msg = msg
+            text = 'sex()'
             break
         case 3:
-            alert(msg)
-            return
+            text = 'cxCalendarApi3.show()'
+            break
         default:
             alert(code + ': ' + msg)
             return
@@ -1035,7 +1056,7 @@ function api_info(arg) {
         cxCalendarApi3 = api;
     });
     if (msg) {
-        setTimeout("alert(msg)", 500)
+        setTimeout("tip(msg, text)", 500)
     }
     // console.log(json)
 }

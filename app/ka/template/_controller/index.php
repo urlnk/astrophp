@@ -33,7 +33,7 @@
     </dialog>
 </section>
 
-<section class="tip prompt" onclick="hide(this)">
+<section class="tip prompt" onclick="hidePhoneTip()">
     <dialog>
         <p>为了您的账户安全，请绑定手机号码！</p>
         <footer>
@@ -43,7 +43,7 @@
     </dialog>
 </section>
 
-<section class="tip" data-code="" onclick="hide(this)">
+<section class="tip" data-code="" onclick="hideTip()">
     <dialog>
         <p>修改成功</p>
         <footer>
@@ -124,7 +124,7 @@
     <ol>
         <dl><a id="adLink" href="javascript:" onclick="ad.show()"></a></dl>
         <dl style="display: none">
-            <video id="video" controls muted autoplay loop src="" ondblclick="ad.fullscreen()"></video>
+            <video id="video" muted autoplay loop src="" ondblclick="ad.fullscreen()"></video>
         </dl>
     </ol>
     <dir>
