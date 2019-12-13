@@ -100,27 +100,13 @@ function keep() {
 
 function detect(obj) {
     global.uid = global.oid = 0
-    hideSection()
     // console.log(obj.value)
-    document.getElementsByTagName('section')[0].style.display = 'block'
-
+    // document.getElementsByTagName('section')[0].style.display = 'block'
+    hideSection(0)
     hideDiv()
+    hideWidget()
 
-    // 隐藏日历
-    cx = document.getElementsByClassName('cxcalendar')
-    len = cx.length
-    for (k = 0; k < len; k++) {
-        cx[k].style.display = 'none'
-    }
-
-    cx = document.getElementsByClassName('cxcalendar_lock')
-    len = cx.length
-    for (k = 0; k < len; k++) {
-        cx[k].style.display = 'none'
-    }
-
-    // 隐藏筛选日期，返回主屏幕
-    filter.style.display = 'none'
+    // 返回主屏幕
     start_screen.style.display = 'block'
 
     uri = 'swipe'
@@ -230,10 +216,14 @@ function showSign() {
     global.sign = null
 }
 
-function hideSection() {
+function hideSection(idx) {
     len = ele.section.length
     for (i = 0; i < len; i++) {
-        ele.section[i].style.display = 'none'
+        if (i !== idx) {
+            ele.section[i].style.display = 'none'
+        } else if (i === idx) {
+            ele.section[i].style.display = 'block'
+        }
     }
 }
 
@@ -253,6 +243,38 @@ function hideDiv(id) {
             }
         }
     }
+}
+
+
+function hideWidget() {
+    // 移除多余日历
+    div = document.getElementsByTagName('div')
+    len = div.length -1
+    for (i = len; i > 0; i--) {
+        el = div[i]
+        cls = el.className
+        if ('cxcalendar' == cls || 'cxcalendar_lock' == cls) {
+            if (!server.hta && !cx) {
+                el.remove()
+            }
+        }
+    }
+
+    // 隐藏日历
+    cx = document.getElementsByClassName('cxcalendar')
+    len = cx.length
+    for (k = 0; k < len; k++) {
+        cx[k].style.display = 'none'
+    }
+
+    cx = document.getElementsByClassName('cxcalendar_lock')
+    len = cx.length
+    for (k = 0; k < len; k++) {
+        cx[k].style.display = 'none'
+    }
+
+    // 隐藏筛选日期
+    filter.style.display = 'none'
 }
 
 function showSwipe() {
@@ -468,19 +490,7 @@ function back(i, id, cx) {
     console.log([i, id, cx])
     hideDiv(id)
     global.focus = 1
-
-    // 移除多余日历
-    div = document.getElementsByTagName('div')
-    len = div.length -1
-    for (i = len; i > 0; i--) {
-        el = div[i]
-        cls = el.className
-        if ('cxcalendar' == cls || 'cxcalendar_lock' == cls) {
-            if (!server.hta && !cx) {
-                el.remove()
-            }
-        }
-    }
+    hideWidget()
 }
 
 function exit() {

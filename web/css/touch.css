@@ -508,7 +508,8 @@ blockquote input {
     text-align: left;
     padding: 20px;
     box-sizing: border-box;
-    border: 5px solid rgba(255,255,255,0.5);
+    /*border: 5px solid rgba(255,255,255,0.5);*/
+    border: 1px solid rgba(13, 100, 203, 1);
 }
 
 .users li u {
@@ -556,7 +557,8 @@ blockquote input {
     margin: 10px;
     padding: 20px;
     box-sizing: border-box;
-    border: 5px solid rgba(255,255,255,0.5);
+    /*border: 5px solid rgba(255,255,255,0.5);*/
+    border: 1px solid rgba(13, 100, 203, 1);
 }
 
 /* 账户信息 */

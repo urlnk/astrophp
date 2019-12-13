@@ -68,6 +68,17 @@
     </dialog>
 </section>
 
+<section class="tip prompt" style="z-index:10003;" onclick="ad.save()">
+    <dialog>
+        <p>如果您需要继续操作，请点保留。
+        <br/>否则<var id="exitTime">30</var>秒后自动返回主屏幕</p>
+        <footer>
+            <button type="button" onclick="ad.exit()">退出</button>
+            <button type="submit" onclick="ad.save()">保留</button>
+        </footer>
+    </dialog>
+</section>
+
 <div id="filter" class="flt" style="display: none">
     <form id="search_form" data-type="0" onsubmit="return filterSubmit()">
         <ol>
@@ -313,7 +324,7 @@
         <dl>
             <dt>身份证号</dt>
             <dd>
-                <input type="text" name="identity_card" value="" placeholder="请输入身份证号" autocomplete="off" oninput="allClk()" />
+                <input type="text" name="identity_card" value="" placeholder="请输入身份证号" autocomplete="off" oninput="allClk()" maxlength="18" />
             </dd>
         </dl>
         <dl>
@@ -347,13 +358,13 @@
         <dl>
             <dt>手机号</dt>
             <dd>
-                <input type="text" name="phone" value="" placeholder="请输入手机号" autocomplete="off" oninput="allClk()" />
+                <input type="text" name="phone" value="" placeholder="请输入手机号" autocomplete="off" oninput="allClk()" maxlength="11" />
             </dd>
         </dl>
         <dl>
             <dt>验证码</dt>
             <dd class="code">
-                <input type="text" name="code" placeholder="请输入验证码" autocomplete="off" oninput="allClk()" />
+                <input type="text" name="code" placeholder="请输入验证码" autocomplete="off" oninput="allClk()" maxlength="4" />
                 <button type="button" name="verify" onclick="sendsms(this)" id="btnSms">发送验证码</button>
             </dd>
         </dl>
@@ -376,13 +387,13 @@
         <dl>
             <dt>手机号</dt>
             <dd>
-                <input type="text" name="phone" value="" placeholder="请输入手机号" autocomplete="off" oninput="allClk()" />
+                <input type="text" name="phone" value="" placeholder="请输入手机号" autocomplete="off" oninput="allClk()" maxlength="11" />
             </dd>
         </dl>
         <dl>
             <dt>验证码</dt>
             <dd class="code">
-                <input type="text" name="code" placeholder="请输入验证码" autocomplete="off" oninput="allClk()" />
+                <input type="text" name="code" placeholder="请输入验证码" autocomplete="off" oninput="allClk()" maxlength="4" />
                 <button type="button" name="verify" onclick="sendsms(this)" id="verify">发送验证码</button>
             </dd>
         </dl>
@@ -411,6 +422,7 @@ server = {
     adHide: <?=$adHide?>,
     adFullscreen: <?=$adFullscreen?>,
     countdown: <?=$countdown?>,
+    exitTime: <?=$exitTime?>,
     videoType: '<?=$videoType?>'
 }
 </script>

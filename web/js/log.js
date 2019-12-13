@@ -41,13 +41,14 @@ var bg = function () {
 
 }
 
-ad.timeout = ad.interval = bg.interval = ad.interva2 = ad.url = null
+ad.timeout = ad.interval = bg.interval = ad.interva2 = ad.url = ad.intervalExit = null
 ad.len = bg.len = 0
 ad.index = bg.index = 0
 ad.img = ele.section[5].getElementsByTagName('img')[0]
 ad.dl = ele.start.getElementsByTagName('dl')
 ad.isFullscreen = 0
 ad.count = server.adFullscreen
+ad.countS = server.exitTime * 1000
 
 bg.init = function () {
     bg.len = server.bg.length
@@ -98,7 +99,7 @@ ad.show = function () {
     if (server.adHide) {
         ad.timeout = setTimeout(ad.hide, server.adHide)
     }
-    console.log({show:'show', url:url})
+    console.log({show:'show', url:url, count:ad.count})
 }
 
 ad.hide = function () {
@@ -181,10 +182,53 @@ ad.countdown = function () {
     if (0 >= ad.count) {
         s = -1
         clearTimeout(ad.timeout)
-        ad.show()
-        ad.count = server.adFullscreen + server.adHide
+        ad.auto()
+        ad.count = server.adFullscreen
+        if ('none' == ele.start.style.display) {
+            ad.count += ad.countS
+        }
+        if (ad.isFullscreen) {
+            ad.count += server.adHide
+        }
     }
     console.log({s:s, count:ad.count, isFullscreen:ad.isFullscreen})
+}
+
+ad.countdownS = function () {
+    ad.countS = ad.countS - 1000
+    exitTime.innerHTML = ad.countS / 1000
+    s = 0
+    if (0 >= ad.countS) {
+        s = -1
+        ad.exit()
+    }
+    console.log({s:s, countS:ad.countS})
+}
+
+ad.auto = function () {
+    if ('none' == ele.start.style.display) {
+        ad.countS = server.exitTime * 1000
+        exitTime.innerHTML = server.exitTime
+        ele.section[6].style.display = 'block'
+        ad.intervalExit = setInterval(ad.countdownS, 1000)
+    } else {
+        ad.show()
+    }
+}
+
+// 退出当前操作界面，返回主屏幕
+ad.exit = function () {
+    ad.save()
+    hideDiv('start_screen')
+    hideWidget()
+    hideSection()
+    ad.show()
+}
+
+// 保留在当前操作界面
+ad.save = function () {
+    clearInterval(ad.intervalExit)
+    ele.section[6].style.display = 'none'
 }
 
 ad.init()
