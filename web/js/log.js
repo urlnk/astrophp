@@ -41,7 +41,7 @@ var bg = function () {
 
 }
 
-ad.timeout = ad.interval = bg.interval = ad.interva2 = null
+ad.timeout = ad.interval = bg.interval = ad.interva2 = ad.url = null
 ad.len = bg.len = 0
 ad.index = bg.index = 0
 ad.img = ele.section[5].getElementsByTagName('img')[0]
@@ -53,7 +53,9 @@ bg.init = function () {
     bg.len = server.bg.length
     bg.index = 0
     bg.change()
-    bg.interval = setInterval(bg.change, server.bgChange)
+    if (server.bgChange) {
+        bg.interval = setInterval(bg.change, server.bgChange)
+    }
 }
 
 bg.change = function () {
@@ -83,11 +85,20 @@ ad.fullscreen = function () {
 }
 
 ad.show = function () {
+    url = ad.url
     ad.isFullscreen = 1
-    ele.section[5].style.display = 'block'
-    ad.top()
-    ad.timeout = setTimeout(ad.hide, server.adHide)
-    console.log({show:'show', h1:h1, h2:h2, h3:h3, t:t})
+    if (eval('url.match(/\.(' + server.videoType + ')$/i)')) {
+        if ('auto' == _.getStyle(ele.video, 'top')) { // 通过样式全屏
+            ele.video.className = 'fullscreen'
+        }
+    } else {
+        ele.section[5].style.display = 'block'
+        ad.top()
+    }
+    if (server.adHide) {
+        ad.timeout = setTimeout(ad.hide, server.adHide)
+    }
+    console.log({show:'show', url:url})
 }
 
 ad.hide = function () {
@@ -107,12 +118,16 @@ ad.init = function () {
     ad.len = server.ads.length
     ad.index = 0
     ad.change()
-    ad.interval = setInterval(ad.change, server.adChange)
-    ad.interva2 = setInterval(ad.countdown, 1000)
+    if (server.adChange) {
+        ad.interval = setInterval(ad.change, server.adChange)
+    }
+    if (server.countdown) {
+        ad.interva2 = setInterval(ad.countdown, server.countdown)
+    }
 }
 
 ad.change = function () {
-    url = server.ads[ad.index]
+    ad.url = url = server.ads[ad.index]
     if (eval('url.match(/\.(' + server.videoType + ')$/i)')) {
         if ('none' == ele.start.style.display) {
             ele.video.muted = true
@@ -157,6 +172,7 @@ ad.top = function () {
         t = h3 / 2 + 'px'
     }
     ele.section[5].style.paddingTop = t
+    console.log({top:'top', h1:h1, h2:h2, h3:h3, t:t})
 }
 
 ad.countdown = function () {

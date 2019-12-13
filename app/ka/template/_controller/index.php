@@ -64,7 +64,7 @@
 
 <section class="ad" onclick="ad.hide()">
     <dialog>
-        <a href="javascript:"><img src="img/ad.jpeg"></a>
+        <a href="javascript:"><img src="img/px.png"></a>
     </dialog>
 </section>
 
@@ -410,6 +410,7 @@ server = {
     adChange: <?=$adChange?>,
     adHide: <?=$adHide?>,
     adFullscreen: <?=$adFullscreen?>,
+    countdown: <?=$countdown?>,
     videoType: '<?=$videoType?>'
 }
 </script>

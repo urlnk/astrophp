@@ -30,6 +30,7 @@ class Index extends _controller
             'adChange' => $_CONFIG['adChange'],
             'adHide' => $_CONFIG['adHide'],
             'adFullscreen' => $_CONFIG['adFullscreen'],
+            'countdown' => $_CONFIG['countdown'],
             'videoType' => $_CONFIG['video_type'],
             'logo' => $_CONFIG['logo'],
             'qrcode' => $_CONFIG['qrcode'],
