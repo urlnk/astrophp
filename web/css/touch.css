@@ -119,6 +119,7 @@ section {
 
 .ad {
     padding-top: 0;
+    z-index: 10002;
 }
 
 /* 对话框 */
@@ -401,6 +402,7 @@ blockquote input {
     height: 100% !important;
     transform: none !important;
     margin: 0px !important;
+    z-index: 10001;
 }
 
 /* 底部 */

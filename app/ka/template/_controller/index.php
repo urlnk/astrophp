@@ -293,7 +293,7 @@
         <dl>
             <dt>姓名</dt>
             <dd>
-                <input type="text" name="user_name" value="" placeholder="请输入姓名" autocomplete="off" />
+                <input type="text" name="user_name" value="" placeholder="请输入姓名" autocomplete="off" oninput="allClk()" />
             </dd>
         </dl>
         <dl>
@@ -313,19 +313,19 @@
         <dl>
             <dt>身份证号</dt>
             <dd>
-                <input type="text" name="identity_card" value="" placeholder="请输入身份证号" autocomplete="off" />
+                <input type="text" name="identity_card" value="" placeholder="请输入身份证号" autocomplete="off" oninput="allClk()" />
             </dd>
         </dl>
         <dl>
             <dt>联系地址</dt>
             <dd>
-                <input type="text" name="address" value="" placeholder="请输入联系地址" autocomplete="off" />
+                <input type="text" name="address" value="" placeholder="请输入联系地址" autocomplete="off" oninput="allClk()" />
             </dd>
         </dl>
         <dl>
             <dt>车牌号</dt>
             <dd>
-                <input type="text" name="license_plate_no" value="" placeholder="请输入车牌号" autocomplete="off" />
+                <input type="text" name="license_plate_no" value="" placeholder="请输入车牌号" autocomplete="off" oninput="allClk()" />
             </dd>
         </dl>
     </ul>
@@ -347,13 +347,13 @@
         <dl>
             <dt>手机号</dt>
             <dd>
-                <input type="text" name="phone" value="" placeholder="请输入手机号" autocomplete="off" />
+                <input type="text" name="phone" value="" placeholder="请输入手机号" autocomplete="off" oninput="allClk()" />
             </dd>
         </dl>
         <dl>
             <dt>验证码</dt>
             <dd class="code">
-                <input type="text" name="code" placeholder="请输入验证码" autocomplete="off" />
+                <input type="text" name="code" placeholder="请输入验证码" autocomplete="off" oninput="allClk()" />
                 <button type="button" name="verify" onclick="sendsms(this)" id="btnSms">发送验证码</button>
             </dd>
         </dl>
@@ -376,13 +376,13 @@
         <dl>
             <dt>手机号</dt>
             <dd>
-                <input type="text" name="phone" value="" placeholder="请输入手机号" autocomplete="off" />
+                <input type="text" name="phone" value="" placeholder="请输入手机号" autocomplete="off" oninput="allClk()" />
             </dd>
         </dl>
         <dl>
             <dt>验证码</dt>
             <dd class="code">
-                <input type="text" name="code" placeholder="请输入验证码" autocomplete="off" />
+                <input type="text" name="code" placeholder="请输入验证码" autocomplete="off" oninput="allClk()" />
                 <button type="button" name="verify" onclick="sendsms(this)" id="verify">发送验证码</button>
             </dd>
         </dl>
@@ -409,6 +409,7 @@ server = {
     bgChange: <?=$bgChange?>,
     adChange: <?=$adChange?>,
     adHide: <?=$adHide?>,
+    adFullscreen: <?=$adFullscreen?>,
     videoType: '<?=$videoType?>'
 }
 </script>

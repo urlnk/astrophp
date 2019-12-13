@@ -27,6 +27,8 @@ function allClk() {
     if ('none' != ele.start.style.display) {
         ele.video.muted = false
     }
+    ad.count = server.adFullscreen
+    console.log('allClk')
 }
 
 
@@ -39,12 +41,13 @@ var bg = function () {
 
 }
 
-ad.timeout = ad.interval = bg.interval = null
+ad.timeout = ad.interval = bg.interval = ad.interva2 = null
 ad.len = bg.len = 0
 ad.index = bg.index = 0
 ad.img = ele.section[5].getElementsByTagName('img')[0]
 ad.dl = ele.start.getElementsByTagName('dl')
 ad.isFullscreen = 0
+ad.count = server.adFullscreen
 
 bg.init = function () {
     bg.len = server.bg.length
@@ -96,6 +99,7 @@ ad.hide = function () {
         document.exitFullscreen()
     }
     clearTimeout(ad.timeout)
+    ad.count = server.adFullscreen
     console.log('hide')
 }
 
@@ -104,6 +108,7 @@ ad.init = function () {
     ad.index = 0
     ad.change()
     ad.interval = setInterval(ad.change, server.adChange)
+    ad.interva2 = setInterval(ad.countdown, 1000)
 }
 
 ad.change = function () {
@@ -152,6 +157,18 @@ ad.top = function () {
         t = h3 / 2 + 'px'
     }
     ele.section[5].style.paddingTop = t
+}
+
+ad.countdown = function () {
+    ad.count = ad.count - 1000
+    s = 0
+    if (0 >= ad.count) {
+        s = -1
+        clearTimeout(ad.timeout)
+        ad.show()
+        ad.count = server.adFullscreen + server.adHide
+    }
+    console.log({s:s, count:ad.count, isFullscreen:ad.isFullscreen})
 }
 
 ad.init()
