@@ -81,6 +81,7 @@ ad.dl = ele.start.getElementsByTagName('dl')
 ad.isFullscreen = 0
 ad.count = server.adFullscreen
 ad.countS = server.exitTime * 1000
+ad.refresh = server.refresh
 
 bg.init = function () {
     bg.len = server.bg.length
@@ -238,18 +239,22 @@ ad.countdownS = function () {
 }
 
 ad.auto = function () {
+    ad.refresh--
     if ('none' == ele.start.style.display) {
         ad.countS = server.exitTime * 1000
         exitTime.innerHTML = server.exitTime
         ele.section[6].style.display = 'block'
         ad.intervalExit = setInterval(ad.countdownS, 1000)
     } else {
-        ad.show()
+        ad.exit()
     }
 }
 
 // 退出当前操作界面，返回主屏幕
 ad.exit = function () {
+    if (server.refresh && 0 >= ad.refresh) {
+        window.location.href = '/ka/init'
+    }
     ad.save()
     hideDiv('start_screen')
     hideWidget()

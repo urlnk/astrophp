@@ -453,6 +453,7 @@ server = {
     adFullscreen: <?=$adFullscreen?>,
     countdown: <?=$countdown?>,
     exitTime: <?=$exitTime?>,
+    refresh: <?=$refresh?>,
     videoType: '<?=$videoType?>'
 }
 </script>
