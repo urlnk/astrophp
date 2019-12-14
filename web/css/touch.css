@@ -1,5 +1,5 @@
 /* reset */
-body, p, h1, ol, ul, dir, dl, dd {
+body, p, h1, h3, ol, ul, dir, dl, dd {
     margin: 0;
     padding: 0;
     overflow: hidden;
@@ -7,7 +7,7 @@ body, p, h1, ol, ul, dir, dl, dd {
     list-style: none;
 }
 
-h1, b {
+h1, h3, b {
     font-weight: normal;
 }
 
@@ -233,6 +233,61 @@ section {
 
 .tip button:nth-child(2) {
     border-left: 1px solid #e2e2e2;
+}
+
+/* 消费详情 */
+.detail h3 {
+    line-height: 56px;
+    font-size: 28px;
+    text-align: center;
+    padding: 6px 0 0 0;
+}
+
+.detail ol {
+    width: 380px;
+    padding: 0 20px;
+}
+
+.detail dl {
+    width: 33%;
+    float: left;
+    text-align: center;
+    font-size: 24px;
+    line-height: 44px;
+}
+
+.detail b {
+    display: block;
+    font-weight: bold;
+}
+
+.detail i {
+    display: block;
+    clear: left;
+    font-style: normal;
+}
+
+.detail s {
+    display: block;
+    clear: left;
+    text-decoration: none;
+}
+
+.detail span {
+    display: block;
+    padding: 0 0 20px 32px;
+    font-size: 24px;
+    line-height: 44px;
+    border-bottom: 1px solid #e2e2e2;
+}
+
+.detail tt {
+    font-weight: bold;
+}
+
+.detail var {
+    font-style: normal;
+    padding-left: 16px;
 }
 
 /* 选择提示 */

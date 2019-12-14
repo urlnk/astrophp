@@ -1,3 +1,35 @@
+// 显示条目详情
+function showDetail(obj) {
+    sec = ele.section[7]
+    sec.style.display = 'block'
+    a = sec.getElementsByTagName('i')
+    s = sec.getElementsByTagName('s')
+    v = sec.getElementsByTagName('var')[0]
+    for (i = 0; i < 3; i++) {
+        a[i].innerHTML = ''
+        s[i].innerHTML = ''
+    }
+
+    cash = obj.getAttribute('data-cash')
+    if (cash) {
+        c = JSON.parse(cash)
+        a[0].innerHTML = '现金账户'
+        a[1].innerHTML = c.order_amount + '元'
+        a[2].innerHTML = c.balance + '元'
+    }
+
+    row = obj.getAttribute('data-row')
+    if (row) {
+        r = JSON.parse(row)
+        s[0].innerHTML = '补贴账户'
+        s[1].innerHTML = r.order_amount + '元'
+        s[2].innerHTML = r.balance + '元'
+    }
+
+    amount = obj.getAttribute('data-amount')
+    v.innerHTML = amount + '（元）'
+}
+
 // 切换过滤面板
 function flt() {
     el = document.getElementById('filter')
@@ -13,7 +45,7 @@ function flt() {
 // 性别选择
 function clk(el) {
     ele.section[1].style.display = 'none'
-    document.getElementsByTagName('tt')[0].innerHTML = el.value
+    document.getElementsByTagName('tt')[1].innerHTML = el.value
     ele.info.setAttribute('data-sex', el.value)
 }
 

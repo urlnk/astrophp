@@ -79,6 +79,36 @@
     </dialog>
 </section>
 
+<section class="tip detail" onclick="hide(this)">
+    <dialog>
+        <h3>消费详情</h3>
+        <ol>
+            <dl>
+                <b>账户名称</b>
+                <i></i>
+                <s></s>
+            </dl>
+            <dl>
+                <b>消费金额</b>
+                <i></i>
+                <s></s>
+            </dl>
+            <dl>
+                <b>账户余额</b>
+                <i></i>
+                <s></s>
+            </dl>
+        </ol>
+        <span>
+            <tt>订单金额</tt>
+            <var></var>
+        </span>
+        <footer>
+            <button type="submit" onclick="hide(ele.section[7])">关闭</button>
+        </footer>
+    </dialog>
+</section>
+
 <div id="filter" class="flt" style="display: none">
     <form id="search_form" data-type="0" onsubmit="return filterSubmit()">
         <ol>

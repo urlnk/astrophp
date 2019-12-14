@@ -210,6 +210,7 @@ function showSignTip(id) {
 }
 
 function showSign() {
+    ele.section[0].style.display = 'block'
     elt.homeLinks[global.sign].click()
     global.sign = null
 }
@@ -441,6 +442,7 @@ function showLog() {
 }
 
 function showConsume() {
+    console.log('showConsume')
     ele.section[0].style.display = 'block'
     global.page = 1
     ele.searchForm.setAttribute('data-type', 1)
@@ -531,6 +533,7 @@ function scroll(e) {
     if (height <= clientHeight + scrollTop) {
         load()
     }
+    allClk()
 }
 
 function load() {
@@ -744,6 +747,9 @@ function api_swipe(arg) {
         users_list.insertAdjacentHTML(position, html)
     }
 
+    document.getElementsByTagName('section')[0].style.display = 'none'
+    // console.log(json)
+    global.focus = 1
     if (len) {
         global.sms = 0
         back('start_screen', 'choice_user')
@@ -755,9 +761,6 @@ function api_swipe(arg) {
     } else if(load_msg) {
         tip(load_msg)
     }
-    document.getElementsByTagName('section')[0].style.display = 'none'
-    // console.log(json)
-    global.focus = 1
 }
 
 function api_account(arg) {
@@ -955,6 +958,9 @@ function swipe(arg) {
         users_list.insertAdjacentHTML(position, html)
     }
 
+    ele.section[0].style.display = 'none'
+    // console.log(json)
+    global.focus = 1
     if (len) {
         back('login', 'choice_user')
         links = ele.usrLst.getElementsByTagName('a')
@@ -965,9 +971,6 @@ function swipe(arg) {
     } else if(load_msg) {
         tip(load_msg, text)
     }
-    ele.section[0].style.display = 'none'
-    // console.log(json)
-    global.focus = 1
 }
 
 function api_sms(arg) {
@@ -1032,7 +1035,7 @@ function api_info(arg) {
     elt.infoNpt[4].value = data.license_plate_no
     ele.birthdays.innerHTML = data.birthday || '点击选择'
     if (data.sex) {
-        ele.tt[0].innerHTML = data.sex
+        ele.tt[1].innerHTML = data.sex
         ele.info.setAttribute('data-sex', data.sex)
     }
 
@@ -1219,7 +1222,7 @@ function api_consume(arg) {
     for (; i < len; i++) {
         row = data[i]
 
-        html = '<li><dfn>' + row.param_name + '</dfn><var>' + row.order_amount + '元</var><address>' + row.device_name + '</address><time>' + row.order_time + '</time></li>'
+        html = '<li ' + row.attr + ' onclick="showDetail(this)" data-amount="' + row.order_amount + '"><dfn>' + row.param_name + '</dfn><var>' + row.order_amount + '元</var><address>' + row.device_name + '</address><time>' + row.order_time + '</time></li>'
 
         ele.consumeLst.insertAdjacentHTML(position, html)
     }
