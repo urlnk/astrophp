@@ -4,7 +4,7 @@ namespace App\Ka\Controller;
 
 class _Controller extends \MagicCube\Controller
 {
-    public $static_version = '?v=327';
+    public $static_version = '?v=328';
 
     public function __construct($vars = [])
     {
@@ -18,6 +18,18 @@ class _Controller extends \MagicCube\Controller
     {
         return array(
             'static_version' => $this->static_version,
+        );
+    }
+
+    public function status()
+    {
+        global $_CONFIG;
+        $sqlite = new \Ext\PhpPdoSqlite($_CONFIG['database2']);
+        $sql = "SELECT * FROM device ORDER BY updated LIMIT 100";
+        $all =  $sqlite->select($sql, [], \PDO::FETCH_OBJ);
+        return array(
+            'static_version' => $this->static_version,
+            'all' => $all,
         );
     }
 
