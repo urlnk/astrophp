@@ -32,9 +32,12 @@ return array(
     'uri_custom' => '',
     # 'uri_custom' => 'get,post:users!wubenli@documents$1%2Fview', //$1
     'database' => array(
-        'db_name' => ROOT_DIR . '/dev/storage/db/sqlite/search.sqlite3',
+        'db_name' => '',
         'username' => 'root',
         'password' => 'root',
+    ),
+    'database2' => array(
+        'db_name' => ROOT . '/storage/stat.sqlite3',
     ),
     'cdn_host' => 'lan.urlnk.cc',
     'home' => array(
@@ -46,18 +49,24 @@ return array(
     ),
     'cookie_lifetime' => 86400 * 30,
     'js' => array(
-        'interval' => 500, // 一般设置为 500 毫秒
+        'interval' => 500, // 刷卡输入框聚焦间隔时间，一般设置为 500 毫秒
     ),
-    'logo' => 'img/logo.png?_=0',
-    'qrcode' => 'img/qrcode.png?_=0',
-    'video_type' => 'mp4|mpeg|avi',
+    'logo' => 'img/logo.png?_=0', // logo 图片地址
+    'qrcode' => 'img/qrcode.png?_=0',// 二维码图片地址
+    'video_type' => 'mp4|mpeg|avi', // 检测视频扩展名
     'ads' => array(
-        'https://www.w3schools.com/html/movie.mp4', 'https://www.runoob.com/try/demo_source/mov_bbb.mp4', 'img/ad.jpeg', 'ad/bee.jpg', 'ad/star.jpg', 'ad/jumanji.jpg'
-    ),
+        'ad/v.mp4', 
+        'img/ad.jpeg', 'https://www.w3schools.com/html/movie.mp4', 'https://www.runoob.com/try/demo_source/mov_bbb.mp4', 'http://iandevlin.github.io/mdn/video-player/video/tears-of-steel-battle-clip-medium.mp4', 
+        'ad/jumanji.jpg', 'ad/bee.jpg', 'ad/star.jpg'
+    ), // 广告图片和视频地址
     'bg' => array(
-        '', 'img/bgi.png', 'bg/bg1.jpg', 'bg/bg2.jpg', 'bg/bg3.jpg', 'bg/bg4.jpeg', 'bg/bg5.jpg'
-    ),
-    'bgChange' => 60000,
-    'adChange' => 12000,
-    'adHide' => 30000,
+        'linear-gradient(to bottom right, #ccc, #F0EFF4)', 'img/bgi.png', 'bg/bg1.jpg', 'bg/bg2.jpg', 'bg/bg3.jpg', 'bg/bg4.jpeg', 'bg/bg5.jpg'
+    ), // 背景图片地址
+    'bgChange' => 600000, // 背景改变时间
+    'adChange' => 46000, // 广告变换时间
+    'adHide' => 46000, // 全屏后自动隐藏时间
+    'adFullscreen' => 60000, // 多长时间不活动广告自动全屏，必须大于自动隐藏时间
+    'countdown' => 1000, // 全屏检测间隔时间，一般设置为 1000 毫秒，0 为不自动全屏
+    'exitTime' => 10, // 返回主屏幕提示倒计时，单位：秒
+    'refresh' => 2, // 自动全屏多少次刷新页面
 );
