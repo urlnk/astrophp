@@ -7,6 +7,7 @@
     <title>易捷一卡通查询系统</title>
     <link rel="stylesheet" type="text/css" href="/css/touch.css<?=$static_version?>">
     <link rel="stylesheet" href="/css/jquery.cxcalendar.css<?=$static_version?>">
+    <link rel="stylesheet" href="/css/touch.cxcalendar.css<?=$static_version?>">
 </head>
 
 <body onclick="allClk()">
@@ -154,7 +155,7 @@
     <ol>
         <dl><a id="adLink" href="javascript:" onclick="ad.show()"></a></dl>
         <dl style="display: none">
-            <video id="video" muted autoplay loop src="" ondblclick="ad.fullscreen()"></video>
+            <video id="video" muted autoplay loop src="" ondblclick="ad.fullscreen()" ontouchstart="ad.fullscreen()"></video>
         </dl>
     </ol>
     <dir>
@@ -354,7 +355,7 @@
         <dl>
             <dt>身份证号</dt>
             <dd>
-                <input type="text" name="identity_card" value="" placeholder="请输入身份证号" autocomplete="off" oninput="allClk()" maxlength="18" />
+                <input type="number" name="identity_card" value="" placeholder="请输入身份证号" autocomplete="off" oninput="maxlength(this)" maxlength="18" onchange="limit(this)" />
             </dd>
         </dl>
         <dl>
@@ -388,13 +389,13 @@
         <dl>
             <dt>手机号</dt>
             <dd>
-                <input type="text" name="phone" value="" placeholder="请输入手机号" autocomplete="off" oninput="allClk()" maxlength="11" />
+                <input type="number" name="phone" value="" placeholder="请输入手机号" autocomplete="off" oninput="maxlength(this)" maxlength="11" onchange="limit(this)" />
             </dd>
         </dl>
         <dl>
             <dt>验证码</dt>
             <dd class="code">
-                <input type="text" name="code" placeholder="请输入验证码" autocomplete="off" oninput="allClk()" maxlength="4" />
+                <input type="number" name="code" placeholder="请输入验证码" autocomplete="off" oninput="maxlength(this)" maxlength="4" onchange="limit(this)" />
                 <button type="button" name="verify" onclick="sendsms(this)" id="btnSms">发送验证码</button>
             </dd>
         </dl>
@@ -417,13 +418,13 @@
         <dl>
             <dt>手机号</dt>
             <dd>
-                <input type="text" name="phone" value="" placeholder="请输入手机号" autocomplete="off" oninput="allClk()" maxlength="11" />
+                <input type="number" name="phone" value="" placeholder="请输入手机号" autocomplete="off" oninput="maxlength(this)" maxlength="11" onchange="limit(this)" />
             </dd>
         </dl>
         <dl>
             <dt>验证码</dt>
             <dd class="code">
-                <input type="text" name="code" placeholder="请输入验证码" autocomplete="off" oninput="allClk()" maxlength="4" />
+                <input type="number" name="code" placeholder="请输入验证码" autocomplete="off" oninput="maxlength(this)" maxlength="4" onchange="limit(this)" />
                 <button type="button" name="verify" onclick="sendsms(this)" id="verify">发送验证码</button>
             </dd>
         </dl>

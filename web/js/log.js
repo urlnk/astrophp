@@ -63,6 +63,19 @@ function allClk() {
     console.log('allClk')
 }
 
+// 限制字符长度
+function limit(element) {
+    max = element.getAttribute('maxlength')
+    if(element.value.length > max) {
+        element.value = element.value.substr(0, max)
+    }
+    console.log({limit: max})
+}
+
+function maxlength(el) {
+    limit(el)
+    allClk()
+}
 
 /* 广告 */
 var ad = function () {
@@ -109,7 +122,8 @@ bg.change = function () {
 ad.fullscreen = function () {
     s = 0
     if ('auto' != _.getStyle(ele.video, 'top') || document.fullscreenElement) {
-        setTimeout('ad.hide()', 2000)
+        ad.hide()
+        // setTimeout('ad.hide()', 2000)
         s = 1
     } else {
         ad.show()
