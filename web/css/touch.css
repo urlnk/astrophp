@@ -19,7 +19,7 @@ tt, pre {
     font-family: 'Microsoft Yahei', sans-serif;
 }
 
-ol, ul, dl, dd, dialog, p {
+ol, ul, dl, dd, dialog, p, blockquote {
     margin: 0;
     padding: 0;
     list-style: none;
@@ -48,6 +48,18 @@ html, body, iframe {
     height: 100%;
     border: none;
     overflow: hidden;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance:textfield;
 }
 
 /*
@@ -793,7 +805,7 @@ a.sex {
     text-align: left;
 }
 
-.info input[type=text] {
+.info input[type=text], .info input[type=number] {
     display: block;
     line-height: 56px;
     font-size: 28px;
@@ -817,7 +829,7 @@ a.sex {
     width: 35%;
 }
 
-.code input[type=text], dd.code button {
+.code input[type=text], .code input[type=number], dd.code button {
     width: 50%;
 }
 

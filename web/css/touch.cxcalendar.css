@@ -1,0 +1,34 @@
+.cxcalendar {
+    width: 450px;
+    font-size: 26px;
+}
+
+.cxcalendar_bd {
+    line-height: 58px;
+}
+
+.cxcalendar_bd ul li {
+    height: 60px;
+}
+
+.cxcalendar_hd .intxt {
+	margin: 0 70px;
+    font-size: 26px;
+    line-height: 48px;
+}
+
+.cxcalendar_hd .inset {
+    margin: 0 70px;
+}
+
+.cxcalendar_hd .inset select {
+    height: 50px;
+    font-size: 26px;
+    line-height: 48px;
+}
+
+.cxcalendar_hd .prev, .cxcalendar_hd .next {
+    width: 48px;
+    height: 48px;
+    margin-top: -22px;
+}
