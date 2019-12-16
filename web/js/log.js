@@ -283,3 +283,7 @@ ad.save = function () {
 
 ad.init()
 bg.init()
+
+window.oncontextmenu = function (event) {
+	event.preventDefault()
+}
