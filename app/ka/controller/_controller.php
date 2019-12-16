@@ -4,7 +4,7 @@ namespace App\Ka\Controller;
 
 class _Controller extends \MagicCube\Controller
 {
-    public $static_version = '?v=345';
+    public $static_version = '?v=346';
 
     public function __construct($vars = [])
     {

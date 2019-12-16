@@ -114,10 +114,10 @@ function detect(obj) {
 
     uri = 'swipe'
     formData = {}
-    formData['no'] = obj.innerHTML
+    formData['no'] = obj.value
     formData['test'] = server.test
     _.api( uri, formData, 'post' )
-    obj.innerHTML = ''
+    obj.value = ''
 }
 
 function choice(obj) {
