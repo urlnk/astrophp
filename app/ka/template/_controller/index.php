@@ -190,7 +190,7 @@
     </header>
     <ul>
         <li><a class="btn-acc" href="javascript:" onclick="showAccount()" data-id="account">账户信息</a></li>
-        <li><a class="btn-rec" href="javascript:" onclick="back('home', 'recharge')" data-id="recharge">账户充值</a></li>
+        <li><a class="btn-rec" href="javascript:" onclick="showRecharge()" data-id="recharge">账户充值</a></li>
         <li><a class="btn-log" href="javascript:" onclick="showLog()" data-id="log">充值记录</a></li>
         <li><a class="btn-con" href="javascript:" onclick="showConsume()" data-id="consume">消费记录</a></li>
         <li><a class="btn-los" href="javascript:" onclick="showLoss()" data-id="loss">挂失解挂</a></li>

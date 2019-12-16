@@ -1252,5 +1252,10 @@ function api_consume(arg) {
     // console.log(json)
 }
 
+function showRecharge() {
+	back('home', 'recharge')
+	ele.section[0].style.display = 'none'
+}
+
 // 高度修正
 setTimeout("fix()", 1000)
