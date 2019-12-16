@@ -86,6 +86,7 @@ config = {
 ele.query.onfocus = function (e) {
 	e.preventDefault()
 	console.log('focus')
+	return false
 }
 document.getElementById('query').focus()
 interval = null
