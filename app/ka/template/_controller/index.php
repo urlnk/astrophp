@@ -437,7 +437,7 @@
 </article>
 
 <blockquote>
-    <input id="query" value="" placeholder="请输入明码" onfocus="this.select()" onchange="detect(this)" style="ime-mode: disabled">
+    <input style="pointer-events: none;" id="query" value="" placeholder="请输入明码" onfocus="this.select()" onchange="detect(this)">
 </blockquote>
 
 <script>
