@@ -48,6 +48,9 @@ html, body, iframe {
     height: 100%;
     border: none;
     overflow: hidden;
+	-moz-user-select:none;
+    -webkit-user-select:none;
+    user-select:none;
 }
 
 /* Chrome, Safari, Edge, Opera */
