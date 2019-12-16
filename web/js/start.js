@@ -84,7 +84,8 @@ config = {
 }
 
 document.getElementById('query').focus()
-interval = setInterval(keep, server.interval)
+interval = null
+// setInterval(keep, server.interval)
 
 // 保持聚焦，便于刷卡
 function keep() {
@@ -207,6 +208,7 @@ function showSignTip(id) {
     global.sign = id
     global.from = elt.homeLinks[id].getAttribute('data-id')
     ele.section[4].style.display = 'block'
+	document.getElementById('query').focus()
 }
 
 function showSign() {
@@ -279,6 +281,7 @@ function hideWidget() {
 function showSwipe() {
     global.sign = global.from = null
     tip('请将您的卡片放在读卡位置')
+	document.getElementById('query').focus()
 }
 
 function showLogin(tip) {
