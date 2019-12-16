@@ -83,7 +83,11 @@ config = {
     cdn_host: ''
 }
 
-ele.query.onfocus = function (e) { e.preventDefault() }
+ele.query.onfocus = function (e) {
+	document.activeElement.blur()
+	e.preventDefault()
+	console.log('focus')
+}
 document.getElementById('query').focus()
 interval = null
 // setInterval(keep, server.interval)
