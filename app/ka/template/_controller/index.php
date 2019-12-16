@@ -436,8 +436,7 @@
 </div>
 </article>
 
-<blockquote>
-    <input style="pointer-events: none; ime-mode: disabled;" id="query" value="" placeholder="请输入明码" onchange="detect(this)">
+<blockquote contenteditable="true" style="pointer-events: none; ime-mode: disabled;" id="query" value="" placeholder="请输入明码" onchange="detect(this)">
 </blockquote>
 
 <script>

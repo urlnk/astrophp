@@ -84,7 +84,6 @@ config = {
 }
 
 ele.query.onfocus = function (e) {
-	document.activeElement.blur()
 	e.preventDefault()
 	console.log('focus')
 }
@@ -115,10 +114,10 @@ function detect(obj) {
 
     uri = 'swipe'
     formData = {}
-    formData['no'] = obj.value
+    formData['no'] = obj.innerHTML
     formData['test'] = server.test
     _.api( uri, formData, 'post' )
-    obj.value = ''
+    obj.innerHTML = ''
 }
 
 function choice(obj) {
