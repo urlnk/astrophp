@@ -8,6 +8,7 @@
     <link rel="stylesheet" type="text/css" href="/css/touch.css<?=$static_version?>">
     <link rel="stylesheet" href="/css/jquery.cxcalendar.css<?=$static_version?>">
     <link rel="stylesheet" href="/css/touch.cxcalendar.css<?=$static_version?>">
+    <link rel="stylesheet" href="/css/ie.css<?=$static_version?>">
 </head>
 
 <body onclick="allClk()">
@@ -15,7 +16,7 @@
     <dialog>请稍后，正在查询卡信息……</dialog>
 </section>
 
-<section class="info" onclick="this.style.display = 'none'">
+<section class="info info-sex" onclick="this.style.display = 'none'">
     <dialog>
         <ol>
             <li>
@@ -34,7 +35,7 @@
     </dialog>
 </section>
 
-<section class="tip prompt" onclick="hidePhoneTip()">
+<section class="tip prompt prompt-bind" onclick="hidePhoneTip()">
     <dialog>
         <p>为了您的账户安全，请绑定手机号码！</p>
         <footer>
@@ -53,7 +54,7 @@
     </dialog>
 </section>
 
-<section class="tip prompt" onclick="hide(this)">
+<section class="tip prompt prompt-login" onclick="hide(this)">
     <dialog>
         <p>请直接刷卡，或者用手机号登录</p>
         <footer>
@@ -69,7 +70,7 @@
     </dialog>
 </section>
 
-<section class="tip prompt" style="z-index:10003;" onclick="ad.save()">
+<section class="tip prompt prompt-exit" style="z-index:10003;" onclick="ad.save()">
     <dialog>
         <p>如果您需要继续操作，请点保留。
         <br/>否则<var id="exitTime">30</var>秒后自动返回主屏幕</p>

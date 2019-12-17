@@ -102,6 +102,7 @@ LIMIT 50";
                     # $nowTime = 1575285282;
                     $stepTime = $nowTime - $oldTime;
                     if ($stepTime < 60) {
+                        $code = 3;
                         $msg = '距上次发送短信间隔时间小于一分钟，请稍后重试！';
                     }
                 }
@@ -661,7 +662,8 @@ LIMIT 1";
             }
 
             if ($err) {
-                $code = 2;
+                $len = mb_strlen($err);
+                $code = 6 < $len ? 3 : 2;
                 $msg = $err;
             } else {
                 $sql = "UPDATE $this->db.pl_user_t 
@@ -702,7 +704,8 @@ LIMIT 1";
             }
 
             if ($err) {
-                $code = 2;
+                $len = mb_strlen($err);
+                $code = 6 < $len ? 3 : 2;
                 $msg = $err;
             } else {
                 // 查找用户

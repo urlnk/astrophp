@@ -1,0 +1,39 @@
+/* box-sizing: content-box; */
+
+/* 12*28=336+40 */
+.swipe dialog {
+    width: 376px;
+}
+
+.detail dialog {
+    width: 420px;
+}
+
+/* 14*28=392+60 */
+.prompt-login dialog {
+    width: 452px;
+}
+
+/* 15*28=420+40 */
+.prompt-exit dialog {
+    width: 480px;
+}
+
+/* 17*28=476+60 */
+.prompt-bind dialog {
+    width: 536px;
+}
+
+/* 10*28=280+40 */
+.tip-phone dialog {
+    width: 320px;
+}
+
+/* 9 */
+.tip-verify dialog, .bind-success dialog, .info-sex dialog {
+    width: 300px;
+}
+
+.tip-sms dialog {
+	width: 684px;
+}

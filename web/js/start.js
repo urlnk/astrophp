@@ -284,7 +284,7 @@ function hideWidget() {
 
 function showSwipe() {
     global.sign = global.from = null
-    tip('请将您的卡片放在读卡位置')
+    tip('请将您的卡片放在读卡位置', '', 'swipe')
 	document.getElementById('query').focus()
 }
 
@@ -308,10 +308,10 @@ function login() {
     code = ele.code[1].value.trim()
     console.log({no:no, code:code})
     if (!isPhone(no)) {
-        tip('请输入正确的手机号码', 'ele.telephone[1].focus()')
+        tip('请输入正确的手机号码', 'ele.telephone[1].focus()', 'tip-phone')
         return false
     } else if (4 != code.length) {
-        tip('请正确输入验证码', 'ele.code[1].focus()')
+        tip('请正确输入验证码', 'ele.code[1].focus()', 'tip-verify')
         return false
     }
 
@@ -328,10 +328,10 @@ function bind() {
     code = ele.code[0].value.trim()
     console.log({no:no, code:code})
     if (!isPhone(no)) {
-        tip('请输入正确的手机号码', 'ele.telephone[0].focus()')
+        tip('请输入正确的手机号码', 'ele.telephone[0].focus()', 'tip-phone')
         return false
     } else if (4 != code.length) {
-        tip('请正确输入验证码', 'ele.code[0].focus()')
+        tip('请正确输入验证码', 'ele.code[0].focus()', 'tip-verify')
         return false
     }
 
@@ -381,14 +381,21 @@ function hidePhoneTip() {
 function hideTip() {
     code = ele.section[3].getAttribute('data-code')
     hide(ele.section[3])
+    ele.section[3].className = 'tip'
     if (code) {
         eval(code)
     }
 }
 
-function tip(info, code) {
+function tip(info, code, cls) {
+    if (cls) {
+        cls += ' tip'
+    } else {
+        cls = 'tip'
+    }
     ele.p[1].innerHTML = info
     ele.section[3].setAttribute('data-code', code)
+    ele.section[3].className = cls
     show(ele.section[3])
 }
 
@@ -401,7 +408,7 @@ function sendsms(obj) {
     oid = global.oid
     console.log({no:no})
     if (!isPhone(no)) {
-        tip('请输入正确的手机号码', 'ele.telephone[' + idx + '].focus()')
+        tip('请输入正确的手机号码', 'ele.telephone[' + idx + '].focus()', 'tip-phone')
         return false
     }
 
@@ -719,6 +726,7 @@ _.api.run = function (json, func, arg) {
 function api_swipe(arg) {
     position = 'beforeEnd'
     load_msg = ''
+    cls = ''
     json = RESP['swipe']
     code = json.code
     msg = json.msg
@@ -727,8 +735,11 @@ function api_swipe(arg) {
         case 0:
             break
         case 1:
+            load_msg = msg
+            break
         case 2:
             load_msg = msg
+            cls = 'swipe'
             break
         case 3:
             alert(msg)
@@ -766,7 +777,7 @@ function api_swipe(arg) {
         }
         console.log([data.length, links])
     } else if(load_msg) {
-        tip(load_msg)
+        tip(load_msg, '', cls)
     }
 }
 
@@ -866,7 +877,7 @@ function api_loss(arg) {
 }
 
 function api_phone(arg) {
-    text = ''
+    text = cls = ''
     json = RESP['phone']
     code = json.code
     msg = json.msg
@@ -880,25 +891,27 @@ function api_phone(arg) {
             break
         case 1:
             text = "ele.telephone[0].focus()"
+            cls = 'tip-phone'
             break
         case 2:
             text = "ele.code[0].focus()"
             break
         case 3:
-            alert(msg)
-            return
+            text = "ele.code[0].focus()"
+            cls = 'prompt-bind'
+            break
         default:
             alert(code + ': ' + msg)
             return
     }
 
     if (msg) {
-        tip(msg, text)
+        tip(msg, text, cls)
     }
 }
 
 function api_login(arg) {
-    text = ''
+    text = cls = ''
     json = RESP['login']
     code = json.code
     msg = json.msg
@@ -910,20 +923,22 @@ function api_login(arg) {
             break
         case 1:
             text = "ele.telephone[1].focus()"
+            cls = 'prompt-exit'
             break
         case 2:
             text = "ele.code[1].focus()"
             break
         case 3:
-            alert(msg)
-            return
+            text = "ele.code[0].focus()"
+            cls = 'prompt-bind'
+            break
         default:
             alert(code + ': ' + msg)
             return
     }
 
     if (msg) {
-        tip(msg, text)
+        tip(msg, text, cls)
     }
 }
 
@@ -981,7 +996,7 @@ function swipe(arg) {
 }
 
 function api_sms(arg) {
-    load_msg = text = ''
+    load_msg = text = cls = ''
     json = RESP['sms']
     code = json.code
     msg = json.msg
@@ -992,21 +1007,24 @@ function api_sms(arg) {
         case 1:
             load_msg = msg
             text = "ele.telephone[global.sms].focus()"
+            cls = 'prompt-exit'
             break
         case 2:
             load_msg = msg
             text = "ele.code[global.sms].focus()"
+            cls = 'prompt-exit'
             break
         case 3:
-            alert(msg)
-            return
+            load_msg = msg
+            cls = 'tip-sms'
+            break
         default:
             alert(code + ': ' + msg)
             return
     }
 
     if(load_msg) {
-        tip(load_msg, text)
+        tip(load_msg, text, cls)
     }
     console.log(json)
 }
