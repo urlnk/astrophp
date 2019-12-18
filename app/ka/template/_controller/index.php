@@ -358,7 +358,7 @@
         <dl>
             <dt>身份证号</dt>
             <dd>
-                <input class="num-input" type="text" name="identity_card" value="" placeholder="请输入身份证号" autocomplete="off" oninput="maxlength(this)" maxlength="18" onchange="limit(this)" />
+                <input class="zh-input" type="text" name="identity_card" value="" placeholder="请输入身份证号" autocomplete="off" oninput="maxlength(this)" maxlength="18" onchange="limit(this)" />
             </dd>
         </dl>
         <dl>
