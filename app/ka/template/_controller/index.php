@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="/css/jquery.cxcalendar.css<?=$static_version?>">
     <link rel="stylesheet" href="/css/touch.cxcalendar.css<?=$static_version?>">
     <link rel="stylesheet" href="/css/ie.css<?=$static_version?>">
+    <link rel="stylesheet" href="/css/mynumkb.css<?=$static_version?>">
 </head>
 
 <body onclick="allClk()">
@@ -356,7 +357,7 @@
         <dl>
             <dt>身份证号</dt>
             <dd>
-                <input type="number" name="identity_card" value="" placeholder="请输入身份证号" autocomplete="off" oninput="maxlength(this)" maxlength="18" onchange="limit(this)" />
+                <input class="num-input" type="text" name="identity_card" value="" placeholder="请输入身份证号" autocomplete="off" oninput="maxlength(this)" maxlength="18" onchange="limit(this)" />
             </dd>
         </dl>
         <dl>
@@ -390,13 +391,13 @@
         <dl>
             <dt>手机号</dt>
             <dd>
-                <input type="number" name="phone" value="" placeholder="请输入手机号" autocomplete="off" oninput="maxlength(this)" maxlength="11" onchange="limit(this)" />
+                <input class="num-input" type="text" name="phone" value="" placeholder="请输入手机号" autocomplete="off" oninput="maxlength(this)" maxlength="11" onchange="limit(this)" />
             </dd>
         </dl>
         <dl>
             <dt>验证码</dt>
             <dd class="code">
-                <input type="number" name="code" placeholder="请输入验证码" autocomplete="off" oninput="maxlength(this)" maxlength="4" onchange="limit(this)" />
+                <input class="num-input" type="text" name="code" placeholder="请输入验证码" autocomplete="off" oninput="maxlength(this)" maxlength="4" onchange="limit(this)" />
                 <button type="button" name="verify" onclick="sendsms(this)" id="btnSms">发送验证码</button>
             </dd>
         </dl>
@@ -419,13 +420,13 @@
         <dl>
             <dt>手机号</dt>
             <dd>
-                <input type="number" name="phone" value="" placeholder="请输入手机号" autocomplete="off" oninput="maxlength(this)" maxlength="11" onchange="limit(this)" />
+                <input class="num-input" type="text" name="phone" value="" placeholder="请输入手机号" autocomplete="off" oninput="maxlength(this)" maxlength="11" onchange="limit(this)" />
             </dd>
         </dl>
         <dl>
             <dt>验证码</dt>
             <dd class="code">
-                <input type="number" name="code" placeholder="请输入验证码" autocomplete="off" oninput="maxlength(this)" maxlength="4" onchange="limit(this)" />
+                <input class="num-input" type="text" name="code" placeholder="请输入验证码" autocomplete="off" oninput="maxlength(this)" maxlength="4" onchange="limit(this)" />
                 <button type="button" name="verify" onclick="sendsms(this)" id="verify">发送验证码</button>
             </dd>
         </dl>
@@ -462,6 +463,7 @@ server = {
 <script src="/js/jquery.min.js"></script>
 <script src="/js/jquery.cxcalendar.js"></script>
 <script src="/js/jquery.cxcalendar.languages.js"></script>
+<script src="/js/mynumkb.js<?=$static_version?>"></script>
 <script type="text/javascript" src="/js/start.js<?=$static_version?>"></script>
 <script type="text/javascript" src="/js/log.js<?=$static_version?>"></script>
 </body>

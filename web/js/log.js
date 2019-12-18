@@ -289,3 +289,6 @@ bg.init()
 window.oncontextmenu = function (event) {
 	event.preventDefault()
 }
+
+// 数字键盘
+$(".num-input").mynumkb()
