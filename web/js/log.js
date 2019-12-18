@@ -156,6 +156,7 @@ ad.show = function () {
         ad.timeout = setTimeout(ad.hide, server.adHide)
     }
     ele.query.blur()
+    hideNum()
     console.log({show:'show', url:url, count:ad.count})
 }
 
@@ -170,6 +171,7 @@ ad.hide = function () {
     clearTimeout(ad.timeout)
     ad.count = server.adFullscreen
     ele.query.blur()
+    hideNum()
     console.log('hide')
 }
 

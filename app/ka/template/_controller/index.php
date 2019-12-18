@@ -357,7 +357,7 @@
         <dl>
             <dt>身份证号</dt>
             <dd>
-                <input class="num-input" onblur="hideNum()" type="text" name="identity_card" value="" placeholder="请输入身份证号" autocomplete="off" oninput="maxlength(this)" maxlength="18" onchange="limit(this)" />
+                <input class="num-input" type="text" name="identity_card" value="" placeholder="请输入身份证号" autocomplete="off" oninput="maxlength(this)" maxlength="18" onchange="limit(this)" />
             </dd>
         </dl>
         <dl>
@@ -391,13 +391,13 @@
         <dl>
             <dt>手机号</dt>
             <dd>
-                <input class="num-input" onblur="hideNum()" type="text" name="phone" value="" placeholder="请输入手机号" autocomplete="off" oninput="maxlength(this)" maxlength="11" onchange="limit(this)" />
+                <input class="num-input" type="text" name="phone" value="" placeholder="请输入手机号" autocomplete="off" oninput="maxlength(this)" maxlength="11" onchange="limit(this)" />
             </dd>
         </dl>
         <dl>
             <dt>验证码</dt>
             <dd class="code">
-                <input class="num-input" onblur="hideNum()" type="text" name="code" placeholder="请输入验证码" autocomplete="off" oninput="maxlength(this)" maxlength="4" onchange="limit(this)" />
+                <input class="num-input" type="text" name="code" placeholder="请输入验证码" autocomplete="off" oninput="maxlength(this)" maxlength="4" onchange="limit(this)" />
                 <button type="button" name="verify" onclick="sendsms(this)" id="btnSms">发送验证码</button>
             </dd>
         </dl>
@@ -420,13 +420,13 @@
         <dl>
             <dt>手机号</dt>
             <dd>
-                <input class="num-input" onblur="hideNum()" type="text" name="phone" value="" placeholder="请输入手机号" autocomplete="off" oninput="maxlength(this)" maxlength="11" onchange="limit(this)" />
+                <input class="num-input" type="text" name="phone" value="" placeholder="请输入手机号" autocomplete="off" oninput="maxlength(this)" maxlength="11" onchange="limit(this)" />
             </dd>
         </dl>
         <dl>
             <dt>验证码</dt>
             <dd class="code">
-                <input class="num-input" onblur="hideNum()" type="text" name="code" placeholder="请输入验证码" autocomplete="off" oninput="maxlength(this)" maxlength="4" onchange="limit(this)" />
+                <input class="num-input" type="text" name="code" placeholder="请输入验证码" autocomplete="off" oninput="maxlength(this)" maxlength="4" onchange="limit(this)" />
                 <button type="button" name="verify" onclick="sendsms(this)" id="verify">发送验证码</button>
             </dd>
         </dl>

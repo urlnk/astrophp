@@ -514,6 +514,7 @@ function back(i, id, cx) {
     hideDiv(id)
     global.focus = 1
     hideWidget()
+    hideNum()
 }
 
 function exit() {
