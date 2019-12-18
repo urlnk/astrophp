@@ -158,7 +158,7 @@
     <ol>
         <dl><a id="adLink" href="javascript:" onclick="ad.show()"></a></dl>
         <dl style="display: none">
-            <video id="video" muted autoplay loop src="" ondblclick="ad.fullscreen()" ontouchstart="ad.fullscreen()"></video>
+            <video id="video" muted autoplay loop src="" ondurationchange="ad.duration()" ondblclick="ad.fullscreen()" ontouchstart="ad.fullscreen()"></video>
         </dl>
     </ol>
     <dir>
@@ -338,7 +338,7 @@
         <dl>
             <dt>姓名</dt>
             <dd>
-                <input type="text" name="user_name" value="" placeholder="请输入姓名" autocomplete="off" oninput="allClk()" />
+                <input class="zh-input" type="text" name="user_name" value="" placeholder="请输入姓名" autocomplete="off" oninput="allClk()" />
             </dd>
         </dl>
         <dl>
