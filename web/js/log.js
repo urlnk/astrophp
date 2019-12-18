@@ -303,3 +303,4 @@ window.oncontextmenu = function (event) {
 
 // 数字键盘
 $(".num-input").mynumkb()
+$(".zh-input").virtualkeyboard()

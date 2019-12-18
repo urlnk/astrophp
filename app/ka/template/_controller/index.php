@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="/css/touch.cxcalendar.css<?=$static_version?>">
     <link rel="stylesheet" href="/css/ie.css<?=$static_version?>">
     <link rel="stylesheet" href="/css/mynumkb.css<?=$static_version?>">
+    <link rel="stylesheet" href="/css/virtualkeyboard.css<?=$static_version?>">
 </head>
 
 <body onclick="allClk()">
@@ -363,13 +364,13 @@
         <dl>
             <dt>联系地址</dt>
             <dd>
-                <input type="text" name="address" value="" placeholder="请输入联系地址" autocomplete="off" oninput="allClk()" />
+                <input class="zh-input" type="text" name="address" value="" placeholder="请输入联系地址" autocomplete="off" oninput="allClk()" />
             </dd>
         </dl>
         <dl>
             <dt>车牌号</dt>
             <dd>
-                <input type="text" name="license_plate_no" value="" placeholder="请输入车牌号" autocomplete="off" oninput="allClk()" />
+                <input class="zh-input" type="text" name="license_plate_no" value="" placeholder="请输入车牌号" autocomplete="off" oninput="allClk()" />
             </dd>
         </dl>
     </ul>
@@ -464,6 +465,7 @@ server = {
 <script src="/js/jquery.cxcalendar.js"></script>
 <script src="/js/jquery.cxcalendar.languages.js"></script>
 <script src="/js/mynumkb.js<?=$static_version?>"></script>
+<script src="/js/virtualkeyboard.js<?=$static_version?>"></script>
 <script type="text/javascript" src="/js/start.js<?=$static_version?>"></script>
 <script type="text/javascript" src="/js/log.js<?=$static_version?>"></script>
 </body>
