@@ -21,6 +21,7 @@ class Index extends _controller
 
         // 区别地址
         $ads = $_CONFIG['ads'];
+        /*
         if ($no) {
             $ads = [];
             $ad = $_CONFIG['ads'];
@@ -28,7 +29,7 @@ class Index extends _controller
                 $ads[] = $row . '?no=' .$no;
             }
         }
-
+        */
 
         return array(
             'static_version' => $this->static_version,
