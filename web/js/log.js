@@ -84,6 +84,8 @@ function hideNum() {
     for (i = 0; i < len; i++) {
         kb[i].style.display = 'none'
     }
+
+    document.querySelector('.virtualkeyboard').style.display = 'none'
 }
 
 /* 广告 */
