@@ -461,7 +461,7 @@ server = {
     videoType: '<?=$videoType?>'
 }
 </script>
-<script src="/js/jquery.min.js"></script>
+<script src="/js/jquery-3.4.1.js"></script>
 <script src="/js/jquery.cxcalendar.js"></script>
 <script src="/js/jquery.cxcalendar.languages.js"></script>
 <script src="/js/mynumkb.js<?=$static_version?>"></script>
