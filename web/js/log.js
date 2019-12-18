@@ -77,6 +77,15 @@ function maxlength(el) {
     allClk()
 }
 
+// 隐藏数字键盘
+function hideNum() {
+    kb = document.querySelectorAll('.mykb-box')
+    len = kb.length
+    for (i = 0; i < len; i++) {
+        kb[i].style.display = 'none'
+    }
+}
+
 /* 广告 */
 var ad = function () {
 
