@@ -85,7 +85,11 @@ function hideNum() {
         kb[i].style.display = 'none'
     }
 
-    document.querySelector('.virtualkeyboard').style.display = 'none'
+    kb = document.querySelectorAll('.virtualkeyboard')
+    len = kb.length
+    for (i = 0; i < len; i++) {
+        kb[i].style.display = 'none'
+    }
 }
 
 /* 广告 */
