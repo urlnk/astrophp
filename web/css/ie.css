@@ -35,7 +35,9 @@
 }
 
 .tip-sms dialog {
-	width: 684px;
+    width: 684px;
 }
 
-touch-action: none;
+* {
+    touch-action: none;
+}

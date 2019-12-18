@@ -89,7 +89,9 @@ ele.query.onfocus = function (e) {
 }
 document.getElementById('query').focus()
 interval = null
-// setInterval(keep, server.interval)
+if (server.interval) {
+    setInterval(keep, server.interval)
+}
 
 // 保持聚焦，便于刷卡
 function keep() {
