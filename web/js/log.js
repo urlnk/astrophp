@@ -54,12 +54,25 @@ function chg(el, id) {
     document.getElementById(id).innerHTML = el.value
 }
 
-// 视频静音
+// 视频不静音和连续播放
 function allClk() {
-    if ('none' != ele.start.style.display) {
-        ele.video.muted = false
-    }
     ad.count = server.adFullscreen
+    console.log({paused:ele.video.paused})
+    if (eval('ad.url.match(/\.(' + server.videoType + ')$/i)')) {
+        ele.video.muted = false
+        if (ele.video.paused) {
+            ele.video.play()
+        }
+        if ('none' != ele.start.style.display) {
+
+        } else {
+            // ele.video.muted = true
+            // ele.video.pause()
+        }
+
+    } else {
+        ele.video.pause()
+    }
     console.log('allClk')
 }
 
@@ -77,7 +90,7 @@ function maxlength(el) {
     allClk()
 }
 
-// 隐藏数字键盘
+// 隐藏键盘
 function hideNum() {
     kb = document.querySelectorAll('.mykb-box')
     len = kb.length
@@ -103,13 +116,14 @@ var bg = function () {
 
 ad.timeout = ad.interval = bg.interval = ad.interva2 = ad.url = ad.intervalExit = null
 ad.len = bg.len = 0
-ad.index = bg.index = 0
+ad.index = bg.index = ad.urlIndex = 0
 ad.img = ele.section[5].getElementsByTagName('img')[0]
 ad.dl = ele.start.getElementsByTagName('dl')
 ad.isFullscreen = 0
 ad.count = server.adFullscreen
 ad.countS = server.exitTime * 1000
 ad.refresh = server.refresh
+ad.durations = {}
 
 bg.init = function () {
     bg.len = server.bg.length
@@ -193,13 +207,21 @@ ad.init = function () {
     }
 }
 
+ad.duration = function () {
+    ad.durations['_' + ad.urlIndex] = ele.video.duration
+    console.log({'durations':ad.durations, 'duration':ele.video.duration, 'currentTime':ele.video.currentTime})
+}
+
 ad.change = function () {
     ad.url = url = server.ads[ad.index]
+    ad.urlIndex = ad.index
     if (eval('url.match(/\.(' + server.videoType + ')$/i)')) {
         if ('none' == ele.start.style.display) {
             ele.video.muted = true
         }
         ele.video.src = url
+        // ele.video.load()
+        console.log({'duration':ele.video.duration, 'currentTime':ele.video.currentTime})
         ad.dl[0].style.display = 'none'
         ad.dl[1].style.display = 'block'
         ele.section[5].style.display = 'none'
@@ -228,6 +250,7 @@ ad.change = function () {
     if (ad.index >= ad.len) {
         ad.index = 0
     }
+    console.log({url:url})
 }
 
 ad.top = function () {
@@ -257,7 +280,7 @@ ad.countdown = function () {
             ad.count += server.adHide
         }
     }
-    console.log({s:s, count:ad.count, isFullscreen:ad.isFullscreen})
+    console.log({paused:ele.video.paused, s:s, count:ad.count, isFullscreen:ad.isFullscreen})
 }
 
 ad.countdownS = function () {
@@ -304,7 +327,7 @@ ad.init()
 bg.init()
 
 window.oncontextmenu = function (event) {
-	event.preventDefault()
+    event.preventDefault()
 }
 
 // 数字键盘
