@@ -25,7 +25,7 @@ class _Controller extends \MagicCube\Controller
     {
         global $_CONFIG;
         $sqlite = new \Ext\PhpPdoSqlite($_CONFIG['database2']);
-        $sql = "SELECT * FROM device ORDER BY updated LIMIT 100";
+        $sql = "SELECT * FROM device ORDER BY updated DESC LIMIT 100";
         $all =  $sqlite->select($sql, [], \PDO::FETCH_OBJ);
         return array(
             'static_version' => $this->static_version,
