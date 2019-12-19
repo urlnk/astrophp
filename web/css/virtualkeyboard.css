@@ -1,6 +1,6 @@
 *{padding:0;margin:0}
 
-.virtualkeyboard{font-family:microsoft yahei,hiragino sans gb,tahoma,arial;position:absolute;width:760px;height:auto;border:1px solid #999;z-index:999;top:790px;left:50%;transform:translate(-50%,-50%);box-sizing:border-box;-webkit-tap-highlight-color:transparent;-moz-user-select:none;-khtml-user-select:none;user-select:none}
+.virtualkeyboard{font-family:microsoft yahei,hiragino sans gb,tahoma,arial;position:absolute;width:760px;height:auto;border:1px solid #999;z-index:999;top:900px;left:50%;transform:translate(-50%,-50%);box-sizing:border-box;-webkit-tap-highlight-color:transparent;-moz-user-select:none;-khtml-user-select:none;user-select:none}
 .virtualkeyboard .letterWrap>.inputCut{font-size:16px;position:relative}
 .virtualkeyboard .letterWrap>.backspace{width:55px}
 .virtualkeyboard .letterWrap{width:750px}

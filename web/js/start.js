@@ -97,7 +97,7 @@ if (server.interval) {
 function keep() {
     if (global.focus) {
         document.getElementById('query').focus()
-        // console.log(Date())
+        console.log('keep')
         if (server.hta && ele.query.value) {
             global.focus = 0
             detect(ele.query)
@@ -825,9 +825,10 @@ function api_account(arg) {
     dd[3].innerHTML = data.card_code
     dd[4].innerHTML = data.create_time
     dd[5].innerHTML = data.effective_time
-    dd[6].innerHTML = data.cash
-    dd[7].innerHTML = data.subsidy
+    dd[6].innerHTML = data.cash + '元'
+    dd[7].innerHTML = data.subsidy + '元'
     dd[8].innerHTML = data.telephone || '无'
+    dd[9].innerHTML = data.user_name
 
     if (data.telephone) {
         ele.bindPhone.innerHTML = '换绑手机号'
@@ -865,11 +866,12 @@ function api_loss(arg) {
     }
 
     dd = ele.loss.getElementsByTagName('dd')
-    dd[0].innerHTML = data.card_code
-    dd[1].innerHTML = data.param_name
+    dd[0].innerHTML = data.user_name
+    dd[1].innerHTML = data.card_code
+    dd[2].innerHTML = data.param_name
     ele.loss.setAttribute('data-status', data.card_status)
-    elt.lossLinks[1].innerHTML = ('LOST' == data.card_status) ? '解挂' : '挂失'
-    elt.lossLinks[1].className = ('LOST' == data.card_status) ? 'btn-log' : 'btn-los'
+    elt.lossLinks[2].innerHTML = ('LOST' == data.card_status) ? '解挂' : '挂失'
+    elt.lossLinks[2].className = ('LOST' == data.card_status) ? 'btn-log' : 'btn-los'
 
     ele.section[0].style.display = 'none'
     back('home', 'loss')

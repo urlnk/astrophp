@@ -173,6 +173,7 @@
     <header>
         <h2>
             <a href="javascript:" onclick="previous()">返回</a>
+            <a class="lnk-exit" href="javascript:" onclick="exit()">退出</a>
             <b>&nbsp;</b>
         </h2>
     </header>
@@ -207,6 +208,7 @@
     <header>
         <h2>
             <a href="javascript:" onclick="back('account', 'home')">返回</a>
+            <a class="lnk-exit" href="javascript:" onclick="exit()">退出</a>
             <b>账户信息</b>
         </h2>
     </header>
@@ -247,6 +249,10 @@
             <dt>手机号码</dt>
             <dd></dd>
         </dl>
+        <dl>
+            <dt>姓名</dt>
+            <dd></dd>
+        </dl>
     </ul>
     <ol>
         <li><a class="btn-acc" href="javascript:" onclick="showPhone('account')" id="bindPhone" data-title="绑定手机">绑定手机号</a></li>
@@ -259,6 +265,7 @@
     <header>
         <h2>
             <a href="javascript:" onclick="back('recharge', 'home')">返回</a>
+            <a class="lnk-exit" href="javascript:" onclick="exit()">退出</a>
             <b>账户充值</b>
         </h2>
     </header>
@@ -307,10 +314,15 @@
     <header>
         <h2>
             <a href="javascript:" onclick="back('loss', 'home')">返回</a>
+            <a class="lnk-exit" href="javascript:" onclick="exit()">退出</a>
             <b>挂失解挂</b>
         </h2>
     </header>
     <ul>
+        <dl>
+            <dt>姓名</dt>
+            <dd></dd>
+        </dl>
         <dl>
             <dt>卡内码</dt>
             <dd></dd>
@@ -331,6 +343,7 @@
     <header>
         <h2>
             <a href="javascript:" onclick="back('info', 'home')">返回</a>
+            <a class="lnk-exit" href="javascript:" onclick="exit()">退出</a>
             <b>完善信息</b>
         </h2>
     </header>
@@ -385,6 +398,7 @@
     <header>
         <h2>
             <a href="javascript:" onclick="hidePhone()">返回</a>
+            <a class="lnk-exit" href="javascript:" onclick="exit()">退出</a>
             <b id="phoneTitle">绑定手机</b>
         </h2>
     </header>

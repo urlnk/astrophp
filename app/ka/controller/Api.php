@@ -47,7 +47,7 @@ LIMIT 50";
 
         } else {
             $code = 1;
-            $msg = '不是有效的卡号';
+            $msg = '不是有效的卡号，请重刷！';
         }
 
         $arr = array(
@@ -225,7 +225,7 @@ LIMIT 50";
             }
 
             // 账户信息
-            $sql = "SELECT operator_name, organ_name, user_no, card_code, create_time, effective_time, telephone 
+            $sql = "SELECT operator_name, organ_name, user_no, card_code, create_time, effective_time, telephone, user_name 
 FROM $this->db.pl_card_t A 
 LEFT JOIN $this->db.pl_user_t B ON B.user_id = A.user_id 
 LEFT JOIN $this->db.pl_operator_info_t C ON C.operator_id = A.operator_id 
@@ -506,10 +506,11 @@ LIMIT $offset, $limit";
             }
 
             // 读取卡信息
-            $sql = "SELECT param_name, card_code, card_status, card_id, operator_id 
+            $sql = "SELECT param_name, card_code, card_status, card_id, A.operator_id, user_name 
 FROM $this->db.pl_card_t A 
 LEFT JOIN $this->db.pl_parameter_code_t B ON B.param_type='card_status' AND B.param_code = A.card_status 
-WHERE user_id = '$uid' 
+LEFT JOIN $this->db.pl_user_t C ON C.user_id = A.user_id 
+WHERE A.user_id = '$uid' 
 LIMIT 1";
 
             $sth= $SearchURL->query($sql);
@@ -550,10 +551,11 @@ SET operate_flow_no = '$flow_no', user_id = '$uid', card_id = '$card->card_id', 
 
         } else {
             // 读取卡信息
-            $sql = "SELECT param_name, card_code, card_status 
+            $sql = "SELECT param_name, card_code, card_status, user_name 
 FROM $this->db.pl_card_t A 
 LEFT JOIN $this->db.pl_parameter_code_t B ON B.param_type='card_status' AND B.param_code = A.card_status 
-WHERE user_id = '$uid' 
+LEFT JOIN $this->db.pl_user_t C ON C.user_id = A.user_id 
+WHERE A.user_id = '$uid' 
 LIMIT 1";
 
             $sth= $SearchURL->query($sql);
