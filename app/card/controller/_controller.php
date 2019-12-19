@@ -4,7 +4,7 @@ namespace App\Card\Controller;
 
 class _Controller extends \MagicCube\Controller
 {
-    public $static_version = '?v=11';
+    public $static_version = '?v=12';
 
     public function __construct($vars = [])
     {

@@ -58,5 +58,8 @@ function api_sms(arg) {
             return
     }
 
+    if (load_msg) {
+        alert(load_msg)
+    }
     console.log(json)
 }
