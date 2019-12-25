@@ -470,6 +470,7 @@ server = {
     adHide: <?=$adHide?>,
     adFullscreen: <?=$adFullscreen?>,
     countdown: <?=$countdown?>,
+    backTime: <?=$backTime?>,
     exitTime: <?=$exitTime?>,
     refresh: <?=$refresh?>,
     videoType: '<?=$videoType?>'

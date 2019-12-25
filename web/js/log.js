@@ -59,15 +59,15 @@ function allClk() {
     ad.count = server.adFullscreen
     console.log({paused:ele.video.paused})
     if (eval('ad.url.match(/\.(' + server.videoType + ')$/i)')) {
-        ele.video.muted = false
+        if ('none' != ele.start.style.display) {
+            ele.video.muted = false
+        } else {
+            ele.video.muted = true
+            // ele.video.pause()
+        }
+
         if (ele.video.paused) {
             ele.video.play()
-        }
-        if ('none' != ele.start.style.display) {
-
-        } else {
-            // ele.video.muted = true
-            // ele.video.pause()
         }
 
     } else {
@@ -114,7 +114,8 @@ var bg = function () {
 
 }
 
-ad.timeout = ad.interval = bg.interval = ad.interva2 = ad.url = ad.intervalExit = null
+ad.timeout = ad.interval = bg.interval = ad.interva2 = ad.url = null
+ad.intervalExit = null
 ad.len = bg.len = 0
 ad.index = bg.index = ad.urlIndex = 0
 ad.img = ele.section[5].getElementsByTagName('img')[0]
@@ -122,6 +123,7 @@ ad.dl = ele.start.getElementsByTagName('dl')
 ad.isFullscreen = 0
 ad.count = server.adFullscreen
 ad.countS = server.exitTime * 1000
+ad.backTime = server.backTime * 1000
 ad.refresh = server.refresh
 ad.durations = {}
 
@@ -266,11 +268,19 @@ ad.top = function () {
 }
 
 ad.countdown = function () {
+    // 登录后无操作退出时间
+    if ('none' == ele.start.style.display) {
+        if (ad.backTime && ad.count > ad.backTime) {
+            console.log({count:ad.count, backTime:ad.backTime})
+            ad.count = ad.backTime
+        }
+    }
     ad.count = ad.count - 1000
     s = 0
     if (0 >= ad.count) {
         s = -1
         clearTimeout(ad.timeout)
+        clearInterval(ad.intervalExit)
         ad.auto()
         ad.count = server.adFullscreen
         if ('none' == ele.start.style.display) {
@@ -296,7 +306,7 @@ ad.countdownS = function () {
 
 ad.auto = function () {
     ad.refresh--
-    if ('none' == ele.start.style.display) {
+    if ('none' == ele.start.style.display && 'block' != ele.section[6].style.display) {
         ad.countS = server.exitTime * 1000
         exitTime.innerHTML = server.exitTime
         ele.section[6].style.display = 'block'

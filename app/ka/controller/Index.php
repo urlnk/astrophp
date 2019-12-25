@@ -45,6 +45,7 @@ class Index extends _controller
             'adFullscreen' => $_CONFIG['adFullscreen'],
             'countdown' => $_CONFIG['countdown'],
             'exitTime' => $_CONFIG['exitTime'],
+            'backTime' => $_CONFIG['backTime'],
             'refresh' => $_CONFIG['refresh'],
             'videoType' => $_CONFIG['video_type'],
             'logo' => $_CONFIG['logo'],
