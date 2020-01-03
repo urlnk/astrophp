@@ -33,6 +33,7 @@ class Index extends _controller
 
         return array(
             'static_version' => $this->static_version,
+            'timeout' => $_CONFIG['js']['timeout'],
             'interval' => $interval,
             'hta' => $hta,
             'testCardCode' => $test,

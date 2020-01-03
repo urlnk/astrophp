@@ -13,6 +13,7 @@ global = {
     totals: [60,60],
     timeinterval: null,
     interval: [null, null],
+    timeout: null,
     sms: 0,
     phoneChanged: 0,
     userObj: null
@@ -84,8 +85,8 @@ config = {
 }
 
 ele.query.onfocus = function (e) {
-	e.preventDefault()
-	console.log('focus')
+    e.preventDefault()
+    console.log('focus')
 }
 document.getElementById('query').focus()
 interval = null
@@ -129,6 +130,9 @@ function choice(obj) {
     p = obj.getElementsByTagName('p')[0].innerHTML
     if (!p) {
         ele.section[2].style.display = 'block'
+        if (server.timeout) {
+            global.timeout = setTimeout("tp.hideBind()", server.timeout)
+        }
     }
     choice_user.style.display = 'none'
     if (global.sign) {
@@ -214,7 +218,7 @@ function showSignTip(id) {
     global.sign = id
     global.from = elt.homeLinks[id].getAttribute('data-id')
     ele.section[4].style.display = 'block'
-	document.getElementById('query').focus()
+    document.getElementById('query').focus()
 }
 
 function showSign() {
@@ -287,7 +291,7 @@ function hideWidget() {
 function showSwipe() {
     global.sign = global.from = null
     tip('请将您的卡片放在读卡位置', '', 'swipe')
-	document.getElementById('query').focus()
+    document.getElementById('query').focus()
 }
 
 function showLogin(tip) {
@@ -367,9 +371,12 @@ function hidePhone() {
     if ('account' == global.from && global.phoneChanged) {
         global.to = 'phone'
         global.phoneChanged = 0
-        showAccount()
     } else {
         back('phone', global.from)
+    }
+
+    if ('account' == global.from) {
+        showAccount()
     }
     global.from = null
     console.log(global)
@@ -1276,8 +1283,8 @@ function api_consume(arg) {
 }
 
 function showRecharge() {
-	back('home', 'recharge')
-	ele.section[0].style.display = 'none'
+    back('home', 'recharge')
+    ele.section[0].style.display = 'none'
 }
 
 // 高度修正

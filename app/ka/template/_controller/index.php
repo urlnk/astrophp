@@ -37,12 +37,12 @@
     </dialog>
 </section>
 
-<section class="tip prompt prompt-bind" onclick="hidePhoneTip()">
+<section class="tip prompt prompt-bind" onclick="tp.hideBind()">
     <dialog>
         <p>为了您的账户安全，请绑定手机号码！</p>
         <footer>
-            <button type="button" onclick="hidePhoneTip()">取消</button>
-            <button type="submit" onclick="showPhone('home', '绑定')">立即绑定</button>
+            <button type="button" onclick="tp.hideBind()">取消</button>
+            <button type="submit" onclick="tp.showBind()">立即绑定</button>
         </footer>
     </dialog>
 </section>
@@ -459,6 +459,7 @@
 
 <script>
 server = {
+    timeout: <?=$timeout?>,
     interval: <?=$interval?>,
     hta: <?=$hta?>,
     test: '<?=$testCardCode?>',

@@ -114,6 +114,10 @@ var bg = function () {
 
 }
 
+var tp = function () {
+
+}
+
 ad.timeout = ad.interval = bg.interval = ad.interva2 = ad.url = null
 ad.intervalExit = null
 ad.len = bg.len = 0
@@ -126,6 +130,16 @@ ad.countS = server.exitTime * 1000
 ad.backTime = server.backTime * 1000
 ad.refresh = server.refresh
 ad.durations = {}
+
+tp.hideBind = function () {
+    hidePhoneTip()
+    clearTimeout(global.timeout)
+}
+
+tp.showBind = function () {
+    showPhone('home', '绑定')
+    clearTimeout(global.timeout)
+}
 
 bg.init = function () {
     bg.len = server.bg.length
