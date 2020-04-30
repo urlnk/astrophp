@@ -62,4 +62,76 @@ class _Controller extends \MagicCube\Controller
         # print_r(get_defined_vars());
         parent::__destruct();
     }
+
+    public function tel()
+    {
+        $uriInfo =& $this->uriInfo;
+        $Tel = new \Model\Tel();
+        $params = explode('/', $uriInfo['param']);
+        $num = array_shift($params);
+
+        // 动作匹配
+        if (preg_match('/[a-z]+/i', $num, $matches)) {
+            $method = strtolower($num);
+            return $this->$method();
+        }
+
+        // 参数分析
+        $fenxi = explode('-', $num);
+        $count = count($fenxi);
+        $city = 0;
+        $number = $num;
+        if (1 < $count) {
+            $city = $fenxi[0];
+            $number = $fenxi[1];
+        }
+
+        $sql = "SELECT * FROM tel_list WHERE city = '$city' AND `number` = '$number' LIMIT 1";
+        $obj = $Tel->get($sql);
+        if (!$obj) {
+            $sql = "INSERT INTO tel_list SET city = '$city', `number` = '$number'";
+            $ins = $Tel->query($sql);
+        }
+        print_r(get_defined_vars());
+    }
+
+    public function call()
+    {
+        $num = isset($_GET['num']) ? $_GET['num'] : '';
+        $uriInfo =& $this->uriInfo;
+        $uriInfo['action'] = 'call';
+        $Tel = new \Model\Tel();
+
+        $where = '';
+        if ($num) {
+            // 参数分析
+            $fenxi = explode('-', $num);
+            $count = count($fenxi);
+            $city = 0;
+            $number = $num;
+            if (1 < $count) {
+                $city = $fenxi[0];
+                $number = $fenxi[1];
+            }
+
+            // 获取 ID
+            $sql = "SELECT * FROM tel_list WHERE `number` = '$number' AND city = '$city'";
+            $obj = $Tel->get($sql);
+            if ($obj) {
+                $id = $obj->id;
+                $where = "`from` = '$id' OR `to` = '$id'";
+            }
+        }
+
+        $w = $where ? ' WHERE ' . $where : '';
+        $sql = "SELECT A.*, B.city AS fc, B.number AS f, C.city AS tc, C.number AS t 
+FROM tel_call A 
+LEFT JOIN tel_list B ON B.id = A.from 
+LEFT JOIN tel_list C ON C.id = A.to 
+$w 
+ORDER BY A.`time` DESC 
+LIMIT 50";
+        $all = $Tel->select($sql);
+        return get_defined_vars();
+    }
 }
