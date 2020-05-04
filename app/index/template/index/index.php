@@ -28,6 +28,6 @@ foreach ($arr as $k => $variable) {
 echo $html;
 ?>
 
-<script type="text/javascript" src="//<?=$cdn_host?>/v1/home/js/search.js"></script>
+<script type="text/javascript" src="//<?=$cdn_host?>/dev/storage/cdn/dist/v1/home/js/search.js"></script>
 </body>
 </html>
