@@ -4,11 +4,11 @@ namespace App\Index\Controller;
 
 class Index extends \MagicCube\Controller
 {
-    public function index0()
+    public function index()
     {
         global $_CONFIG;
         $q = isset($_GET['q']) ? $_GET['q'] : '';
-        $sqlite = new \Ext\PhpPdoSqlite($_CONFIG['database']);
+        $sqlite = new \Ext\PhpPdoSqlite($_CONFIG['database2']);
         $all =  $sqlite->select("SELECT * FROM search_url ORDER BY category", [], \PDO::FETCH_OBJ);
 
         $data = array();
@@ -29,7 +29,7 @@ class Index extends \MagicCube\Controller
         );
     }
 
-    public function index()
+    public function index1()
     {
         header('Location: /card');
         exit;
