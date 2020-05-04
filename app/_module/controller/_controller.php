@@ -10,11 +10,15 @@ class _Controller extends \MagicCube\Controller
         $this->enableView = false;
         $q = isset($_GET['q']) ? $_GET['q'] : '';
         $id = isset($_GET['id']) ? $_GET['id'] : '';
+        $Tel = new \Model\Tel();
+        $qs = addslashes($q);
+        $strlen = strlen($q);
+        $leng = mb_strlen($q);
 
         $url = "/search/$id?q=%s";
         $params = array();
         if ($id) {
-            $sqlite = new \Ext\PhpPdoSqlite($_CONFIG['database']);
+            $sqlite = new \Ext\PhpPdoSqlite($_CONFIG['database2']);
             $row =  $sqlite->find("SELECT * FROM search_url WHERE id='$id'");
             if ($row) {
                 $url = $row->url;
@@ -25,15 +29,31 @@ class _Controller extends \MagicCube\Controller
                 }
             }
         } else {
-            $url = "%s";
+            $url = "/?q=%s";
         }
         $url = preg_replace('/%s/i', urlencode($q), $url);
+
+        /* 记录 */
+        $sql = "SELECT id FROM text.url_entry WHERE text = '$qs'";
+        $row = $Tel->get($sql);
+        $sql = "INSERT INTO text.url_entry SET text = '$qs', strlen = $strlen, length = $leng, created = NOW()";
+        if (!$row) {
+            $ins = $Tel->query($sql);
+        } else {
+            $sql = "UPDATE text.url_entry SET total = total + 1, updated = NOW() WHERE id = $row->id";
+            $up = $Tel->query($sql);
+        }
 
         if (!$this->enableView) {
             header("Location: $url");
             exit;
         }
         return get_defined_vars();
+    }
+
+    public function search()
+    {
+        print_r(array(__FILE__, __LINE__));
     }
 
     public function __destruct()
@@ -132,6 +152,40 @@ $w
 ORDER BY A.`time` DESC 
 LIMIT 50";
         $all = $Tel->select($sql);
+        return get_defined_vars();
+    }
+
+    public function bank()
+    {
+        $card = isset($_GET['card']) ? $_GET['card'] : '';
+        $uriInfo =& $this->uriInfo;
+        $uriInfo['action'] = 'bank';
+        $Tel = new \Model\Tel;
+        $Tel->db_name = 'bank';
+        $Tel->inst();
+
+        /* 列出支出 */
+        $where = '';
+        if ($card) {
+            $where = "`card_id` = '$card'";
+        }
+
+        $w = $where ? ' WHERE ' . $where : '';
+        $sql = "
+SELECT A.*, B.title AS item, C.number, D.title AS app, E.account_name, F.title as order_app, G.account_name AS order_account 
+FROM `bank_expense` A 
+LEFT JOIN pay_item B ON B.id = A.item_id 
+LEFT JOIN bank_card C ON C.id = A.card_id 
+LEFT JOIN bank_app D ON D.id = A.app_id 
+LEFT JOIN app_account E ON E.id = A.account_id 
+LEFT JOIN bank_app F ON F.id = A.order_app 
+LEFT JOIN app_account G ON G.id = A.order_account 
+$w 
+ORDER BY paid DESC 
+LIMIT 50 ";
+
+        $all = $Tel->select($sql);
+        # print_r($all);exit;
         return get_defined_vars();
     }
 }
