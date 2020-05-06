@@ -188,4 +188,17 @@ LIMIT 50 ";
         # print_r($all);exit;
         return get_defined_vars();
     }
+
+    public function article()
+    {
+        $Tel = new \Model\Tel;
+        $sql = "
+SELECT A.*, CONCAT(B.FamilyName, B.GivenName) AS name 
+FROM text.`article_list` A 
+LEFT JOIN beings.people_names B ON B.id = A.people_id 
+LIMIT 50
+";
+        $all = $Tel->select($sql);
+        return get_defined_vars();
+    }
 }
