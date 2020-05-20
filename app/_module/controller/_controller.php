@@ -14,6 +14,7 @@ class _Controller extends \MagicCube\Controller
         $qs = addslashes($q);
         $strlen = strlen($q);
         $leng = mb_strlen($q);
+        $qru = rawurlencode($q);
 
         $url = "/search/$id?q=%s";
         $params = array();
@@ -31,7 +32,7 @@ class _Controller extends \MagicCube\Controller
         } else {
             $url = "/?q=%s";
         }
-        $url = preg_replace('/%s/i', urlencode($q), $url);
+        $url = preg_replace('/%s/i', $qru, $url);
 
         /* 记录 */
         $sql = "SELECT id FROM text.url_entry WHERE text = '$qs'";
@@ -200,5 +201,23 @@ LIMIT 50
 ";
         $all = $Tel->select($sql);
         return get_defined_vars();
+    }
+
+    public function sleep()
+    {
+        $Tel = new \Model\Tel;
+        $sql = "SELECT sleep FROM `life` WHERE sleep IS NOT NULL LIMIT 50";
+        $all = $Tel->select($sql);
+        $count = count($all);
+        $arr = [0, 0, 0];
+        foreach ($all as $row) {
+            $exp = explode(':', $row->sleep);
+            $arr[0] += $exp[0];
+            $arr[1] += $exp[1];
+            $arr[2] += $exp[2];
+        }
+        $min = $arr[0] * 60 + $arr[1];
+        echo $hours = round($min / 60 / $count, 2);
+        print_r($arr);exit;
     }
 }
