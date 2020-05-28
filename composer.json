@@ -11,9 +11,9 @@
         "league/plates": "^3.3",
         "catfan/medoo": "^1.5",
         "wuding/equiv-route": "^1.1",
-        "wuding/magic-cube": "^1.1",
+        "wuding/magic-cube": "^1.1.1",
         "wuding/new-ui": "^1.0",
-        "wuding/topdb": "^1.0.1",
+        "wuding/topdb": "^1.0.2",
         "wuding/php-ext": "^1.1",
         "alibabacloud/client": "^1.5"
     }
