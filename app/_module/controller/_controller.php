@@ -220,4 +220,48 @@ LIMIT 50
         echo $hours = round($min / 60 / $count, 2);
         print_r($arr);exit;
     }
+
+    public function contacts()
+    {
+        $uriInfo =& $this->uriInfo;
+        $params = explode('/', $uriInfo['param']);
+        $num = array_shift($params);
+
+        // 动作匹配
+        if (preg_match('/\d+/i', $num, $matches)) {
+            $uriInfo['action'] = 'contact';
+            return $this->contact($num);
+        }
+
+        $q = isset($_GET['q']) ? $_GET['q'] : '';
+        $page = isset($_GET['page']) ? $_GET['page'] : 1;
+        $where = '';
+        if ($q) {
+            $where = "`NickName` LIKE '%$q%'";
+        }
+        $w = $where ? ' WHERE ' . $where : '';
+        $offset = $page * 50 - 50;
+
+        $Tel = new \Model\Tel;
+        $sql = "SELECT id, NickName FROM beings.`contact_item` $w LIMIT $offset,50";
+        $all = $Tel->select($sql);
+        return get_defined_vars();
+    }
+
+    public function contact($id)
+    {
+        $Tel = new \Model\Tel;
+        $sql = "SELECT * FROM beings.`contact_item` WHERE id = $id";
+        $row = $Tel->get($sql);
+        $sql = "SELECT * FROM `contact_phone` WHERE `contact_id` = '$id' LIMIT 50";
+        $all = $Tel->select($sql);
+        $sql = "SELECT A.*, B.name 
+FROM beings.`contact_app` A 
+LEFT JOIN application.app_list B ON B.id = A.app_id 
+WHERE `contact_id` = '$id' 
+ORDER BY `app_id` 
+LIMIT 50";
+        $app = $Tel->select($sql);
+        return get_defined_vars();
+    }
 }
