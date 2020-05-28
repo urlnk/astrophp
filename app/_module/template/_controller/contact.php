@@ -16,6 +16,27 @@ extract((array) $row);
 <tr><th>备忘</th><td><?=$memo?></td></tr>
 </table>
 
+<h2>地址</h2>
+<table>
+    <tr><th>#</th><th>地址</th></tr>
+<?php
+$list = '';
+$i = 1;
+foreach ($addr as $row) {
+    extract((array) $row);
+    $list .= "<tr><td>$i</td><td>$location</td></tr>";
+    $i++;
+}
+echo $list;
+?>
+</table>
+
+<form method="post">
+    <input type="" name="type" value="addr">
+    <input type="" name="text" placeholder="">
+    <button type="submit">添加</button>
+</form>
+
 <h2>电话</h2>
 <table>
     <tr><th>#</th><th>号码</th><th>备注</th></tr>
@@ -31,6 +52,13 @@ echo $list;
 ?>
 </table>
 
+<form method="post">
+    <input type="" name="type" value="tel">
+    <input type="" name="text" placeholder="号码">
+    <input type="" name="note" placeholder="备注">
+    <button type="submit">添加</button>
+</form>
+
 <h2>APP</h2>
 <table>
     <tr><th>#</th><th>APP</th><th>ID</th><th>电话</th></tr>
@@ -45,5 +73,19 @@ foreach ($app as $row) {
 echo $list;
 ?>
 </table>
+
+<form method="post">
+    <input type="" name="type" value="app">
+    <select name="app_id">
+<?php
+foreach ($apps as $row) {
+    extract((array) $row);
+    echo "<option value=\"$id\">$name</option>";
+}
+?>
+    </select>
+    <input type="" name="text">
+    <button type="submit">添加</button>
+</form>
 </body>
 </html>

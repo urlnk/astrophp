@@ -7,6 +7,11 @@
 </head>
 
 <body>
+<form action="">
+    <input type="" name="q" value="">
+    <button type="submit">搜索</button>
+</form>
+
 <table>
     <tr><th>#</th><th>姓名</th></tr>
 <?php
