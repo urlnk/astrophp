@@ -12,7 +12,7 @@ use Topdb\Table;
 
 global $_CONFIG, $template;
 define('ROOT', dirname(__DIR__));
-define('ROOT_DIR', 'e:/env');
+defined('ROOT_DIR') or define('ROOT_DIR', 'e:/env');
 
 require ROOT . '/vendor/autoload.php';
 $_CONFIG = include ROOT . '/app/config.php';
