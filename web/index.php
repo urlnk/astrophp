@@ -24,6 +24,6 @@ Table::init($_CONFIG['database'], 'catfan/medoo');
 
 $httpMethod = $_SERVER['REQUEST_METHOD'];
 $uri = $_CONFIG['uri_custom'] ? : $_SERVER['REQUEST_URI'];
-$routeInfo = $router->dispatch($httpMethod, $uri);
+$routeInfo = $router->dispatch($httpMethod, $uri, $route['status']);
 
 include ROOT . '/example/' . $_CONFIG['example'] . '.php';
