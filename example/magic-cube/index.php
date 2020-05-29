@@ -27,5 +27,8 @@ class Index
 }
 
 $index = new Index($routeInfo);
-$result = $index->dispatch(0);
-# print_r($result);
+$result = $index->dispatch($_CONFIG['debug']);
+if ($_CONFIG['debug']) {
+    // 不要使用注释手动切换
+    print_r(array($result, __FILE__, __LINE__));
+}
