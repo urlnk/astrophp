@@ -7,10 +7,11 @@ return array(
             # '/^([a-z0-9\-_\s]+)\/(.*)$/i' => 'chinese',
             '/^[a-z\.]{7,12}$/' => 'filename',
             '/^[a-z]{4}(.*)$/' => 'filename',
-            '/^[\x7f-\xff]+$/' => 'chinese', // 中文
+            # '/^[\x{4e00}-\x{9fff}]+$/u' => 'chinese', // 中文
+            '~\p{Han}~u' => 'chinese', // 中文
         ),
         'filename' => ROOT_DIR . '/www/.dist/a-z7.php',
-        'chinese' => ROOT_DIR . '/www/.dist/test.php',
+        'chinese' => ROOT_DIR . '/www/.dist/chinese.php',
         3 => array(
             '/^[\x7f-\xff]+$/' => ROOT_DIR . '/www/.dist/test.php',
         ),
@@ -32,12 +33,15 @@ return array(
     'uri_custom' => '',
     # 'uri_custom' => 'get,post:users!wubenli@documents$1%2Fview', //$1
     'database' => array(
-        'db_name' => '',
+        'db_name' => 'opermonitor',
         'username' => 'root',
         'password' => 'root',
     ),
-    'database2' => array(
+    'database_stat' => array(
         'db_name' => ROOT . '/storage/stat.sqlite3',
+    ),
+    'database_search' => array(
+        'db_name' => ROOT_DIR . '/dev/sync/db/sqlite/search.sqlite3',
     ),
     'cdn_host' => 'lan.urlnk.cc',
     'home' => array(
@@ -50,6 +54,7 @@ return array(
     'cookie_lifetime' => 86400 * 30,
     'js' => array(
         'interval' => 500, // 刷卡输入框聚焦间隔时间，一般设置为 500 毫秒
+        'timeout' => 5000, // 绑定手机号提示自动隐藏时间 5000 毫秒，0 为手动关闭
     ),
     'logo' => 'img/logo.png?_=0', // logo 图片地址
     'qrcode' => 'img/qrcode.png?_=0',// 二维码图片地址
@@ -67,6 +72,7 @@ return array(
     'adHide' => 46000, // 全屏后自动隐藏时间
     'adFullscreen' => 60000, // 多长时间不活动广告自动全屏，必须大于自动隐藏时间
     'countdown' => 1000, // 全屏检测间隔时间，一般设置为 1000 毫秒，0 为不自动全屏
+    'backTime' => 15, // 登录后无操作退出时间，单位：秒，必须大于下面的时间
     'exitTime' => 10, // 返回主屏幕提示倒计时，单位：秒
-    'refresh' => 2, // 自动全屏多少次刷新页面
+    'refresh' => 60, // 自动全屏多少次刷新页面
 );

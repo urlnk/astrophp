@@ -24,7 +24,7 @@ class _Controller extends \MagicCube\Controller
     public function status()
     {
         global $_CONFIG;
-        $sqlite = new \Ext\PhpPdoSqlite($_CONFIG['database2']);
+        $sqlite = new \Ext\PhpPdoSqlite($_CONFIG['database_stat']);
         $sql = "SELECT * FROM device ORDER BY updated DESC LIMIT 100";
         $all =  $sqlite->select($sql, [], \PDO::FETCH_OBJ);
         return array(

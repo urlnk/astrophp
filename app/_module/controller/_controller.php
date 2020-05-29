@@ -19,7 +19,7 @@ class _Controller extends \MagicCube\Controller
         $url = "/search/$id?q=%s";
         $params = array();
         if ($id) {
-            $sqlite = new \Ext\PhpPdoSqlite($_CONFIG['database2']);
+            $sqlite = new \Ext\PhpPdoSqlite($_CONFIG['database_search']);
             $row =  $sqlite->find("SELECT * FROM search_url WHERE id='$id'");
             if ($row) {
                 $url = $row->url;
