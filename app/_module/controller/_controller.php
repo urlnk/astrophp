@@ -224,14 +224,15 @@ LIMIT 50
     public function contacts()
     {
         $uriInfo =& $this->uriInfo;
-        $params = explode('/', $uriInfo['param']);
-        $num = array_shift($params);
+        $params = explode('/', $this->uri);
+        $num = array_pop($params);
+        # print_r(get_defined_vars());
 
         // 动作匹配
         if (preg_match('/\d+/i', $num, $matches)) {
             $uriInfo['action'] = 'contact';
             return $this->contact($num);
-        } elseif ('Index' != $num && preg_match('/[a-z]+/i', $num, $matches)) {
+        } elseif (!in_array(strtolower($num), array('index', 'contacts')) && preg_match('/[a-z]+/i', $num, $matches)) {
             $method = strtolower($num);
             return $this->$method();
         }
