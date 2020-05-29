@@ -20,7 +20,7 @@ class Init extends _controller
             setcookie('no', $no, 4729600202);
         }
         $no = addslashes($no);
-        $sqlite = new \Ext\PhpPdoSqlite($_CONFIG['database2']);
+        $sqlite = new \Ext\PhpPdoSqlite($_CONFIG['database_stat']);
         $sql = "SELECT * FROM device WHERE no = '$no' LIMIT 1";
         $row =  $sqlite->find($sql, [], \PDO::FETCH_OBJ);
         if ($row) {
@@ -33,6 +33,7 @@ class Init extends _controller
 
         $_GET['_'] = time();
         $queryString = http_build_query($_GET);
+        # print_r(get_defined_vars());
         header("Location: /ka?$queryString");
         exit;
     }

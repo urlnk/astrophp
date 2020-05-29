@@ -8,7 +8,7 @@ class Index extends \MagicCube\Controller
     {
         global $_CONFIG;
         $q = isset($_GET['q']) ? $_GET['q'] : '';
-        $sqlite = new \Ext\PhpPdoSqlite($_CONFIG['database2']);
+        $sqlite = new \Ext\PhpPdoSqlite($_CONFIG['database_search']);
         $all =  $sqlite->select("SELECT * FROM search_url ORDER BY category", [], \PDO::FETCH_OBJ);
 
         $data = array();
