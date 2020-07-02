@@ -1,5 +1,7 @@
 <?php
 
+$rootDir = 'i:/env';
+
 return array(
     'virtual_paths' => array(
         '^' => 'robot.urlnk.com',
@@ -8,42 +10,46 @@ return array(
             '/^[a-z\.]{7,12}$/' => 'filename',
             '/^[a-z]{4}(.*)$/' => 'filename',
             # '/^[\x{4e00}-\x{9fff}]+$/u' => 'chinese', // 中文
-            '~\p{Han}~u' => 'chinese', // 中文
+            '~^\p{Han}+$~u' => 'chinese', // 中文
         ),
-        'filename' => ROOT_DIR . '/www/.dist/a-z7.php',
-        'chinese' => ROOT_DIR . '/www/.dist/chinese.php',
-        3 => array(
-            '/^[\x7f-\xff]+$/' => ROOT_DIR . '/www/.dist/test.php',
+        'filename' => $rootDir . '/www/.dist/a-z7.php',
+        'chinese' => $rootDir . '/www/.dist/chinese.php',
+        1 => array(
+            '/^[\x7f-\xff]+$/' => $rootDir . '/www/.dist/test.php',
         ),
     ),
     'virtual_hosts' => array(
         '' => array(
-            'http_host' => ROOT_DIR . '/www/.dist/http_host.php',
-            'astro' => ROOT_DIR .'/www\work\wuding\astrology\web\index.php',
-            'mr-fact' => ROOT_DIR .'/www\work\netjoin/mr-fact\web\index.php',
+            'http_host' => $rootDir . '/www/.dist/http_host.php',
+            'astro' => $rootDir .'/www\work\wuding\astrology\web\index.php',
+            'mr-fact' => $rootDir .'/www\work\netjoin/mr-fact\web\index.php',
         ),
-        'yingmi.xyz' => ROOT_DIR . '/www\work\wuding\astrology\web/index.php',
+        'yingmi.xyz' => $rootDir . '/www\work\wuding\astrology\web/index.php',
         'urlnk.cc urlnk.host lan.urlnk.cc' => array('http_host'),
         'robot.urlnk.com' => array('astro'),
         'api.urlnk.com' => array('mr-fact'),
     ),
+    'dir' => [
+        'ROOT_DIR' => $rootDir,
+    ],
+    'debug' => 0,
     'host_domain' => '.loc.urlnk.com',
     'example' => 'magic-cube/index',
     # 'example' => 'fast-route/index',
     'uri_custom' => '',
     # 'uri_custom' => 'get,post:users!wubenli@documents$1%2Fview', //$1
     'database' => array(
-        'db_name' => 'opermonitor',
-        'username' => 'root',
-        'password' => 'root',
+        'db_name' => '',
+        'username' => '',
+        'password' => '',
     ),
     'database_stat' => array(
         'db_name' => ROOT . '/storage/stat.sqlite3',
     ),
     'database_search' => array(
-        'db_name' => ROOT_DIR . '/dev/sync/db/sqlite/search.sqlite3',
+        'db_name' => $rootDir . '/dev/sync/db/sqlite/search.sqlite3',
     ),
-    'cdn_host' => 'lan.urlnk.cc',
+    'cdn_host' => '127.0.0.1',
     'home' => array(
         'target' => '_blank', // _search _blank
     ),
