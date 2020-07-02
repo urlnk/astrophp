@@ -1,6 +1,7 @@
 <?php
+namespace app\_module\controller;
 
-namespace App\_Module\Controller;
+use model\Tel;
 
 class _Controller extends \MagicCube\Controller
 {
@@ -10,7 +11,6 @@ class _Controller extends \MagicCube\Controller
         $this->enableView = false;
         $q = isset($_GET['q']) ? $_GET['q'] : '';
         $id = isset($_GET['id']) ? $_GET['id'] : '';
-        $Tel = new \Model\Tel();
         $qs = addslashes($q);
         $strlen = strlen($q);
         $leng = mb_strlen($q);
@@ -20,7 +20,7 @@ class _Controller extends \MagicCube\Controller
         $params = array();
         if ($id) {
             $sqlite = new \Ext\PhpPdoSqlite($_CONFIG['database_search']);
-            $row =  $sqlite->find("SELECT * FROM search_url WHERE id='$id'");
+            $row =  $sqlite->get("SELECT * FROM search_url WHERE id = '$id'");
             if ($row) {
                 $url = $row->url;
                 if ($row->param) {
@@ -33,6 +33,7 @@ class _Controller extends \MagicCube\Controller
             $url = "/?q=%s";
         }
         $url = preg_replace('/%s/i', $qru, $url);
+        $Tel = new Tel();
 
         /* 记录 */
         $sql = "SELECT id FROM text.url_entry WHERE text = '$qs'";
@@ -54,7 +55,7 @@ class _Controller extends \MagicCube\Controller
 
     public function search()
     {
-        print_r(array(__FILE__, __LINE__));
+        return (array(__FILE__, __LINE__));
     }
 
     public function __destruct()
@@ -87,9 +88,14 @@ class _Controller extends \MagicCube\Controller
     public function tel()
     {
         $uriInfo =& $this->uriInfo;
-        $Tel = new \Model\Tel();
-        $params = explode('/', $uriInfo['param']);
-        $num = array_shift($params);
+        $Tel = new Tel();
+        $params = explode('/', $this->uri);
+        $num = array_pop($params);
+
+        if ('tel' == $num) {
+            print_r(get_defined_vars());
+            exit;
+        }
 
         // 动作匹配
         if (preg_match('/[a-z]+/i', $num, $matches)) {
@@ -114,6 +120,7 @@ class _Controller extends \MagicCube\Controller
             $ins = $Tel->query($sql);
         }
         print_r(get_defined_vars());
+        exit;
     }
 
     public function call()
@@ -121,7 +128,7 @@ class _Controller extends \MagicCube\Controller
         $num = isset($_GET['num']) ? $_GET['num'] : '';
         $uriInfo =& $this->uriInfo;
         $uriInfo['action'] = 'call';
-        $Tel = new \Model\Tel();
+        $Tel = new Tel();
 
         $where = '';
         if ($num) {
@@ -161,7 +168,7 @@ LIMIT 50";
         $card = isset($_GET['card']) ? $_GET['card'] : '';
         $uriInfo =& $this->uriInfo;
         $uriInfo['action'] = 'bank';
-        $Tel = new \Model\Tel;
+        $Tel = new Tel;
         $Tel->db_name = 'bank';
         $Tel->inst();
 
@@ -192,7 +199,7 @@ LIMIT 50 ";
 
     public function article()
     {
-        $Tel = new \Model\Tel;
+        $Tel = new Tel;
         $sql = "
 SELECT A.*, CONCAT(B.FamilyName, B.GivenName) AS name 
 FROM text.`article_list` A 
@@ -205,7 +212,7 @@ LIMIT 50
 
     public function sleep()
     {
-        $Tel = new \Model\Tel;
+        $Tel = new Tel;
         $sql = "SELECT sleep FROM `life` WHERE sleep IS NOT NULL LIMIT 50";
         $all = $Tel->select($sql);
         $count = count($all);
@@ -246,7 +253,7 @@ LIMIT 50
         $w = $where ? ' WHERE ' . $where : '';
         $offset = $page * 50 - 50;
 
-        $Tel = new \Model\Tel;
+        $Tel = new Tel;
         $sql = "SELECT id, NickName FROM beings.`contact_item` $w LIMIT $offset,50";
         $all = $Tel->select($sql);
         return get_defined_vars();
@@ -254,7 +261,7 @@ LIMIT 50
 
     public function contact($id)
     {
-        $Tel = new \Model\Tel;
+        $Tel = new Tel;
         if ('POST' == $_SERVER['REQUEST_METHOD']) {
             $t = $_POST['type'];
             $n = $_POST['text'];
@@ -304,7 +311,7 @@ LIMIT 50";
         $uriInfo['action'] = 'contact-add';
 
         if ('POST' == $_SERVER['REQUEST_METHOD']) {
-            $Tel = new \Model\Tel;
+            $Tel = new Tel;
             $n = $_POST['name'];
             $name = addslashes($n);
             $nu = rawurlencode($n);

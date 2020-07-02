@@ -12,15 +12,15 @@ use Topdb\Table;
 
 global $_CONFIG, $template;
 define('ROOT', dirname(__DIR__));
-defined('ROOT_DIR') or define('ROOT_DIR', 'e:/env');
 
 require ROOT . '/vendor/autoload.php';
 $_CONFIG = include ROOT . '/app/config.php';
 $route = include ROOT . '/app/route.php';
+defined('ROOT_DIR') or define('ROOT_DIR', $_CONFIG['dir']['ROOT_DIR']);
 
 $router = new Router($route['name'], $route['routes'], $route['options']);
 $template = new Engine(ROOT . '/app/template');
-Table::init($_CONFIG['database'], 'catfan/medoo');
+Table::init($_CONFIG['database'], 'wuding/topdb');
 
 $httpMethod = $_SERVER['REQUEST_METHOD'];
 $uri = $_CONFIG['uri_custom'] ? : $_SERVER['REQUEST_URI'];
