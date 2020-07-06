@@ -28,3 +28,12 @@ app/config.php
 ),
 ```
 
+
+
+## 需要开启的扩展
+
+|            | 文件 | 应用模块 | 控制器      | 动作方法 |
+| ---------- | ---- | -------- | ----------- | -------- |
+| pdo_sqlite |      | index    | Index       | index    |
+| pdo_mysql  |      | _module  | _Controller | s        |
+|            |      |          |             |          |
