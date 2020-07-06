@@ -33,7 +33,7 @@ class _Controller extends \MagicCube\Controller
             $url = "/?q=%s";
         }
         $url = preg_replace('/%s/i', $qru, $url);
-        $Tel = new Tel();
+        $Tel = new Tel(['file' => __FILE__, 'line' => __LINE__]);
 
         /* 记录 */
         $sql = "SELECT id FROM text.url_entry WHERE text = '$qs'";
