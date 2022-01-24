@@ -62,6 +62,12 @@
                 <input id="element_id" type="hidden" name="birthday" value="<?=$user->birthday?>" data-format="YYYY/MM/DD" data-start-date="<?=$year - 100?>" data-end-date="<?=$year?>" onchange="chg(this)">
             </dd>
         </dl>
+        <dl>
+            <dt>身份证号</dt>
+            <dd>
+                <input type="text" name="identity_card" value="<?=$user->identity_card?>" placeholder="请输入身份证号" />
+            </dd>
+        </dl>
     </div>
     <input type="hidden" name="sex" value="<?=$user->sex?>" />
 
