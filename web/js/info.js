@@ -18,7 +18,7 @@ $("#element_id").cxCalendar({}, function(api){
 // 性别选中
 npt = document.getElementsByTagName('input')
 for (var i = 0; i < 2; i++) {
-    if (npt[4].value == npt[i].value) {
+    if (npt[5].value == npt[i].value) {
         npt[i].setAttribute('checked', 'checked')
         break
     }
