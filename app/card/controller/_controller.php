@@ -4,7 +4,7 @@ namespace App\Card\Controller;
 
 class _Controller extends \MagicCube\Controller
 {
-    public $static_version = '?v=12';
+    public $static_version = '?v=13';
 
     public function __construct($vars = [])
     {
@@ -446,7 +446,7 @@ LIMIT 1";
             // 更新数据
             if (!$err) {
                 $sql = "UPDATE $this->db.pl_user_t 
-SET user_name = '$user_name', sex = '$sex', birthday = '$date' 
+SET user_name = '$user_name', sex = '$sex', birthday = '$date', identity_card = '$identity_card' 
 WHERE user_id = '$uid' 
 LIMIT 1";
                 $count = $SearchURL->exec($sql);
@@ -461,7 +461,7 @@ LIMIT 1";
             $user = (object) $_POST;
 
         } else {
-            $sql = "SELECT user_name, sex, birthday, user_id 
+            $sql = "SELECT user_name, sex, birthday, user_id, identity_card 
 FROM $this->db.pl_user_t 
 WHERE user_id = '$uid' 
 LIMIT 1";
